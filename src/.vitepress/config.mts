@@ -1,0 +1,173 @@
+import { defineConfig } from "vitepress";
+
+export default defineConfig({
+  lang: "zh-CN",
+  title: "萌卡NT开发文档",
+  titleTemplate: ":title | 萌卡NT",
+  description: "萌卡 API 参考文档",
+  cleanUrls: true,
+  head: [
+    ["link", { rel: "icon", href: "/favicon.ico" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png" }],
+    ["link", { rel: "manifest", href: "/manifest.webmanifest" }],
+    ["meta", { name: "theme-color", content: "#3451b2" }],
+  ],
+  themeConfig: {
+    logo: "/pwa-192x192.png",
+    siteTitle: "萌卡NT",
+    nav: [
+      { text: "快速开始", link: "/guide/" },
+      { text: "API", link: "/api/" },
+      { text: "Event", link: "/events/" },
+    ],
+    sidebar: {
+      "/guide/": [
+        {
+          text: "开发指南",
+          items: [
+            { text: "快速开始", link: "/guide/" },
+            { text: "正向 WebSocket", link: "/guide/forward-websocket" },
+            { text: "反向 WebSocket", link: "/guide/reverse-websocket" },
+            { text: "通信协议", link: "/guide/protocol" },
+            { text: "消息段", link: "/guide/message-segments" },
+            { text: "登录流程", link: "/guide/login-flow" },
+          ],
+        },
+      ],
+      "/api/": [
+        {
+          text: "API 参考",
+          items: [{ text: "API 总览", link: "/api/" }],
+        },
+        {
+          text: "消息与媒体",
+          items: [
+            { text: "发送群聊消息", link: "/api/send_group_msg" },
+            { text: "发送好友消息", link: "/api/send_friend_msg" },
+            { text: "设置 QQ 头像", link: "/api/set_qq_avatar" },
+            { text: "上传群聊图片", link: "/api/upload_group_image" },
+            { text: "上传群聊语音", link: "/api/upload_group_voice" },
+            { text: "上传群聊视频", link: "/api/upload_group_video" },
+            { text: "获取群聊合并转发消息", link: "/api/get_group_forward_msg" },
+            { text: "发送群聊合并转发消息", link: "/api/send_group_forward_msg" },
+            { text: "查询红包详细信息", link: "/api/get_red_packet_info" },
+            { text: "领取红包", link: "/api/grab_red_packet" },
+          ],
+        },
+        {
+          text: "好友与空间",
+          items: [
+            { text: "获取好友列表", link: "/api/get_friend_list" },
+            { text: "删除好友", link: "/api/delete_friend" },
+            { text: "获取好友动态", link: "/api/get_qzone_friend_feeds" },
+            { text: "发布空间动态", link: "/api/publish_qzone_feed" },
+            { text: "点赞好友动态", link: "/api/like_qzone_feed" },
+            { text: "取消好友动态点赞", link: "/api/unlike_qzone_feed" },
+            { text: "获取 QQ 名片", link: "/api/get_summary_card" },
+            { text: "点赞 QQ 名片", link: "/api/like_summary_card" },
+            { text: "获取 skey", link: "/api/get_skey" },
+            { text: "获取 User-Agent", link: "/api/get_user_agent" },
+            { text: "获取 clientkey", link: "/api/get_clientkey" },
+            { text: "获取 PsKey", link: "/api/get_pskey" },
+          ],
+        },
+        {
+          text: "群聊管理",
+          items: [
+            { text: "获取群聊列表", link: "/api/get_group_list" },
+            { text: "获取群聊成员列表", link: "/api/get_group_member_list" },
+            { text: "获取群聊系统通知", link: "/api/get_group_system_notifications" },
+            { text: "同意加入群聊申请", link: "/api/approve_group_apply" },
+            { text: "拒绝加入群聊申请", link: "/api/reject_group_apply" },
+            { text: "同意群聊邀请", link: "/api/approve_group_invite" },
+            { text: "设置群聊管理员", link: "/api/set_group_admin" },
+            { text: "群聊打卡", link: "/api/group_sign" },
+            { text: "设置群聊成员禁言", link: "/api/set_group_mute" },
+            { text: "设置群聊全员禁言", link: "/api/set_group_mute_all" },
+            { text: "设置群聊专属头衔", link: "/api/set_group_special_title" },
+            { text: "移出群聊成员", link: "/api/kick_group_member" },
+            { text: "撤回群聊消息", link: "/api/recall_group_msg" },
+          ],
+        },
+        {
+          text: "Bot 管理",
+          items: [
+            { text: "获取 Bot 列表", link: "/api/get_bot_list" },
+            { text: "获取 Bot 信息", link: "/api/get_bot_info" },
+            { text: "获取协议列表", link: "/api/get_protocol_list" },
+            { text: "获取设备指纹列表", link: "/api/get_device_profile_list" },
+            { text: "添加账号", link: "/api/add_account" },
+            { text: "编辑账号", link: "/api/update_account" },
+            { text: "离线账号", link: "/api/offline_account" },
+            { text: "删除账号", link: "/api/delete_account" },
+            { text: "密码登录", link: "/api/login_account" },
+            { text: "检查登录缓存", link: "/api/check_cache" },
+            { text: "缓存登录", link: "/api/cache_login" },
+            { text: "提交滑块验证", link: "/api/submit_slider" },
+            { text: "查询安全验证方式", link: "/api/get_security_verify_methods" },
+            { text: "创建登录二维码", link: "/api/create_login_qr" },
+            { text: "查询登录二维码状态", link: "/api/query_login_qr_status" },
+            { text: "获取短信验证码", link: "/api/get_sms" },
+            { text: "提交短信验证码", link: "/api/check_sms" },
+            { text: "获取等级加速任务", link: "/api/get_level_tasks" },
+            { text: "执行等级加速任务", link: "/api/execute_level_tasks" },
+          ],
+        },
+      ],
+      "/events/": [
+        {
+          text: "事件参考",
+          items: [
+            { text: "事件概述", link: "/events/" },
+            { text: "消息事件", link: "/events/message" },
+            { text: "通知事件", link: "/events/notice" },
+            { text: "系统事件", link: "/events/system" },
+          ],
+        },
+      ],
+    },
+    search: {
+      provider: "local",
+      options: {
+        translations: {
+          button: {
+            buttonText: "搜索",
+            buttonAriaLabel: "搜索文档",
+          },
+          modal: {
+            displayDetails: "显示详细列表",
+            resetButtonTitle: "清除搜索",
+            backButtonTitle: "返回",
+            noResultsText: "没有找到结果",
+            footer: {
+              selectText: "选择",
+              selectKeyAriaLabel: "回车键",
+              navigateText: "切换",
+              navigateUpKeyAriaLabel: "向上键",
+              navigateDownKeyAriaLabel: "向下键",
+              closeText: "关闭",
+              closeKeyAriaLabel: "Esc 键",
+            },
+          },
+        },
+      },
+    },
+    outline: {
+      level: [2, 3],
+      label: "本页内容",
+    },
+    docFooter: {
+      prev: "上一页",
+      next: "下一页",
+    },
+    returnToTopLabel: "返回顶部",
+    sidebarMenuLabel: "目录",
+    darkModeSwitchLabel: "外观",
+    lightModeSwitchTitle: "切换到浅色模式",
+    darkModeSwitchTitle: "切换到深色模式",
+    footer: {
+      message: "萌卡NT 开发文档",
+      copyright: "Mengka NT",
+    },
+  },
+});
