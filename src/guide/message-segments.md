@@ -165,6 +165,6 @@ await api.send_group_msg(self_id, group_id, result.message)
 | `recall` | 操作者、消息标识和可选原消息 |
 | `ark` | Ark 卡片字段 |
 | `face` | `kind`, `type`, `face_id`, `text` 等 |
-| `red_packet` | `title`, `listid`, `authkey`, `channel` |
+| `red_packet` | `title`, `listid`, `authkey`, `channel`, `pay_flag`, `hb_from` |
 
 发送段与接收段的类型并非完全对称。例如发送群 @ 使用 `at` 和 `uin`，接收时使用 `mention` 和 `user_id`。

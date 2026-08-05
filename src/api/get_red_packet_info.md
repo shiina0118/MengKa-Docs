@@ -26,6 +26,8 @@ const result = await api.get_red_packet_info(
 | `red_packet.listid` | string | 是 | 红包列表 ID |
 | `red_packet.authkey` | string | 是 | 红包鉴权串 |
 | `red_packet.channel` | number | 否 | 红包渠道，缺省为 `0` |
+| `red_packet.pay_flag` | number | 是 | 红包支付标记，取自收到的 `red_packet` 消息段 |
+| `red_packet.hb_from` | number | 是 | 红包来源标记，取自收到的 `red_packet` 消息段 |
 
 ## 返回值
 
@@ -50,3 +52,5 @@ const result = await api.get_red_packet_info(
   state: '16',
 }
 ```
+
+`pre_grap_token` 位于返回对象顶层。正式领取时，将它作为 `grab_red_packet` 的第 5 个参数传入。
