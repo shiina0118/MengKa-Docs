@@ -44,6 +44,7 @@ export default defineConfig({
           items: [
             { text: "发送群聊消息", link: "/api/send_group_msg" },
             { text: "发送好友消息", link: "/api/send_friend_msg" },
+            { text: "上传好友图片", link: "/api/upload_friend_image" },
             { text: "设置 QQ 头像", link: "/api/set_qq_avatar" },
             { text: "上传群聊图片", link: "/api/upload_group_image" },
             { text: "上传群聊语音", link: "/api/upload_group_voice" },
@@ -104,6 +105,8 @@ export default defineConfig({
             { text: "检查登录缓存", link: "/api/check_cache" },
             { text: "缓存登录", link: "/api/cache_login" },
             { text: "提交滑块验证", link: "/api/submit_slider" },
+            { text: "注册滑块验证反代", link: "/api/register_captcha_proxy" },
+            { text: "滑块验证反代请求", link: "/api/captcha_proxy" },
             { text: "查询安全验证方式", link: "/api/get_security_verify_methods" },
             { text: "创建登录二维码", link: "/api/create_login_qr" },
             { text: "查询登录二维码状态", link: "/api/query_login_qr_status" },

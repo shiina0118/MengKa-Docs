@@ -92,18 +92,30 @@ const image = await api.upload_group_image(
   self_id,
   group_id,
   file_path,
-  name,
-  image_type,
 )
 
 await api.send_group_msg(self_id, group_id, [image])
 ```
 
-`file_path` 支持本地路径、`file://` 和 `http://`/`https://` 地址。`name` 与 `image_type` 可省略。返回值可直接作为消息段使用：
+`file_path` 支持本地路径、`file://` 和 `http://`/`https://` 地址。文件名和图片类型由后端自动生成。返回值可直接作为消息段使用：
 
 ```js
 { type: 'image', data: { file_id: 'FILE_ID' } }
 ```
+
+## upload_friend_image
+
+```js
+const image = await api.upload_friend_image(
+  self_id,
+  user_id,
+  file_path,
+)
+
+await api.send_friend_msg(self_id, user_id, [image])
+```
+
+好友图片的文件名和图片类型由后端自动生成，返回值可直接作为好友消息段使用。
 
 ## upload_group_voice
 

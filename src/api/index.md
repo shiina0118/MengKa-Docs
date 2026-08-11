@@ -8,6 +8,7 @@
 | --- | --- |
 | [发送群聊消息](/api/send_group_msg) | 向指定群聊发送消息 |
 | [发送好友消息](/api/send_friend_msg) | 向指定好友发送消息 |
+| [上传好友图片](/api/upload_friend_image) | 上传好友聊天图片 |
 | [设置 QQ 头像](/api/set_qq_avatar) | 通过 Highway 上传当前 Bot 头像 |
 | [上传群聊图片](/api/upload_group_image) | 上传图片并生成图片消息段 |
 | [上传群聊语音](/api/upload_group_voice) | 上传音频并生成语音消息段 |
@@ -68,6 +69,8 @@
 | [检查登录缓存](/api/check_cache) | 检查本地登录缓存 |
 | [缓存登录](/api/cache_login) | 使用本地缓存登录 |
 | [提交滑块验证](/api/submit_slider) | 提交滑块结果 |
+| [注册滑块验证反代](/api/register_captcha_proxy) | 注册滑块反代并返回改写后的验证脚本 |
+| [滑块验证反代请求](/api/captcha_proxy) | 反代转发滑块请求到腾讯验证服务 |
 | [查询安全验证方式](/api/get_security_verify_methods) | 查询安全验证原因与可用方式 |
 | [创建登录二维码](/api/create_login_qr) | 创建安全验证登录二维码 |
 | [查询登录二维码状态](/api/query_login_qr_status) | 查询扫码状态并在确认后继续登录 |
