@@ -111,22 +111,6 @@ api.on('friend_notice', event => {
 })
 ```
 
-### group_invite
-
-好友发送群聊邀请：
-
-```js
-{
-  self_id,
-  post_type: 'friend_notice',
-  sub_type: 'group_invite',
-  operator: { user_id, nickname },
-  body: { group_id }
-}
-```
-
-`body.group_id` 可用于 `approve_group_invite`。
-
 ### like
 
 好友点赞：

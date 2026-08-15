@@ -82,10 +82,11 @@ SDK使用 `id` 关联请求。默认超时为 30 秒，媒体、红包、头像�
 
 ## API 作用域
 
-账号管理类 API 使用 `self_id`，其余 Bot API 通常使用 `self_id`。除无需 Bot 的全局 API 外，调用时必须满足：
+账号管理和登录类 API 可以操作绑定节点下的离线或登录中账号。其余 Bot API
+需要通过 `self_id` 指定在线 Bot。调用时必须满足：
 
 - Bot 属于插件服务绑定的节点。
-- Bot 当前在线。
-- 参数中包含有效的 `self_id`。
+- 需要 `self_id` 的 API 传入有效账号。
+- 非账号管理和登录类 API 对应的 Bot 当前在线。
 
 不满足条件时会收到 `ok: false` 的 `action_result`。

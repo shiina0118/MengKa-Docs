@@ -31,10 +31,10 @@ const image = await api.upload_friend_image(
 
 ```js
 const image = await api.upload_friend_image(
-  3879548525,
-  106030,
-  'D:/Pictures/3840x2160.jpg',
+  123456789,
+  234567890,
+  'https://example.com/image.jpg',
 )
 
-await api.send_friend_msg(3879548525, 106030, [image])
+await api.send_friend_msg(123456789, 234567890, [image])
 ```

@@ -40,6 +40,9 @@ api.on('friend_message', event => {
 | `alt_message` | string | 消息文本摘要 |
 | `source` | string | 消息来源，可能省略 |
 
+好友发来的群聊邀请会作为 `ark` 消息段出现，处理方式见
+[`approve_group_invite`](/api/approve_group_invite)。
+
 ## msg
 
 ```js

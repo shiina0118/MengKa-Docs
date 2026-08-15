@@ -7,7 +7,7 @@
 | `group_message` | `group_message` | 群聊消息 |
 | `friend_message` | `friend_message` | 好友消息 |
 | `group_notice` | `group_notice` | 入群、退群、禁言、撤回等群聊通知 |
-| `friend_notice` | `friend_notice` | 群聊邀请、好友点赞等通知 |
+| `friend_notice` | `friend_notice` | 好友点赞等通知 |
 | `bot_offline` | `bot_offline` | Bot 离线 |
 
 ## 注册监听器

@@ -1,6 +1,6 @@
 # set_qq_avatar
 
-设置当前 QQ Bot 的头像。后端不发送媒体 OIDB 请求，图片会直接通过 Highway HTTP 上传。
+设置当前 Bot 的头像。
 
 ## 调用
 

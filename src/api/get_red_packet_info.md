@@ -2,6 +2,10 @@
 
 查询群消息中 `red_packet` 消息段对应的 QQ 红包详细信息。
 
+该接口用于普通红包的预领取。口令红包不强制调用本接口，可以直接使用群消息事件中的
+`red_packet` 消息段按
+[`grab_red_packet` 的口令红包流程](/api/grab_red_packet#口令红包)领取，也可以按需查询红包详情。
+
 ## 调用
 
 ```js
@@ -31,7 +35,7 @@ const result = await api.get_red_packet_info(
 
 ## 返回值
 
-返回 QQ 红包服务解密后的 JSON 对象，例如：
+返回红包详情对象，例如：
 
 ```js
 {
@@ -42,9 +46,9 @@ const result = await api.get_red_packet_info(
     channel: '1',
     recv_amount: '0',
     recv_num: '0',
-    send_listid: '10000452012608021400100537757900',
+    send_listid: '10000000000000000000000000000001',
     send_name: '示例用户',
-    send_uin: '350873596',
+    send_uin: '246813579',
     total_amount: '100',
     total_num: '1',
     wishing: '恭喜发财',
@@ -53,4 +57,4 @@ const result = await api.get_red_packet_info(
 }
 ```
 
-`pre_grap_token` 位于返回对象顶层。正式领取时，将它作为 `grab_red_packet` 的第 5 个参数传入。
+`pre_grap_token` 位于返回对象顶层。领取普通红包时，将它作为 `grab_red_packet` 的第 5 个参数传入。
