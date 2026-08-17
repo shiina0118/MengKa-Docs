@@ -26,10 +26,10 @@ const packets = await api.get_group_red_packets(self_id, group_id)
 [
   {
     sender_uin: 123456789,
-    title: '口令内容',
+    title: '恭喜发财',
     listid: '10000000000000000000000000000001',
     authkey: '...',
-    channel: 32,
+    channel: 1,
     pay_flag: 0,
     hb_from: 0,
     time: 1765432100,
@@ -40,10 +40,10 @@ const packets = await api.get_group_red_packets(self_id, group_id)
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `sender_uin` | number | 红包发送人 QQ 号 |
-| `title` | string | 红包标题；口令红包中同时作为需要发送的口令 |
+| `title` | string | 红包标题 |
 | `listid` | string | 红包列表 ID |
 | `authkey` | string | 红包鉴权串 |
-| `channel` | number | 红包渠道；值为 `32` 时按口令红包处理 |
+| `channel` | number | 红包渠道 |
 | `pay_flag` | number | 红包支付标记 |
 | `hb_from` | number | 红包来源标记 |
 | `time` | number | 红包创建时间，Unix 秒 |
