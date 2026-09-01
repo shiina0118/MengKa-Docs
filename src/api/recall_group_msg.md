@@ -7,6 +7,7 @@
 ```js
 const result = await api.recall_group_msg(
   self_id,
+  platform,
   group_id,
   msg_seq,
   msg_random,
@@ -18,6 +19,7 @@ const result = await api.recall_group_msg(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 群聊 ID |
 | `msg_seq` | number | 是 | 消息序列号 |
 | `msg_random` | number | 是 | 消息随机数 |

@@ -7,6 +7,7 @@
 ```js
 const result = await api.get_group_forward_msg(
   self_id,
+  platform,
   sender_uin,
   res_id,
 )
@@ -17,6 +18,7 @@ const result = await api.get_group_forward_msg(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `sender_uin` | number | 是 | 合并转发消息发送者 QQ 号 |
 | `res_id` | string | 是 | 合并转发资源 ID |
 

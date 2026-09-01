@@ -1,12 +1,12 @@
-# query_login_qr_status
+# query_security_verify_qr
 
-查询 Bot 登录二维码的扫码状态。扫码确认后，服务端会自动继续 NTLogin。
+查询 Bot 安全验证二维码的扫码状态。扫码确认后，服务端会自动继续 NTLogin。这不是扫码登录查询，后者见 [`query_login_qr`](/api/query_login_qr)。
 
 ## 调用
 
 ```js
 const self_id = 123456789
-const result = await api.query_login_qr_status(self_id, guarantee_token)
+const result = await api.query_security_verify_qr(self_id, platform, guarantee_token)
 ```
 
 ## 参数
@@ -14,7 +14,8 @@ const result = await api.query_login_qr_status(self_id, guarantee_token)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在等待安全验证的 Bot QQ 号 |
-| `guarantee_token` | string | 是 | `create_login_qr` 返回的轮询 token |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `guarantee_token` | string | 是 | `get_security_verify_qr` 返回的轮询 token |
 
 ## 返回值
 

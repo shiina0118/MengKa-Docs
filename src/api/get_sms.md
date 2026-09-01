@@ -17,10 +17,10 @@
 const self_id = 123456789 // 正在登录的 Bot QQ 号
 
 // 接收短信
-const result = await api.get_sms(self_id, 4, sign)
+const result = await api.get_sms(self_id, platform, 4, sign)
 
 // 发送短信
-const result = await api.get_sms(self_id, 3, sign)
+const result = await api.get_sms(self_id, platform, 3, sign)
 ```
 
 ## 参数
@@ -28,6 +28,7 @@ const result = await api.get_sms(self_id, 3, sign)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在登录的 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `verify_type` | number | 是 | 短信验证类型，`4` 接收短信，`3` 发送短信 |
 | `sign` | string | 是 | `security_verify.methods.sms_phone.sign` |
 

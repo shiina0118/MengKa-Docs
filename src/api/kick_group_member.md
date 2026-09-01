@@ -7,6 +7,7 @@
 ```js
 const result = await api.kick_group_member(
   self_id,
+  platform,
   group_id,
   user_id,
   reject_add_request,
@@ -18,6 +19,7 @@ const result = await api.kick_group_member(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 群聊 ID |
 | `user_id` | number | 是 | 被移出成员的 QQ 号 |
 | `reject_add_request` | boolean | 是 | `true` 表示同时拒绝该成员后续的加群申请 |

@@ -9,6 +9,7 @@ const self_id = 123456789 // 要更新的 Bot QQ 号
 
 const result = await api.update_account(
   self_id,
+  platform,
   password,
   protocol_id,
   device_profile_id,
@@ -20,6 +21,7 @@ const result = await api.update_account(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `password` | string | 是 | 新密码 |
 | `protocol_id` | number | 是 | 新协议 ID |
 | `device_profile_id` | number | 是 | 新设备指纹 ID |

@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const result = await api.get_level_tasks(self_id)
+const result = await api.get_level_tasks(self_id, platform)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const result = await api.get_level_tasks(self_id)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 
 ## 返回值
 

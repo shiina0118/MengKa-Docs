@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const result = await api.set_qq_avatar(self_id, file_path)
+const result = await api.set_qq_avatar(self_id, platform, file_path)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const result = await api.set_qq_avatar(self_id, file_path)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `file_path` | string | 是 | 后端本地路径、`file://` 或后端可访问的 HTTP(S) 地址 |
 
 图片大小上限为 5MB。建议使用 PNG 或 JPEG 图片。
@@ -34,6 +35,7 @@ QQ头像 CDN 可能存在短暂缓存，上传成功后旧头像仍可能显示�
 ```js
 await api.set_qq_avatar(
   123456789,
+  'android',
   'https://example.com/avatar.png',
 )
 ```

@@ -7,6 +7,7 @@
 ```js
 const result = await api.publish_qzone_feed(
   self_id,
+  platform,
   content,
   visibility,
   self_delete_after_one_day,
@@ -19,6 +20,7 @@ const result = await api.publish_qzone_feed(
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 | --- | --- | --- | --- | --- |
 | `self_id` | number | 是 | - | 在线 Bot QQ 号 |
+| `platform` | string | 是 | - | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `content` | string | 是 | - | 动态文本，不能只包含空白字符 |
 | `visibility` | number | 否 | `1` | `1` 所有人可见、`2` 好友可见、`5` 仅自己可见 |
 | `self_delete_after_one_day` | boolean | 否 | `false` | 是否在一天后自动删除 |

@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const bot = await api.get_bot_info(self_id)
+const bot = await api.get_bot_info(self_id, platform)
 ```
 
 ## 参数
@@ -13,12 +13,14 @@ const bot = await api.get_bot_info(self_id)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 当前节点下的 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 
 ## 返回值
 
 ```js
 {
   self_id: 123456789,
+  platform: 'android',
   protocol_id: 0,
   device_profile_id: 1,
   nickname: '示例账号',

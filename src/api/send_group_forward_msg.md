@@ -7,6 +7,7 @@
 ```js
 const result = await api.send_group_forward_msg(
   self_id,
+  platform,
   group_id,
   messages,
 )
@@ -17,6 +18,7 @@ const result = await api.send_group_forward_msg(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 目标群聊 ID |
 | `messages` | object[] | 是 | 合并转发节点数组 |
 
@@ -49,6 +51,6 @@ const result = await api.send_group_forward_msg(
 ## 示例
 
 ```js
-const forward = await api.send_group_forward_msg(self_id, group_id, messages)
-await api.send_group_msg(self_id, group_id, forward.message)
+const forward = await api.send_group_forward_msg(self_id, platform, group_id, messages)
+await api.send_group_msg(self_id, platform, group_id, forward.message)
 ```

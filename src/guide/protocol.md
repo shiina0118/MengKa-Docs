@@ -10,7 +10,8 @@
   "id": "1",
   "action": "get_group_list",
   "params": {
-    "self_id": 123456789
+    "self_id": 123456789,
+    "platform": "android"
   }
 }
 ```
@@ -83,10 +84,11 @@ SDK使用 `id` 关联请求。默认超时为 30 秒，媒体、红包、头像�
 ## API 作用域
 
 账号管理和登录类 API 可以操作绑定节点下的离线或登录中账号。其余 Bot API
-需要通过 `self_id` 指定在线 Bot。调用时必须满足：
+需要通过 `self_id` 指定在线 Bot。带 `self_id` 的请求必须同时传入 `platform`。
+调用时必须满足：
 
 - Bot 属于插件服务绑定的节点。
-- 需要 `self_id` 的 API 传入有效账号。
+- 需要 `self_id` 的 API 传入有效账号，以及对应的 `platform`（`linux` 或 `android`）。
 - 非账号管理和登录类 API 对应的 Bot 当前在线。
 
 不满足条件时会收到 `ok: false` 的 `action_result`。

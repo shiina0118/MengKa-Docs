@@ -6,7 +6,7 @@
 
 ```js
 const self_id = 123456789 // 要登录的 Bot QQ 号
-const result = await api.login_account(self_id)
+const result = await api.login_account(self_id, platform)
 ```
 
 ## 参数
@@ -14,6 +14,7 @@ const result = await api.login_account(self_id)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 已创建且离线的 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 
 ## 返回值
 

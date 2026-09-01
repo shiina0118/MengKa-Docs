@@ -7,6 +7,7 @@
 ```js
 const result = await api.like_summary_card(
   self_id,
+  platform,
   target_uin,
   like_count,
 )
@@ -17,6 +18,7 @@ const result = await api.like_summary_card(
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 | --- | --- | --- | --- | --- |
 | `self_id` | number | 是 | - | 在线 Bot QQ 号 |
+| `platform` | string | 是 | - | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `target_uin` | number | 是 | - | 目标 QQ 号 |
 | `like_count` | number | 否 | `1` | 点赞次数 |
 

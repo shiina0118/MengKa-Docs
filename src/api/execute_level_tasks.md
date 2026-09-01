@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-await api.execute_level_tasks(self_id, tasks)
+await api.execute_level_tasks(self_id, platform, tasks)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ await api.execute_level_tasks(self_id, tasks)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `tasks` | string[] | 是 | 非空任务标题数组 |
 
 当前支持的任务标题：

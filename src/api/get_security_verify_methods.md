@@ -6,7 +6,7 @@
 
 ```js
 const self_id = 123456789 // 正在登录的 Bot QQ 号
-const result = await api.get_security_verify_methods(self_id)
+const result = await api.get_security_verify_methods(self_id, platform)
 ```
 
 ## 参数
@@ -14,6 +14,7 @@ const result = await api.get_security_verify_methods(self_id)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在等待安全验证的 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 
 ## 返回值
 
@@ -41,7 +42,7 @@ const result = await api.get_security_verify_methods(self_id)
 | --- | --- | --- |
 | `4` | 支持接收短信（服务端下发验证码） | 用 `methods.sms_phone.sign` 调用 `get_sms`，`verify_type` 传 `4` |
 | `3` | 支持发送短信（用户用密保手机发送） | 用 `methods.sms_phone.sign` 调用 `get_sms`，`verify_type` 传 `3` |
-| `10` | 支持扫码验证 | 调用 `create_login_qr` 创建二维码，再调用 `query_login_qr_status` 查询状态 |
+| `10` | 支持扫码验证 | 调用 `get_security_verify_qr` 获取安全验证二维码，再调用 `query_security_verify_qr` 查询状态 |
 | 包含多个值 | 同时支持多种验证方式 | 选择任意一种可用方式 |
 | 不包含 `3`、`4`、`10` | 需要其他验证方式 | 使用 `login_account` 返回的 `security_url` 完成验证 |
 

@@ -37,6 +37,8 @@ api.on('group_message', event => {
 
 通知事件额外包含 `sub_type`，用于区分具体通知。
 
+事件目前不带 `platform`。用 `self_id` 调用 API 时仍需传入该 Bot 的 `platform`；同一 QQ 可同时存在 android 与 linux 账号。
+
 ## 回调异常
 
 SDK会捕获事件回调中的同步异常并输出日志，不会因此断开 WebSocket。异步回调中的异常仍应由插件自行处理。

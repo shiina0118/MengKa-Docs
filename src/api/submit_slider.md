@@ -6,7 +6,7 @@
 
 ```js
 const self_id = 123456789 // 正在登录的 Bot QQ 号
-const result = await api.submit_slider(self_id, ticket, randstr)
+const result = await api.submit_slider(self_id, platform, ticket, randstr)
 ```
 
 ## 参数
@@ -14,6 +14,7 @@ const result = await api.submit_slider(self_id, ticket, randstr)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在登录的 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `ticket` | string | 是 | 滑块完成后返回的 ticket |
 | `randstr` | string | 是 | 滑块完成后返回的 randstr |
 

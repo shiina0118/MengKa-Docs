@@ -10,6 +10,7 @@
 const redPacket = event.message.find(segment => segment.type === 'red_packet')
 const result = await api.get_red_packet_info(
   event.self_id,
+  platform,
   event.group_id,
   event.sender.user_id,
   redPacket.data,
@@ -21,6 +22,7 @@ const result = await api.get_red_packet_info(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_uin` | number | 是 | 红包发送人 QQ 号 |
 | `red_packet` | object | 是 | 收到的 `red_packet` 消息段 `data` |
@@ -55,6 +57,6 @@ const result = await api.get_red_packet_info(
 }
 ```
 
-`pre_grap_token` 位于返回对象顶层。如需带入领取请求，可作为 `grab_red_packet` 的第 5 个参数传入，非必填。
+`pre_grap_token` 位于返回对象顶层。如需带入领取请求，可作为 `grab_red_packet` 的第 6 个参数传入，非必填。
 
 Bot 的 `skey`、`tenpay.com` PsKey、昵称、设备指纹、协议 AppID 和 DES Key 均由后端自动获取。

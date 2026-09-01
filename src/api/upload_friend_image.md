@@ -7,6 +7,7 @@
 ```js
 const image = await api.upload_friend_image(
   self_id,
+  platform,
   user_id,
   file_path,
 )
@@ -17,6 +18,7 @@ const image = await api.upload_friend_image(
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `user_id` | number | 是 | 目标好友 QQ 号 |
 | `file_path` | string | 是 | 后端可访问的本地路径、`file://` 或 HTTP(S) 地址 |
 文件名由后端根据图片 MD5 自动生成，图片类型由后端设置为 `1000`。
@@ -32,9 +34,10 @@ const image = await api.upload_friend_image(
 ```js
 const image = await api.upload_friend_image(
   123456789,
+  'android',
   234567890,
   'https://example.com/image.jpg',
 )
 
-await api.send_friend_msg(123456789, 234567890, [image])
+await api.send_friend_msg(123456789, 'android', 234567890, [image])
 ```

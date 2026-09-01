@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const video = await api.upload_group_video(self_id, group_id, file_path)
+const video = await api.upload_group_video(self_id, platform, group_id, file_path)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const video = await api.upload_group_video(self_id, group_id, file_path)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 目标群聊 ID |
 | `file_path` | string | 是 | MP4 的后端本地路径、`file://` 或后端可访问的 HTTP(S) 地址 |
 
@@ -36,11 +37,12 @@ const video = await api.upload_group_video(self_id, group_id, file_path)
 ```js
 const video = await api.upload_group_video(
   123456789,
+  'android',
   987654321,
   'D:/videos/example.mp4',
 )
 
-await api.send_group_msg(123456789, 987654321, [video])
+await api.send_group_msg(123456789, 'android', 987654321, [video])
 ```
 
 插件与萌卡NT不在同一台主机时，应传后端可访问的 HTTP(S) 地址。

@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const result = await api.get_user_agent(self_id)
+const result = await api.get_user_agent(self_id, platform)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const result = await api.get_user_agent(self_id)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | Bot QQ 号，登录验证过程中也可调用 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 
 ## 返回值
 

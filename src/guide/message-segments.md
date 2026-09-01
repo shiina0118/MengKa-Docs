@@ -3,12 +3,13 @@
 ## send_group_msg
 
 ```js
-const result = await api.send_group_msg(self_id, group_id, message)
+const result = await api.send_group_msg(self_id, platform, group_id, message)
 ```
 
 | 参数 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 在线 Bot QQ 号 |
+| `platform` | string | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 目标群聊 ID |
 | `message` | Segment[] | 消息段数组 |
 
@@ -23,7 +24,7 @@ const result = await api.send_group_msg(self_id, group_id, message)
 ## send_friend_msg
 
 ```js
-const result = await api.send_friend_msg(self_id, user_id, message)
+const result = await api.send_friend_msg(self_id, platform, user_id, message)
 ```
 
 好友消息当前支持 `text` 段。成功返回结构与群聊消息一致。
@@ -90,11 +91,12 @@ QQ 原生表情：
 ```js
 const image = await api.upload_group_image(
   self_id,
+  platform,
   group_id,
   file_path,
 )
 
-await api.send_group_msg(self_id, group_id, [image])
+await api.send_group_msg(self_id, platform, group_id, [image])
 ```
 
 `file_path` 支持本地路径、`file://` 和 `http://`/`https://` 地址。文件名和图片类型由后端自动生成。返回值可直接作为消息段使用：
@@ -108,11 +110,12 @@ await api.send_group_msg(self_id, group_id, [image])
 ```js
 const image = await api.upload_friend_image(
   self_id,
+  platform,
   user_id,
   file_path,
 )
 
-await api.send_friend_msg(self_id, user_id, [image])
+await api.send_friend_msg(self_id, platform, user_id, [image])
 ```
 
 好友图片的文件名和图片类型由后端自动生成，返回值可直接作为好友消息段使用。
@@ -120,8 +123,8 @@ await api.send_friend_msg(self_id, user_id, [image])
 ## upload_group_voice
 
 ```js
-const voice = await api.upload_group_voice(self_id, group_id, file_path)
-await api.send_group_msg(self_id, group_id, [voice])
+const voice = await api.upload_group_voice(self_id, platform, group_id, file_path)
+await api.send_group_msg(self_id, platform, group_id, [voice])
 ```
 
 输入可以是 FFmpeg 可解码的常见音频格式。后端会负责转码并生成波形，返回值可直接作为 `voice` 消息段使用。
@@ -129,8 +132,8 @@ await api.send_group_msg(self_id, group_id, [voice])
 ## upload_group_video
 
 ```js
-const video = await api.upload_group_video(self_id, group_id, file_path)
-await api.send_group_msg(self_id, group_id, [video])
+const video = await api.upload_group_video(self_id, platform, group_id, file_path)
+await api.send_group_msg(self_id, platform, group_id, [video])
 ```
 
 输入文件必须为 MP4 格式。后端使用 FFmpeg 镜像读取视频信息并生成封面，返回值可直接作为 `video` 消息段使用。
@@ -140,14 +143,14 @@ await api.send_group_msg(self_id, group_id, [video])
 读取收到的合并转发消息：
 
 ```js
-const result = await api.get_group_forward_msg(self_id, sender_uin, res_id)
+const result = await api.get_group_forward_msg(self_id, platform, sender_uin, res_id)
 // { res_id, messages }
 ```
 
 创建仅包含文本的合并转发消息：
 
 ```js
-const result = await api.send_group_forward_msg(self_id, group_id, [
+const result = await api.send_group_forward_msg(self_id, platform, group_id, [
   {
     user_id: 123456789,
     nickname: '示例用户',
@@ -156,7 +159,7 @@ const result = await api.send_group_forward_msg(self_id, group_id, [
   },
 ])
 
-await api.send_group_msg(self_id, group_id, result.message)
+await api.send_group_msg(self_id, platform, group_id, result.message)
 ```
 
 `time` 为 Unix 秒。非 `text` 消息段会被忽略，返回值包含已上传和被忽略的数量。

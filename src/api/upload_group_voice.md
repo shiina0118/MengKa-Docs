@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const voice = await api.upload_group_voice(self_id, group_id, file_path)
+const voice = await api.upload_group_voice(self_id, platform, group_id, file_path)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const voice = await api.upload_group_voice(self_id, group_id, file_path)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 目标群聊 ID |
 | `file_path` | string | 是 | 后端本地路径、`file://` 或后端可访问的 HTTP(S) 音频地址 |
 
@@ -37,11 +38,12 @@ const voice = await api.upload_group_voice(self_id, group_id, file_path)
 ```js
 const voice = await api.upload_group_voice(
   123456789,
+  'android',
   987654321,
   'D:/voices/example.mp3',
 )
 
-await api.send_group_msg(123456789, 987654321, [voice])
+await api.send_group_msg(123456789, 'android', 987654321, [voice])
 ```
 
 插件与萌卡NT不在同一台主机时，应传后端可访问的 HTTP(S) 地址。

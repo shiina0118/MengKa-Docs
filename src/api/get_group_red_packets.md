@@ -8,7 +8,7 @@
 ## 调用
 
 ```js
-const packets = await api.get_group_red_packets(self_id, group_id)
+const packets = await api.get_group_red_packets(self_id, platform, group_id)
 ```
 
 ## 参数
@@ -16,6 +16,7 @@ const packets = await api.get_group_red_packets(self_id, group_id)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 要查询的群号 |
 
 ## 返回值

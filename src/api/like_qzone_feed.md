@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-api.like_qzone_feed(self_id, feed)
+api.like_qzone_feed(self_id, platform, feed)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ api.like_qzone_feed(self_id, feed)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `feed` | object | 是 | `get_qzone_friend_feeds` 返回的完整动态对象 |
 
 ## 返回值
@@ -20,8 +21,8 @@ api.like_qzone_feed(self_id, feed)
 此 API 不等待响应，不返回 Promise。
 
 ```js
-const { feeds } = await api.get_qzone_friend_feeds(self_id)
-api.like_qzone_feed(self_id, feeds[0])
+const { feeds } = await api.get_qzone_friend_feeds(self_id, platform)
+api.like_qzone_feed(self_id, platform, feeds[0])
 ```
 
 转发动态会根据 `feed.forward` 自动处理。

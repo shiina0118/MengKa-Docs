@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const result = await api.approve_group_invite(self_id, group_id, msgseq)
+const result = await api.approve_group_invite(self_id, platform, group_id, msgseq)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const result = await api.approve_group_invite(self_id, group_id, msgseq)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 邀请加入的群聊 ID |
 | `msgseq` | number | 是 | 邀请卡片中的消息序列号 |
 
@@ -90,7 +91,7 @@ api.on('friend_message', async event => {
   const msgseq = Number(query.get('msgseq'))
   if (!groupID || !msgseq) return
 
-  await api.approve_group_invite(event.self_id, groupID, msgseq)
+  await api.approve_group_invite(event.self_id, platform, groupID, msgseq)
 })
 ```
 

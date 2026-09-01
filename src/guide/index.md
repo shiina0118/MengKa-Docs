@@ -44,7 +44,7 @@ npm install
 正向模式还需要监听端口；反向模式需要 WebSocket 地址和重连间隔。
 
 ::: tip 节点范围
-插件只能接收绑定节点的事件，也只能操作该节点下的 Bot。`self_id` 指向其他节点时，API 会失败。
+插件只能接收绑定节点的事件，也只能操作该节点下的 Bot。`self_id` 指向其他节点时，API 会失败。带 `self_id` 的 API 必须同时传入 `platform`（`linux` 或 `android`），参数顺序为 `self_id, platform, …`。
 :::
 
 ## 正向模式示例
@@ -69,7 +69,7 @@ api.on('group_message', event => {
 
 await api.connect()
 
-const result = await api.get_group_list(123456789)
+const result = await api.get_group_list(123456789, 'android')
 console.log(result.groups)
 ```
 
@@ -103,7 +103,7 @@ await api.waitForConnection()
 
 ```js
 try {
-  const result = await api.get_friend_list(self_id)
+  const result = await api.get_friend_list(self_id, platform)
   console.log(result.friends)
 } catch (error) {
   console.error(error.message)

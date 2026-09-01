@@ -19,6 +19,7 @@ const bots = await api.get_bot_list()
 | 字段 | 说明 |
 | --- | --- |
 | `self_id` | Bot QQ 号 |
+| `platform` | 账号平台：`linux` 或 `android` |
 | `protocol_id` | 当前协议 ID |
 | `device_profile_id` | 当前设备指纹 ID |
 | `nickname` | Bot 昵称 |

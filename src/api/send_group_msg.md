@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const result = await api.send_group_msg(self_id, group_id, message)
+const result = await api.send_group_msg(self_id, platform, group_id, message)
 ```
 
 ## 参数
@@ -13,6 +13,7 @@ const result = await api.send_group_msg(self_id, group_id, message)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 目标群聊 ID |
 | `message` | Segment[] | 是 | 消息段数组 |
 
@@ -36,7 +37,7 @@ const result = await api.send_group_msg(self_id, group_id, message)
 ## 示例
 
 ```js
-await api.send_group_msg(123456789, 987654321, [
+await api.send_group_msg(123456789, 'android', 987654321, [
   { type: 'text', data: { text: '你好' } },
   { type: 'at', data: { uin: '112233445' } },
 ])
