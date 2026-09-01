@@ -71,7 +71,7 @@ export default defineConfig({
                 { text: "获取登录二维码", link: "/api/get_login_qr" },
                 { text: "查询登录二维码", link: "/api/query_login_qr" },
                 { text: "扫描应用登录二维码", link: "/api/scan_qr" },
-                { text: "确认登录二维码", link: "/api/auth_qr" },
+                { text: "确认应用登录二维码", link: "/api/auth_qr" },
                 { text: "获取短信验证码", link: "/api/get_sms" },
                 { text: "提交短信验证码", link: "/api/check_sms" },
               ],
