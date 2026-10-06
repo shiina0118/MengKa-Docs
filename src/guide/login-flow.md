@@ -60,7 +60,7 @@ const result = await api.login_account(self_id, platform)
 | --- | --- | --- |
 | `0` | 登录成功 | 开始使用该 Bot |
 | `140022008` | 需要滑块验证 | 展示 `slider_url`，完成后调用 `submit_slider` |
-| `140022007` | 需要身份验证 | 使用 `identity_url` 及账号协议、设备指纹完成验证 |
+| `140022007` | 需要身份验证 | 用插件通道的身份验证动作完成，见下方[插件通道身份验证](#插件通道身份验证) |
 | `140022010` | 需要安全验证 | 查询<a class="security-method-link" href="/api/get_security_verify_methods">安全验证方式</a>，按可用方式继续 |
 | `140022013` | 账号或密码错误 | 检查账号配置 |
 
@@ -192,22 +192,15 @@ await api.auth_qr(self_id, 'android', k)
 
 [`scan_qr`](/api/scan_qr) 只完成扫码，[`auth_qr`](/api/auth_qr) 才确认登录。确认 Linux 码后继续 [`query_login_qr`](/api/query_login_qr)。不能单独用这两条代替 [`get_login_qr`](/api/get_login_qr) 创建扫码登录账号。
 
-## 身份验证所需数据
+## 插件通道身份验证
 
-身份验证流程可能需要账号当前使用的协议与设备指纹：
+`140022007`（需要身份验证）之后的插件通道身份验证共三步。设备指纹由服务端账号级数据自动处理，**插件无需、也无法自行获取账号的设备指纹**，也不暴露给插件：
 
-```js
-const bots = await api.get_bot_list()
-const bot = bots.find(item => item.self_id === self_id && item.platform === platform)
+1. [`submit_identity_captcha`](/api/submit_identity_captcha)：提交身份验证的腾讯验证结果（`ticket`、`randstr`），服务端完成 chkcaptcha、chkrisk、查询验证方式与绑定手机；
+2. [`submit_identity_phone`](/api/submit_identity_phone)：填密保手机号，返回需要由该手机**照发的短信内容与目标号码**；
+3. [`confirm_identity_sms`](/api/confirm_identity_sms)：用密保手机发送完成后回查，通过即身份验证完成。
 
-const protocols = await api.get_protocol_list()
-const protocol = protocols[bot.protocol_id]
-
-const profiles = await api.get_device_profile_list()
-const deviceProfile = profiles.find(
-  item => item.id === bot.device_profile_id,
-)
-```
+前两步各自失败时账号仍处登录挂起，可修正参数后重试；`confirm_identity_sms` 失败通常表示短信尚未被腾讯收到，稍后可重试。身份验证通过后账号仍未上线，**重新发起密码登录完成上线由插件另行触发**。
 
 ## 缓存登录
 

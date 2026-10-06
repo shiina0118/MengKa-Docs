@@ -28,6 +28,8 @@ const result = await api.update_account(
 
 账号必须处于离线状态。
 
+更换设备指纹或修改其 Android ID 后，账号的 `xwid` 在下一次检查时重新生成；表中已有 `o3did` 保留，空值时使用当前 `xwid` 的纯算兜底结果，兜底不落库。
+
 ## 返回值
 
 ```js

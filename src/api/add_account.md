@@ -26,6 +26,8 @@ const result = await api.add_account(
 | `protocol_id` | number | 是 | 协议数组下标 |
 | `device_profile_id` | number | 是 | 设备指纹记录 ID |
 
+账号表分别提供 `xwid` 和 `o3did` 字段，共用设备指纹的账号仍各自缓存。`xwid` 超过 14400 秒时更新，生成标识及时间保存在账号的 `xwid_state` 中，重启后沿用缓存。`o3did` 字段留给 getToken 下发值；表中为空时返回本地纯算兜底值，兜底不落库，已有值不会随 `xwid` 刷新而改变。账号查询返回 `xwid`、有效的 `o3did` 和 `xwidUpdatedAt`。
+
 ## 返回值
 
 成功：
