@@ -17,7 +17,9 @@ const video = await api.upload_group_video(self_id, platform, group_id, file_pat
 | `group_id` | number | 是 | 目标群聊 ID |
 | `file_path` | string | 是 | MP4 的后端本地路径、`file://` 或后端可访问的 HTTP(S) 地址 |
 
-后端通过已安装并运行的 FFmpeg 镜像读取视频尺寸与时长，并自动提取 PNG 封面。
+后端纯 Go 读取普通 MP4 的视频尺寸与时长、解码首帧并生成 PNG 封面。支持独立 JPEG/PNG 帧、满足限制的 H.264 Baseline/Main/High 8 位 IDR，以及 HEVC Main/Main Intra/Main10 8/10 位 IRAP I 首帧。AVC/HEVC 均要求逐行扫描、4:2:0；H.264 支持 CAVLC/CABAC、4×4/8×8 和默认及自定义缩放矩阵，HEVC 支持默认矩阵、WPP 和多个 slice。10 位 HEVC 使用 16 位 PNG 保留转换后的 RGB 精度。视频原始内容不转码。
+
+支持首个解码样本同时为首个展示帧、起始编辑时间与首帧一致的 CTTS/edit 时间线，以及 nclx/nclc 中已支持的 SDR 颜色描述。其他 codec/位深、需要 P/B 参考链的首帧、HEVC 自定义缩放矩阵、HDR/ICC、复杂编辑列表、分片 MP4、旋转及其他未支持的显示特性会返回明确错误。
 
 ## 返回值
 

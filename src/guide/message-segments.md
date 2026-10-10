@@ -127,7 +127,7 @@ const voice = await api.upload_group_voice(self_id, platform, group_id, file_pat
 await api.send_group_msg(self_id, platform, group_id, [voice])
 ```
 
-输入可以是 FFmpeg 可解码的常见音频格式。后端会负责转码并生成波形，返回值可直接作为 `voice` 消息段使用。
+输入音频须为已支持的 MP3。后端使用纯 Go 解码、转换为 QQ 语音所需的单声道 24kHz PCM、编码为 Silk 并生成波形，返回值可直接作为 `voice` 消息段使用。AAC/M4A、WAV、FLAC 等其他音频格式会返回未支持错误。
 
 ## upload_group_video
 
@@ -136,7 +136,9 @@ const video = await api.upload_group_video(self_id, platform, group_id, file_pat
 await api.send_group_msg(self_id, platform, group_id, [video])
 ```
 
-输入文件必须为 MP4 格式。后端使用 FFmpeg 镜像读取视频信息并生成封面，返回值可直接作为 `video` 消息段使用。
+输入文件必须为 MP4 格式。后端纯 Go 读取视频信息、解码首帧并生成 PNG 封面。支持独立 JPEG/PNG 帧、H.264 Baseline/Main/High 8 位 IDR，以及 HEVC Main/Main Intra/Main10 8/10 位 IRAP I 首帧；AVC/HEVC 要求逐行扫描、4:2:0。H.264 包含 CAVLC/CABAC、4×4/8×8 与自定义缩放矩阵，HEVC 支持默认矩阵、WPP 和多个 slice。10 位 HEVC 封面保存为 16 位 PNG。
+
+支持匹配首帧的 CTTS/edit 时间线和 nclx/nclc 中已支持的 SDR 颜色描述。未支持的 codec/位深、需要参考链的首帧、HEVC 自定义矩阵、HDR/ICC、复杂编辑、分片或旋转等直接返回明确错误。返回值可直接作为 `video` 消息段使用，视频原始内容不转码。
 
 ## 合并转发
 
