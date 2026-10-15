@@ -2,6 +2,8 @@
 
 正向与反向 WebSocket SDK 提供相同的 API。除特别注明外，所有 API 都返回 Promise，成功时解析为业务数据，失败时抛出错误。
 
+全部 API 也支持通过[正向 HTTP](/guide/forward-http)调用：向独立服务端口的 `POST /api/{action}` 发送 JSON 参数，并在请求头携带 `Authorization: Bearer TOKEN`。HTTP 成功响应为 `{ "ok": true, "data": ... }`。
+
 ## 通用约定
 
 - 用户资料、好友和群成员返回 `user_id`；当前账号返回 `self_id`；群号返回 `group_id`。

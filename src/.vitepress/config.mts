@@ -42,6 +42,7 @@ export default defineConfig({
             { text: "快速开始", link: "/guide/" },
             { text: "正向 WebSocket", link: "/guide/forward-websocket" },
             { text: "反向 WebSocket", link: "/guide/reverse-websocket" },
+            { text: "正向 HTTP", link: "/guide/forward-http" },
             { text: "WebSocket API 格式", link: "/guide/protocol" },
             { text: "消息段", link: "/guide/message-segments" },
             { text: "登录流程", link: "/guide/login-flow" },
