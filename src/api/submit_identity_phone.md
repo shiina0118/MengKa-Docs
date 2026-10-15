@@ -23,7 +23,7 @@ const result = await api.submit_identity_phone(self_id, platform, mobile, area_c
 
 ## 返回值
 
-调用成功即完成手机号校验（verifymbphone）并取得短信指令（getsms）。返回服务端原始响应，其中包含**需要密保手机照发的短信内容与目标号码**（管理面板按 `sendTo` / `sms` 解析），其他字段按原始结构保留。
+成功时返回短信内容 `sms` 与目标号码 `sendTo`。请将这两个字段展示给用户，引导其用密保手机发送短信。
 
 拿到短信内容与号码后，引导用户**用该密保手机**把内容原样发送到目标号码，发送完成后再调用 [`confirm_identity_sms`](/api/confirm_identity_sms)。
 

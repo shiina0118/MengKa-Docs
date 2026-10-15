@@ -27,7 +27,7 @@ const result = await api.send_group_msg(self_id, platform, group_id, message)
 const result = await api.send_friend_msg(self_id, platform, user_id, message)
 ```
 
-好友消息当前支持 `text` 段。成功返回结构与群聊消息一致。
+好友消息当前支持 `text` 和 `image` 段。成功返回结构与群聊消息一致。
 
 ## 发送消息段
 
@@ -39,11 +39,11 @@ const result = await api.send_friend_msg(self_id, platform, user_id, message)
 
 ### at
 
-仅用于群聊消息。`uin` 使用字符串；`all` 表示全体成员。
+仅用于群聊消息。`user_id` 使用数字；字符串 `all` 表示全体成员。
 
 ```js
-{ type: 'at', data: { uin: '123456789' } }
-{ type: 'at', data: { uin: 'all' } }
+{ type: 'at', data: { user_id: 123456789 } }
+{ type: 'at', data: { user_id: 'all' } }
 ```
 
 ### image
@@ -52,7 +52,7 @@ const result = await api.send_friend_msg(self_id, platform, user_id, message)
 { type: 'image', data: { file_id: 'FILE_ID' } }
 ```
 
-`file_id` 可来自收到的群聊图片，但缓存时间有限；更稳定的方式是先调用 `upload_group_image`。
+群聊图片的 `file_id` 可来自刚收到的群聊图片，或 [`upload_group_image`](/api/upload_group_image) 的返回值；好友图片使用 [`upload_friend_image`](/api/upload_friend_image) 的返回值。使用期限见[媒体有效期](#媒体有效期)。
 
 ### voice
 
@@ -84,7 +84,13 @@ QQ 原生表情：
 }
 ```
 
-`face_code` 为可选的十六进制原始表情码。资源表情使用 `kind: 'super_face'`，并按收到的 `face` 消息段传递 `type`、`category_id`、`face_id`、`package_id` 和 `text`。
+普通表情可按 `face_id` 发送。资源表情使用 `kind: 'super_face'`，并按收到的 `face` 消息段原样传递 `type`、`category_id`、`face_id`、`package_id` 和 `text`。
+
+## 媒体有效期
+
+图片、语音、视频的 `file_id` 是短期发送标识。请在上传成功或收到图片后的 **2 分钟内**使用；超过期限或萌卡NT重启后，旧标识可能无法发送，需要重新上传。不要将 `file_id` 当作永久资源地址保存。
+
+上传后尽快发送。语音和视频应发送到上传时指定的群；好友图片使用好友图片上传接口。
 
 ## upload_group_image
 
@@ -99,7 +105,7 @@ const image = await api.upload_group_image(
 await api.send_group_msg(self_id, platform, group_id, [image])
 ```
 
-`file_path` 支持本地路径、`file://` 和 `http://`/`https://` 地址。文件名和图片类型由后端自动生成。返回值可直接作为消息段使用：
+`file_path` 支持后端可访问的本地路径、`file://` 和 `http://`/`https://` 地址。返回值可直接作为消息段使用：
 
 ```js
 { type: 'image', data: { file_id: 'FILE_ID' } }
@@ -118,7 +124,7 @@ const image = await api.upload_friend_image(
 await api.send_friend_msg(self_id, platform, user_id, [image])
 ```
 
-好友图片的文件名和图片类型由后端自动生成，返回值可直接作为好友消息段使用。
+返回值可直接作为好友消息段使用。
 
 ## upload_group_voice
 
@@ -127,7 +133,7 @@ const voice = await api.upload_group_voice(self_id, platform, group_id, file_pat
 await api.send_group_msg(self_id, platform, group_id, [voice])
 ```
 
-输入音频须为已支持的 MP3。后端使用纯 Go 解码、转换为 QQ 语音所需的单声道 24kHz PCM、编码为 Silk 并生成波形，返回值可直接作为 `voice` 消息段使用。AAC/M4A、WAV、FLAC 等其他音频格式会返回未支持错误。
+输入支持 MP3、WAV 和 QQ Silk 文件，返回值可直接作为 `voice` 消息段使用。支持的输入方式见 [`upload_group_voice`](/api/upload_group_voice)。
 
 ## upload_group_video
 
@@ -136,23 +142,21 @@ const video = await api.upload_group_video(self_id, platform, group_id, file_pat
 await api.send_group_msg(self_id, platform, group_id, [video])
 ```
 
-输入文件必须为 MP4 格式。后端纯 Go 读取视频信息、解码首帧并生成 PNG 封面。支持独立 JPEG/PNG 帧、H.264 Baseline/Main/High 8 位 IDR，以及 HEVC Main/Main Intra/Main10 8/10 位 IRAP I 首帧；AVC/HEVC 要求逐行扫描、4:2:0。H.264 包含 CAVLC/CABAC、4×4/8×8 与自定义缩放矩阵，HEVC 支持默认矩阵、WPP 和多个 slice。10 位 HEVC 封面保存为 16 位 PNG。
-
-支持匹配首帧的 CTTS/edit 时间线和 nclx/nclc 中已支持的 SDR 颜色描述。未支持的 codec/位深、需要参考链的首帧、HEVC 自定义矩阵、HDR/ICC、复杂编辑、分片或旋转等直接返回明确错误。返回值可直接作为 `video` 消息段使用，视频原始内容不转码。
+输入文件必须为支持的 MP4 格式，无需额外提供封面。文件要求见 [`upload_group_video`](/api/upload_group_video)。返回值可直接作为 `video` 消息段使用，并须作为唯一消息段单独发送。
 
 ## 合并转发
 
 读取收到的合并转发消息：
 
 ```js
-const result = await api.get_group_forward_msg(self_id, platform, sender_uin, res_id)
+const result = await api.get_group_forward_msg(self_id, platform, sender_id, res_id)
 // { res_id, messages }
 ```
 
 创建仅包含文本的合并转发消息：
 
 ```js
-const result = await api.send_group_forward_msg(self_id, platform, group_id, [
+const result = await api.upload_group_forward_msg(self_id, platform, group_id, [
   {
     user_id: 123456789,
     nickname: '示例用户',
@@ -184,4 +188,4 @@ await api.send_group_msg(self_id, platform, group_id, result.message)
 | `face` | `kind`, `type`, `face_id`, `text` 等 |
 | `red_packet` | `title`, `listid`, `authkey`, `channel`, `pay_flag`, `hb_from` |
 
-发送段与接收段的类型并非完全对称。例如发送群 @ 使用 `at` 和 `uin`，接收时使用 `mention` 和 `user_id`。
+发送段与接收段的类型并非完全对称。例如发送群 @ 使用 `at` 和 `user_id`，接收时使用 `mention` 和 `user_id`。

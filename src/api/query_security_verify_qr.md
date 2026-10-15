@@ -1,6 +1,6 @@
 # query_security_verify_qr
 
-查询 Bot 安全验证二维码的扫码状态。扫码确认后，服务端会自动继续 NTLogin。这不是扫码登录查询，后者见 [`query_login_qr`](/api/query_login_qr)。
+查询 Bot 安全验证二维码的扫码状态。扫码确认后会自动继续登录。扫码登录的二维码状态查询见 [`query_login_qr`](/api/query_login_qr)。
 
 ## 调用
 

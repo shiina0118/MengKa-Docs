@@ -20,8 +20,8 @@ const bots = await api.get_bot_list()
 | --- | --- |
 | `self_id` | Bot QQ 号 |
 | `platform` | 账号平台：`linux` 或 `android` |
-| `protocol_id` | 当前协议 ID |
-| `device_profile_id` | 当前设备指纹 ID |
+| `client_profile_id` | 当前客户端配置 ID |
+| `device_profile_id` | 当前设备配置 ID |
 | `nickname` | Bot 昵称 |
 | `status` | `0` 离线、`1` 在线、`2` 登录中 |
 | `received`, `sent` | 运行期收发消息计数 |

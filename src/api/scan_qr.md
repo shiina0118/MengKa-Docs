@@ -40,4 +40,4 @@ await api.scan_qr(self_id, 'android', 'XXXX')
 }
 ```
 
-`code` / `message` 来自响应 `2.10.1` / `2.10.2`，`tip` 来自 `2.10.4`。扫码目标可能是应用名+地区（`2.2` / `2.3`），也可能是系统+设备名（`2.4` / `2.5`）。本接口只完成扫码；确认登录用 [`auth_qr`](/api/auth_qr)。
+`code`、`message` 表示扫码结果，`tip` 是可展示给用户的提示。目标信息可能包含 `app_name`、`location`，也可能包含 `device_os`、`device_name`，应按实际返回字段展示。本接口只完成扫码；确认登录用 [`auth_qr`](/api/auth_qr)。

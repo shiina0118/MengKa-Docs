@@ -28,6 +28,14 @@ const result = await api.reject_group_apply(
 | `reason` | string | 否 | 拒绝理由 |
 | `request_extra` | number | 否 | 附加请求标识 |
 
+实时 `group_notice/apply` 事件使用事件中的同名字段。通过 [`get_group_system_notifications`](/api/get_group_system_notifications#处理入群申请) 取得的通知则使用 `request_key.group_id`、`request_key.request_id`、`request_key.type`、`request_key.extra`。`reason` 仍由调用方填写。
+
 ## 返回值
 
-返回申请处理结果。
+成功返回：
+
+```js
+{ success: true, error_code: 0 }
+```
+
+处理失败时 Promise 拒绝，错误信息包含原因。

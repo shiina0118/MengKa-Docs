@@ -15,7 +15,7 @@ const result = await api.send_friend_msg(self_id, platform, user_id, message)
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `user_id` | number | 是 | 好友 QQ 号 |
-| `message` | Segment[] | 是 | 消息段数组，当前支持 `text` |
+| `message` | Segment[] | 是 | 消息段数组，当前支持 `text` 和 `image` |
 
 ## 返回值
 

@@ -1,11 +1,11 @@
-# get_clientkey
+# get_ps_key
 
-获取当前 Bot 会话的 clientkey。
+获取指定域名的 PsKey。
 
 ## 调用
 
 ```js
-const result = await api.get_clientkey(self_id, platform)
+const result = await api.get_ps_key(self_id, platform, domain)
 ```
 
 ## 参数
@@ -14,11 +14,13 @@ const result = await api.get_clientkey(self_id, platform)
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `domain` | string | 是 | 目标域名 |
 
 ## 返回值
 
 ```js
-{ clientkey: 'HEX_ENCODED_CLIENTKEY' }
+{
+  domain: 'DOMAIN',
+  ps_key: 'PSKEY',
+}
 ```
-
-`clientkey` 使用十六进制编码。

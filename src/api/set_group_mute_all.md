@@ -17,6 +17,8 @@ const result = await api.set_group_mute_all(self_id, platform, group_id, mute)
 | `group_id` | number | 是 | 群聊 ID |
 | `mute` | boolean | 是 | `true` 开启，`false` 取消 |
 
+必须明确传入 `mute`。省略或传 `null` 会报错，不会改变全员禁言状态。
+
 ## 返回值
 
 ```js

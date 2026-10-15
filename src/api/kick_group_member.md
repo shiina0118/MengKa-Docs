@@ -24,6 +24,8 @@ const result = await api.kick_group_member(
 | `user_id` | number | 是 | 被移出成员的 QQ 号 |
 | `reject_add_request` | boolean | 是 | `true` 表示同时拒绝该成员后续的加群申请 |
 
+只移出成员时传 `false`；省略 `reject_add_request` 或传 `null` 会报错，不会执行移出操作。
+
 ## 返回值
 
 ```js

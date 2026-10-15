@@ -19,7 +19,7 @@ const result = await api.get_level_tasks(self_id, platform)
 
 ```js
 {
-  uin: '123456789',
+  self_id: 123456789,
   overall_info: {
     total_days: 12.5,
     vip_speed: 2,
@@ -33,4 +33,6 @@ const result = await api.get_level_tasks(self_id, platform)
 }
 ```
 
-任务对象包含 `title`、`sub_title`、`is_done`、`speed_days`、`jump_url` 等字段。执行任务时使用任务的完整 `title`。
+`self_id` 为当前 Bot QQ 号，类型为 number。
+
+任务对象包含 `title`、`sub_title`、`is_done`、`speed_days`、`jump_url` 等字段。执行任务时使用任务的完整 `title`，且须属于 [`execute_level_tasks`](/api/execute_level_tasks) 列出的支持范围；面板中可能出现尚未支持执行的任务。

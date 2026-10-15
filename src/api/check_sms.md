@@ -35,9 +35,9 @@ const result = await api.check_sms(self_id, platform, 3, sms.sign)
 
 ## 返回值
 
-**校验通过**：服务端会自动继续 NTLogin Type 2，返回结构与 [`login_account`](/api/login_account) 一致。
+**校验通过**：自动继续登录，返回结构与 [`login_account`](/api/login_account) 一致。
 
-**校验未通过**：返回 `CheckSMS` 的服务端原始响应，不作包装。登录会话保留，可以用同一个 `sign` 重试。
+**校验未通过**：返回验证结果，`result.prompt` 是失败原因。登录会话保留，可以用同一个 `sign` 重试。
 
 ```js
 {

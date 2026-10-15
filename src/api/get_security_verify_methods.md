@@ -33,8 +33,8 @@ const result = await api.get_security_verify_methods(self_id, platform)
 }
 ```
 
-- `reason` 是 `QueryVerifyReason` 的原始结构化响应。
-- `methods` 是 `QueryVerifyList` 的原始结构化响应，包含当前可用的短信、扫码或其他验证方式。
+- `reason` 包含当前需要验证的原因。
+- `methods` 包含当前可用的短信、扫码或其他验证方式。
 
 常见状态：
 
@@ -48,7 +48,7 @@ const result = await api.get_security_verify_methods(self_id, platform)
 
 `3` 和 `4` 共用 `methods.sms_phone.sign`，区别只在调用 `get_sms` / `check_sms` 时传的 `verify_type`。可用类型以 `verify_list` 为准，不要写死。
 
-`reason.prompt` 或 `methods.prompt` 是当前验证原因或提示文案。QQ 返回的其他字段会按原始结构保留。
+`reason.prompt` 或 `methods.prompt` 是可展示给用户的验证原因或提示文案。
 
 返回结构与 [`login_account`](/api/login_account) 的 `security_verify` 字段一致。
 

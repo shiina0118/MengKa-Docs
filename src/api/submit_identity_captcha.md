@@ -6,7 +6,7 @@
 
 [`login_account`](/api/login_account) 返回 `140022007`（需要身份验证）且带 `identity_url`，账号处于登录挂起状态。
 
-身份验证第一步会先弹一个腾讯验证码页（与登录滑块同属账号风控验证），完成后得到 `ticket` 与 `randstr`。本动作接收并提交这两个值，核心用账号级设备指纹完成后续查询，插件无需也无法自行构造设备信息。`ticket`/`randstr` 的获取方式（打码、人工渲染腾讯验证页等）由插件环境自行解决。
+先引导用户完成腾讯验证码页面，取得 `ticket` 与 `randstr`，再将这两个值传给本接口。插件需自行提供验证码页面的交互入口。
 
 ## 调用
 
@@ -25,7 +25,7 @@ const result = await api.submit_identity_captcha(self_id, platform, ticket, rand
 
 ## 返回值
 
-调用成功即完成 chkcaptcha、chkrisk、查询验证方式与查询绑定手机，可进入下一步。返回该次查询的服务端原始响应（含掩码手机号 `phoneNum`、区号 `areaCode` 等），其他字段按原始结构保留。失败返回 `{ code, message }`，账号仍处登录挂起，可修正后重试。
+成功时返回绑定手机信息，包括掩码手机号 `phoneNum`、区号 `areaCode` 等，可用于提示用户进入下一步。失败返回 `{ code, message }`，账号仍处于等待验证状态，可修正后重试。
 
 成功后调用 [`submit_identity_phone`](/api/submit_identity_phone)。
 

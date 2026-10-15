@@ -1,6 +1,6 @@
 # check_cache
 
-检查账号的本地登录缓存是否完整有效。
+检查账号是否具备可用于尝试缓存登录的本地数据。
 
 ## 调用
 
@@ -22,4 +22,4 @@ const result = await api.check_cache(self_id, platform)
 { valid: true }
 ```
 
-仅在 `valid === true` 时调用 [`cache_login`](/api/cache_login)。
+`valid === true` 时可以尝试 [`cache_login`](/api/cache_login)，但不保证能够登录成功，仍需检查登录结果。`valid === false` 时，密码登录账号使用 [`login_account`](/api/login_account)，扫码登录账号使用 [`get_login_qr`](/api/get_login_qr)。

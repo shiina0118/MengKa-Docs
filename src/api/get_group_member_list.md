@@ -21,9 +21,29 @@ const result = await api.get_group_member_list(self_id, platform, group_id)
 ```js
 {
   group_id: 987654321,
-  members: [],
-  total_count: 0,
+  members: [{
+    user_id: 234567890,
+    nickname: '示例成员',
+    card: '群名片',
+    role: 0,
+    level: 10,
+    title: '',
+    join_time: 1710000000,
+    last_speak_time: 1710003600,
+  }],
+  total_count: 1,
 }
 ```
 
-成员常用字段包括 `uin`、`nickname`、`card`、`level`、`title`、`join_time` 和 `last_speak_time`。
+`group_id` 为查询的群号，`total_count` 为返回成员数量，`members` 为成员数组，无结果时为 `[]`。
+
+| 成员字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `user_id` | number | 成员 QQ 号 |
+| `nickname` | string | 昵称 |
+| `card` | string | 群名片，未设置时可能为空字符串 |
+| `role` | number | `0` 普通成员、`1` 管理员、`2` 群主 |
+| `level` | number | 群等级 |
+| `title` | string | 专属头衔，可能为空字符串 |
+| `join_time` | number | 入群时间，Unix 秒 |
+| `last_speak_time` | number | 最近发言时间，Unix 秒；未取得时可能为 `0` |

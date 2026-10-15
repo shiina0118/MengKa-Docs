@@ -9,7 +9,7 @@ const result = await api.set_group_mute(
   self_id,
   platform,
   group_id,
-  target_uin,
+  user_id,
   duration_sec,
 )
 ```
@@ -21,15 +21,17 @@ const result = await api.set_group_mute(
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 群聊 ID |
-| `target_uin` | number | 是 | 目标成员 QQ 号 |
+| `user_id` | number | 是 | 目标成员 QQ 号 |
 | `duration_sec` | number | 是 | 禁言秒数，`0` 取消禁言 |
+
+必须明确传入 `duration_sec`。省略或传 `null` 会报错；解除禁言请显式传 `0`。
 
 ## 返回值
 
 ```js
 {
   group_id: 987654321,
-  target_uin: 112233445,
+  user_id: 112233445,
   duration_sec: 600,
 }
 ```

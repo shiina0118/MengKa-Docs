@@ -1,6 +1,6 @@
 # set_group_special_title
 
-设置或清除群聊成员的专属头衔。目标成员昵称由服务端通过 QQ 名片接口自动获取。
+设置或清除群聊成员的专属头衔。
 
 ## 调用
 
@@ -23,6 +23,8 @@ const result = await api.set_group_special_title(
 | `group_id` | number | 是 | 群聊 ID |
 | `user_id` | number | 是 | 目标成员 QQ 号 |
 | `title` | string | 是 | 专属头衔，传空字符串清除头衔 |
+
+省略 `title` 或传 `null` 会报错。清除头衔必须显式传空字符串。
 
 ## 返回值
 

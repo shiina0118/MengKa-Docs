@@ -24,7 +24,7 @@ const result = await api.cache_login(self_id, platform)
 { code: 0, message: '登录成功' }
 ```
 
-失败：
+缓存失效时可能返回：
 
 ```js
 {
@@ -34,4 +34,8 @@ const result = await api.cache_login(self_id, platform)
 }
 ```
 
-`cache_invalid` 为 `true` 时改用 [`login_account`](/api/login_account)。
+`cache_invalid === true` 时，密码登录账号改用 [`login_account`](/api/login_account)，扫码登录账号改用 [`get_login_qr`](/api/get_login_qr)。
+
+失败结果的 `code` 不一定为 `1`，也不一定包含 `cache_invalid`。缓存不存在时可能返回 `cache_invalid: false`，仍需重新登录；网络等其他失败应结合 `message` 处理。不要仅凭 `cache_invalid` 判断是否成功，只有 `code === 0` 才表示登录成功。
+
+参数错误、账号不属于当前节点或账号未离线等调用错误会拒绝 Promise。

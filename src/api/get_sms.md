@@ -36,7 +36,7 @@ const result = await api.get_sms(self_id, platform, 3, sign)
 
 ## 返回值
 
-返回 `GetSMS` 的服务端原始响应，不作包装。
+返回短信验证信息，根据 `verify_type` 引导用户完成对应操作。
 
 `verify_type` 为 `4`：
 
@@ -71,7 +71,5 @@ const result = await api.get_sms(self_id, platform, 3, sign)
 | `masked_phone` | 打码后的密保手机号，用于提示用户 |
 
 `verify_type` 为 `3` 时，需要引导用户**用 `masked_phone` 对应的密保手机**把 `sms` 的内容原样发送到 `send_to`，发送后再调用 [`check_sms`](/api/check_sms) 回查。
-
-QQ 返回的其他字段会按原始结构保留。
 
 完整流程见[Bot 登录流程](/guide/login-flow)。

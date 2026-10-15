@@ -1,9 +1,23 @@
-import { defineConfig } from "vitepress";
+import { defineConfig, type DefaultTheme } from "vitepress";
+
+function findSidebarTitle(items: DefaultTheme.SidebarItem[], link: string): string | undefined {
+  for (const item of items) {
+    if (item.link === link) return item.text;
+    const title = item.items && findSidebarTitle(item.items, link);
+    if (title) return title;
+  }
+}
 
 export default defineConfig({
   lang: "zh-CN",
   title: "萌卡NT开发文档",
   titleTemplate: ":title | 萌卡NT",
+  transformPageData(pageData, { siteConfig }) {
+    if (!pageData.relativePath.startsWith("api/")) return;
+    const link = "/" + pageData.relativePath.replace(/(?:index)?\.md$/, "");
+    const title = findSidebarTitle(siteConfig.site.themeConfig.sidebar["/api/"], link);
+    if (title) return { title };
+  },
   description: "萌卡 API 参考文档",
   cleanUrls: true,
   head: [
@@ -28,7 +42,7 @@ export default defineConfig({
             { text: "快速开始", link: "/guide/" },
             { text: "正向 WebSocket", link: "/guide/forward-websocket" },
             { text: "反向 WebSocket", link: "/guide/reverse-websocket" },
-            { text: "通信协议", link: "/guide/protocol" },
+            { text: "WebSocket API 格式", link: "/guide/protocol" },
             { text: "消息段", link: "/guide/message-segments" },
             { text: "登录流程", link: "/guide/login-flow" },
           ],
@@ -59,8 +73,8 @@ export default defineConfig({
               text: "登录类",
               collapsed: true,
               items: [
-                { text: "获取协议列表", link: "/api/get_protocol_list" },
-                { text: "获取设备指纹列表", link: "/api/get_device_profile_list" },
+                { text: "获取客户端配置", link: "/api/get_client_profile_list" },
+                { text: "获取设备配置", link: "/api/get_device_profile_list" },
                 { text: "密码登录", link: "/api/login_account" },
                 { text: "检查登录缓存", link: "/api/check_cache" },
                 { text: "缓存登录", link: "/api/cache_login" },
@@ -85,8 +99,8 @@ export default defineConfig({
               items: [
                 { text: "获取 skey", link: "/api/get_skey" },
                 { text: "获取 User-Agent", link: "/api/get_user_agent" },
-                { text: "获取 clientkey", link: "/api/get_clientkey" },
-                { text: "获取 PsKey", link: "/api/get_pskey" },
+                { text: "获取 clientkey", link: "/api/get_client_key" },
+                { text: "获取 PsKey", link: "/api/get_ps_key" },
               ],
             },
             {
@@ -121,10 +135,13 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "获取好友列表", link: "/api/get_friend_list" },
+                { text: "设置好友备注", link: "/api/set_friend_remark" },
                 { text: "删除好友", link: "/api/delete_friend" },
                 { text: "同意群聊邀请", link: "/api/approve_group_invite" },
-                { text: "获取 QQ 名片", link: "/api/get_summary_card" },
-                { text: "点赞 QQ 名片", link: "/api/like_summary_card" },
+                { text: "获取用户资料", link: "/api/get_user_profile" },
+                { text: "点赞用户资料", link: "/api/like_user_profile" },
+                { text: "获取发出的资料点赞", link: "/api/get_sent_profile_likes" },
+                { text: "获取收到的资料点赞", link: "/api/get_received_profile_likes" },
                 { text: "获取好友动态", link: "/api/get_qzone_friend_feeds" },
                 { text: "发布空间动态", link: "/api/publish_qzone_feed" },
                 { text: "点赞好友动态", link: "/api/like_qzone_feed" },
@@ -142,7 +159,7 @@ export default defineConfig({
               items: [
                 { text: "发送群聊消息", link: "/api/send_group_msg" },
                 { text: "获取群聊合并转发消息", link: "/api/get_group_forward_msg" },
-                { text: "发送群聊合并转发消息", link: "/api/send_group_forward_msg" },
+                { text: "上传群聊合并转发消息", link: "/api/upload_group_forward_msg" },
                 { text: "撤回群聊消息", link: "/api/recall_group_msg" },
               ],
             },
@@ -162,6 +179,8 @@ export default defineConfig({
                 { text: "查询红包详细信息", link: "/api/get_red_packet_info" },
                 { text: "查询群内可领取红包", link: "/api/get_group_red_packets" },
                 { text: "领取红包", link: "/api/grab_red_packet" },
+                { text: "上传语音红包口令", link: "/api/upload_red_packet_voice" },
+                { text: "领取群聊语音红包", link: "/api/grab_group_voice_red_packet" },
               ],
             },
             {
@@ -174,7 +193,7 @@ export default defineConfig({
                 { text: "同意加入群聊申请", link: "/api/approve_group_apply" },
                 { text: "拒绝加入群聊申请", link: "/api/reject_group_apply" },
                 { text: "设置群聊管理员", link: "/api/set_group_admin" },
-                { text: "群聊打卡", link: "/api/group_sign" },
+                { text: "群聊打卡", link: "/api/sign_group" },
                 { text: "设置群聊成员禁言", link: "/api/set_group_mute" },
                 { text: "设置群聊全员禁言", link: "/api/set_group_mute_all" },
                 { text: "设置群聊专属头衔", link: "/api/set_group_special_title" },

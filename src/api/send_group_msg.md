@@ -39,6 +39,6 @@ const result = await api.send_group_msg(self_id, platform, group_id, message)
 ```js
 await api.send_group_msg(123456789, 'android', 987654321, [
   { type: 'text', data: { text: '你好' } },
-  { type: 'at', data: { uin: '112233445' } },
+  { type: 'at', data: { user_id: 112233445 } },
 ])
 ```

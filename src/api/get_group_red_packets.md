@@ -1,6 +1,6 @@
 # get_group_red_packets
 
-查询指定群内仍可领取的 QQ 红包。该接口也可通过别名 `get_up_for_grabs` 调用。
+查询指定群内仍可领取的红包。
 
 该接口用于主动查询红包列表，不是处理实时群消息事件的必经步骤。收到 `red_packet`
 消息段后，可以直接按 [`grab_red_packet`](/api/grab_red_packet) 的对应流程领取。
@@ -26,7 +26,7 @@ const packets = await api.get_group_red_packets(self_id, platform, group_id)
 ```js
 [
   {
-    sender_uin: 123456789,
+    sender_id: 123456789,
     title: '恭喜发财',
     listid: '10000000000000000000000000000001',
     authkey: '...',
@@ -40,7 +40,7 @@ const packets = await api.get_group_red_packets(self_id, platform, group_id)
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `sender_uin` | number | 红包发送人 QQ 号 |
+| `sender_id` | number | 红包发送人 QQ 号 |
 | `title` | string | 红包标题 |
 | `listid` | string | 红包列表 ID |
 | `authkey` | string | 红包鉴权串 |

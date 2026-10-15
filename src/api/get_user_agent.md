@@ -1,6 +1,6 @@
 # get_user_agent
 
-获取当前 Bot 协议和设备指纹对应的 QQ Android WebView User-Agent。
+获取当前 Bot 使用的 User-Agent。
 
 ## 调用
 
@@ -23,4 +23,4 @@ const result = await api.get_user_agent(self_id, platform)
 }
 ```
 
-返回值根据 Bot 当前绑定的协议版本和设备指纹生成。
+需要使用该 Bot 的 User-Agent 时，直接使用返回的 `user_agent` 字符串。

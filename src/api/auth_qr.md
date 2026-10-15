@@ -26,18 +26,19 @@ const result = await api.auth_qr(self_id, 'android', k, true)
 
 ## 返回值
 
+常用字段：
+
 ```js
 {
   code: 0,
   message: '',
   success: true,
-  uin: 2082083,
+  self_id: 2082083,
   device_os: 'ANDROID',
   device_model: 'test',
-  ver: '9.2.70',
-  package_name: 'com.tencent.mobileqq',
-  qua: 'V1_AND_SQ_9.2.70_13350_YYB_D',
 }
 ```
 
-响应没有 `2.1.4` 即为成功（`success: true`）。失败时带 `code`、`title`、`message`，可能还有 `jump_url`。
+以 `success` 判断确认是否成功。失败时通过 `code`、`title`、`message` 获取原因，可能还会返回需要用户打开的 `jump_url`。
+
+`self_id` 是本次确认登录的账号 QQ 号，响应未提供账号信息时可能省略。

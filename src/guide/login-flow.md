@@ -35,7 +35,7 @@ if (bot && bot.status !== 0) {
 Android 账号用 `add_account`。`add_account` 不支持 `linux`。
 
 ```js
-await api.add_account(self_id, 'android', password, protocol_id, device_profile_id)
+await api.add_account(self_id, 'android', password, client_profile_id, device_profile_id)
 ```
 
 扫码登录账号在首次 [`get_login_qr`](/api/get_login_qr) 时创建，见下方「扫码登录」。
@@ -112,7 +112,7 @@ const result = await api.query_security_verify_qr(
 )
 ```
 
-`status` 依次可能为 `waiting`、`scanned`、`confirmed` 或 `expired`。当状态为 `confirmed` 时，服务端会自动继续 NTLogin，当前响应的 `code` 与 `message` 即最终登录结果，应停止轮询。
+`status` 依次可能为 `waiting`、`scanned`、`confirmed` 或 `expired`。当状态为 `confirmed` 时会自动继续登录，应停止轮询，再按当前响应的 `code` 与 `message` 处理登录结果。
 
 ### 短信安全验证
 
@@ -129,7 +129,7 @@ const result = await api.query_security_verify_qr(
 const sms = await api.get_sms(self_id, platform, 4, sign)
 ```
 
-返回服务端原始响应：
+返回短信验证信息：
 
 ```js
 { result: { state: 1, code: 1 }, sign: 'NEW_SMS_SIGN', masked_phone: '166******00', country_code: '86' }
@@ -162,18 +162,18 @@ const result = await api.check_sms(self_id, platform, 3, sms.sign)
 
 #### 结果处理
 
-两种类型一致：校验通过后服务端自动继续 NTLogin Type 2，返回结构与 `login_account` 一致；校验未通过则返回 `CheckSMS` 的原始响应，`result.prompt` 是原因，登录会话保留，可以用同一个 `sign` 重试。
+两种类型一致：校验通过后自动继续登录，返回结构与 `login_account` 一致；校验未通过时，`result.prompt` 是原因，登录会话保留，可以用同一个 `sign` 重试。
 
 ## 扫码登录
 
 用手机 QQ 或已登录的 Android Bot（[`scan_qr`](/api/scan_qr) + [`auth_qr`](/api/auth_qr)）扫描 `get_login_qr` 返回的二维码。`platform` 指定要登录的端，当前实现了 `linux`，`windows` 暂未支持。
 
 ```js
-const qr = await api.get_login_qr(self_id, platform, protocol_id, device_profile_id)
+const qr = await api.get_login_qr(self_id, platform, client_profile_id, device_profile_id)
 // 将 qr.url 渲染为二维码
 ```
 
-账号不存在时会按传入的协议和设备指纹创建。之后轮询：
+账号不存在时会按传入的客户端配置和设备配置创建。之后轮询：
 
 ```js
 const result = await api.query_login_qr(self_id, platform)
@@ -194,13 +194,13 @@ await api.auth_qr(self_id, 'android', k)
 
 ## 插件通道身份验证
 
-`140022007`（需要身份验证）之后的插件通道身份验证共三步。设备指纹由服务端账号级数据自动处理，**插件无需、也无法自行获取账号的设备指纹**，也不暴露给插件：
+`140022007`（需要身份验证）之后的插件通道身份验证共三步：
 
-1. [`submit_identity_captcha`](/api/submit_identity_captcha)：提交身份验证的腾讯验证结果（`ticket`、`randstr`），服务端完成 chkcaptcha、chkrisk、查询验证方式与绑定手机；
+1. [`submit_identity_captcha`](/api/submit_identity_captcha)：提交验证码结果（`ticket`、`randstr`），获取绑定手机提示；
 2. [`submit_identity_phone`](/api/submit_identity_phone)：填密保手机号，返回需要由该手机**照发的短信内容与目标号码**；
 3. [`confirm_identity_sms`](/api/confirm_identity_sms)：用密保手机发送完成后回查，通过即身份验证完成。
 
-前两步各自失败时账号仍处登录挂起，可修正参数后重试；`confirm_identity_sms` 失败通常表示短信尚未被腾讯收到，稍后可重试。身份验证通过后账号仍未上线，**重新发起密码登录完成上线由插件另行触发**。
+前两步各自失败时账号仍处于等待验证状态，可修正参数后重试；`confirm_identity_sms` 失败通常表示短信尚未被收到，稍后可重试。身份验证通过后账号仍未上线，当前需要在管理后台继续完成登录；此时直接调用插件的 `login_account` 会因账号仍处于登录中而失败。
 
 ## 缓存登录
 
@@ -211,7 +211,7 @@ const cache = await api.check_cache(self_id, platform)
 // { valid: true | false }
 ```
 
-缓存有效时：
+`cache.valid === true` 表示可以尝试缓存登录，不保证登录成功：
 
 ```js
 const result = await api.cache_login(self_id, platform)
@@ -230,3 +230,5 @@ const result = await api.cache_login(self_id, platform)
 ```
 
 `cache_invalid` 为 `true` 时，密码登录账号改用 `login_account`，扫码登录账号改用 `get_login_qr`。
+
+`cache.valid === false` 时也按账号的登录方式重新登录。缓存登录的失败结果可能没有 `cache_invalid`，应检查 `code` 和 `message`；仅 `code === 0` 表示成功。详细说明见 [`cache_login`](/api/cache_login)。

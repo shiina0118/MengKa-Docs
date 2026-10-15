@@ -43,7 +43,7 @@ const result = await api.query_login_qr(self_id, platform)
 已确认并登录成功：
 
 ```js
-{ code: 0, message: '登录成功', state: 'confirmed', login_complete: true, uin: 123456789 }
+{ code: 0, message: '登录成功', state: 'confirmed', login_complete: true, self_id: 123456789 }
 ```
 
 | `state` | 说明 |
@@ -56,3 +56,5 @@ const result = await api.query_login_qr(self_id, platform)
 | `invalid` | 二维码无效 |
 
 收到 `confirmed`、`code_expired`、`canceled` 或 `invalid` 后应停止轮询。
+
+`self_id` 是扫码确认的账号 QQ 号，尚未取得时为 `0`。

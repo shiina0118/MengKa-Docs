@@ -5,7 +5,7 @@
 ## 调用
 
 ```js
-const result = await api.approve_group_invite(self_id, platform, group_id, msgseq)
+const result = await api.approve_group_invite(self_id, platform, group_id, msg_seq)
 ```
 
 ## 参数
@@ -15,9 +15,9 @@ const result = await api.approve_group_invite(self_id, platform, group_id, msgse
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 | `group_id` | number | 是 | 邀请加入的群聊 ID |
-| `msgseq` | number | 是 | 邀请卡片中的消息序列号 |
+| `msg_seq` | number | 是 | 邀请卡片中的消息序列号 |
 
-`group_id` 和 `msgseq` 分别来自 Ark 卡片 `jumpUrl` 中的 `groupcode` 和 `msgseq`。
+`group_id` 和 `msg_seq` 分别来自 Ark 卡片 `jumpUrl` 中的 `groupcode` 和 `msgseq`。
 
 ## Ark 示例
 
@@ -88,13 +88,19 @@ api.on('friend_message', async event => {
 
   const query = new URL(jumpUrl).searchParams
   const groupID = Number(query.get('groupcode'))
-  const msgseq = Number(query.get('msgseq'))
-  if (!groupID || !msgseq) return
+  const msg_seq = Number(query.get('msgseq'))
+  if (!groupID || !msg_seq) return
 
-  await api.approve_group_invite(event.self_id, platform, groupID, msgseq)
+  await api.approve_group_invite(event.self_id, platform, groupID, msg_seq)
 })
 ```
 
 ## 返回值
 
-返回邀请处理结果。
+成功返回：
+
+```js
+{ success: true, error_code: 0 }
+```
+
+处理失败时 Promise 拒绝，错误信息包含原因。
