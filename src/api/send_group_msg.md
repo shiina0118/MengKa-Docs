@@ -34,6 +34,8 @@ const result = await api.send_group_msg(self_id, platform, group_id, message)
 
 `msg_seq` 与 `msg_random` 可用于 [`recall_group_msg`](/api/recall_group_msg)。
 
+领取文字口令红包时，将本次发送结果的 `client_seq` 填入 [`grab_red_packet`](/api/grab_red_packet) 的 `red_packet.client_seq`，同时传入 `msg_random`。
+
 ## 示例
 
 ```js

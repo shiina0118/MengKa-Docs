@@ -35,7 +35,7 @@ const result = await api.grab_red_packet(
 | `red_packet.pay_flag` | number | 否 | 红包支付标记，省略为 `0`，建议保留收到的值 |
 | `red_packet.hb_from` | number | 否 | 红包来源标记，省略为 `0`，建议保留收到的值 |
 | `red_packet.msg_random` | number | 视类型 | 文字口令红包必填：Bot 发送口令消息后返回的 `msg_random` |
-| `red_packet.msg_seq` | number | 视类型 | 文字口令红包必填：同一次发送返回的 `msg_seq` |
+| `red_packet.client_seq` | number | 视类型 | 文字口令红包必填：同一次发送返回的 `client_seq` |
 | `claim_token` | string | 否 | 普通红包可传 `get_red_packet_info` 返回的同名字段，也可省略；文字口令红包不使用该参数 |
 
 ## 文字口令红包
@@ -43,8 +43,9 @@ const result = await api.grab_red_packet(
 `channel` 为 `6` 或 `32` 时，先在红包所在群发送口令，再把**这条口令消息**的标识放进 `red_packet` 对象。不要使用收到的红包消息的标识。
 
 ```js
+const title = redPacket.data.title.trim()
 const sent = await api.send_group_msg(event.self_id, platform, event.group_id, [
-  { type: 'text', data: { text: redPacket.data.title.trim() } },
+  { type: 'text', data: { text: title } },
 ])
 
 const result = await api.grab_red_packet(
@@ -54,13 +55,16 @@ const result = await api.grab_red_packet(
   event.sender.user_id,
   {
     ...redPacket.data,
+    title,
     msg_random: sent.msg_random,
-    msg_seq: sent.msg_seq,
+    client_seq: sent.client_seq,
   },
 )
 ```
 
-调用前须先发送口令消息。缺少标题、`msg_random` 或 `msg_seq` 会报错。
+调用前须先发送口令消息。将发送结果的 `client_seq` 和 `msg_random` 按同名字段填入 `red_packet`；发送结果的 `msg_seq` 用于撤回消息，不能替代 `client_seq`。领取时的 `title` 应与发送的口令一致。缺少标题或 `msg_random` 会报错；`client_seq` 必须是 `1` 至 `4294967295` 的整数，缺失、为 `null`、为 `0` 或其他无效值时会拒绝领取并返回明确错误，不会从其他字段补取。
+
+旧领取参数 `red_packet.msg_seq` 已移除，传入会报错，不提供兼容。
 
 ## 语音红包
 
