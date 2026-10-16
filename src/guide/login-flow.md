@@ -61,7 +61,7 @@ const result = await api.login_account(self_id, platform)
 | `0` | 登录成功 | 开始使用该 Bot |
 | `140022008` | 需要滑块验证 | 展示 `slider_url`，完成后调用 `submit_slider` |
 | `140022007` | 需要身份验证 | 用插件通道的身份验证动作完成，见下方[插件通道身份验证](#插件通道身份验证) |
-| `140022010` | 需要安全验证 | 查询<a class="security-method-link" href="/api/get_security_verify_methods">安全验证方式</a>，按可用方式继续 |
+| `140022010` | 需要安全验证 | 查询<a class="security-method-link" href="../api/get_security_verify_methods">安全验证方式</a>，按可用方式继续 |
 | `140022013` | 账号或密码错误 | 检查账号配置 |
 
 `security_url` 仅在响应实际包含地址时出现，不应假定该字段始终存在。

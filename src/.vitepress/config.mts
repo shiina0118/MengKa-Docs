@@ -1,5 +1,7 @@
 import { defineConfig, type DefaultTheme } from "vitepress";
 
+const base = process.env.DOCS_BASE || "/";
+
 function findSidebarTitle(items: DefaultTheme.SidebarItem[], link: string): string | undefined {
   for (const item of items) {
     if (item.link === link) return item.text;
@@ -9,6 +11,7 @@ function findSidebarTitle(items: DefaultTheme.SidebarItem[], link: string): stri
 }
 
 export default defineConfig({
+  base,
   lang: "zh-CN",
   title: "萌卡NT开发文档",
   titleTemplate: ":title | 萌卡NT",
@@ -21,9 +24,9 @@ export default defineConfig({
   description: "萌卡 API 参考文档",
   cleanUrls: true,
   head: [
-    ["link", { rel: "icon", href: "/favicon.ico" }],
-    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png" }],
-    ["link", { rel: "manifest", href: "/manifest.webmanifest" }],
+    ["link", { rel: "icon", href: `${base}favicon.ico` }],
+    ["link", { rel: "apple-touch-icon", href: `${base}apple-touch-icon.png` }],
+    ["link", { rel: "manifest", href: `${base}manifest.webmanifest` }],
     ["meta", { name: "theme-color", content: "#3451b2" }],
   ],
   themeConfig: {

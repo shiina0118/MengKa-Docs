@@ -31,7 +31,7 @@ const result = await api.login_account(self_id, platform)
 | `0` | 登录成功 |
 | `140022008` | 需要滑块验证 |
 | `140022007` | 需要身份验证 |
-| `140022010` | 需要安全验证，查询<a class="security-method-link" href="/api/get_security_verify_methods">安全验证方式</a> |
+| `140022010` | 需要安全验证，查询<a class="security-method-link" href="../api/get_security_verify_methods">安全验证方式</a> |
 | `140022013` | 账号或密码错误 |
 
 完整处理顺序见[Bot 登录流程](/guide/login-flow)。
