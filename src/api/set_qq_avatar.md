@@ -4,9 +4,29 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.set_qq_avatar(self_id, platform, file_path)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/set_qq_avatar' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "file_path": "file:///D:/images/example.png"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -30,7 +50,7 @@ const result = await api.set_qq_avatar(self_id, platform, file_path)
 
 QQ头像 CDN 可能存在短暂缓存，上传成功后旧头像仍可能显示一段时间。
 
-## 示例
+## WebSocket 示例
 
 ```js
 await api.set_qq_avatar(

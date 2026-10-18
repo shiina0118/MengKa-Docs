@@ -6,6 +6,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.scan_qr(self_id, 'android', k)
 ```
@@ -16,6 +19,23 @@ const result = await api.scan_qr(self_id, 'android', k)
 await api.scan_qr(self_id, 'android', 'https://qun.qq.com/qunpay/...&k=XXXX')
 await api.scan_qr(self_id, 'android', 'XXXX')
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/scan_qr' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "k": "K_FROM_APPLICATION_QR_CODE"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

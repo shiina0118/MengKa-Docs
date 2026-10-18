@@ -6,6 +6,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const redPacket = event.message.find(segment => segment.type === 'red_packet')
 const result = await api.get_red_packet_info(
@@ -16,6 +19,34 @@ const result = await api.get_red_packet_info(
   redPacket.data,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_red_packet_info' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "red_packet": {
+    "listid": "LISTID_FROM_RED_PACKET",
+    "authkey": "AUTHKEY_FROM_RED_PACKET",
+    "title": "恭喜发财",
+    "channel": 1,
+    "pay_flag": 0,
+    "hb_from": 0
+  },
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "sender_id": 234567890
+}'
+```
+
+`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

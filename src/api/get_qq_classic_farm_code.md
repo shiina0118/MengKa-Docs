@@ -4,21 +4,28 @@
 
 ## 调用
 
-正向和反向 WebSocket SDK：
+<ApiCallTabs>
+<template #websocket>
 
 ```js
 const { code } = await api.get_qq_classic_farm_code(self_id, platform)
 ```
 
-HTTP 插件服务：
+</template>
+<template #http>
 
-```http
-POST /api/get_qq_classic_farm_code
-Authorization: Bearer <插件服务令牌>
-Content-Type: application/json
-
-{"self_id":123456789,"platform":"linux"}
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_qq_classic_farm_code' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android"
+}'
 ```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

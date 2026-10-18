@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.upload_group_forward_msg(
   self_id,
@@ -12,6 +15,38 @@ const result = await api.upload_group_forward_msg(
   messages,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/upload_group_forward_msg' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "messages": [
+    {
+      "user_id": 234567890,
+      "nickname": "示例用户",
+      "time": 1710000000,
+      "message": [
+        {
+          "type": "text",
+          "data": {
+            "text": "你好"
+          }
+        }
+      ]
+    }
+  ]
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -48,7 +83,7 @@ const result = await api.upload_group_forward_msg(
 
 节点的 `user_id` 必填；所有节点都没有可上传的文本时会报错。本接口只上传内容，仍须调用 `send_group_msg` 才会在群内发出转发卡片。
 
-## 示例
+## WebSocket 示例
 
 ```js
 const forward = await api.upload_group_forward_msg(self_id, platform, group_id, messages)

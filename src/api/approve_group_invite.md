@@ -4,9 +4,30 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.approve_group_invite(self_id, platform, group_id, msg_seq)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/approve_group_invite' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "msg_seq": 123
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

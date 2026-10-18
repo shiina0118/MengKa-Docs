@@ -7,9 +7,29 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const packets = await api.get_group_red_packets(self_id, platform, group_id)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_group_red_packets' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

@@ -1,8 +1,12 @@
 # API 总览
 
-正向与反向 WebSocket SDK 提供相同的 API。除特别注明外，所有 API 都返回 Promise，成功时解析为业务数据，失败时抛出错误。
+正向与反向 WebSocket SDK 提供相同的 API。除特别注明外，SDK 方法返回 Promise，成功时解析为业务数据，失败时抛出错误。
 
 全部 API 也支持通过[正向 HTTP](/guide/forward-http)调用：向独立服务端口的 `POST /api/{action}` 发送 JSON 参数，并在请求头携带 `Authorization: Bearer TOKEN`。HTTP 成功响应为 `{ "ok": true, "data": ... }`。
+
+每个 API 页的“调用”区域都提供 **WebSocket / HTTP** 标签页，切换后会在当前浏览会话中记住选择。WebSocket 示例使用 SDK；HTTP 示例直接发送请求，无参数时请求体为 `{}`。HTTP 示例中的地址、端口、令牌和业务参数均需替换为实际值。
+
+“返回值”通常展示业务数据，对应 HTTP 响应的 `data`。账号增删改和下线接口的 SDK 会额外包装 `code` / `msg`，空间点赞与取消点赞的 SDK 不等待响应；这些差异已在对应页面注明，HTTP 的成功与失败始终先检查 `ok`。
 
 ## 通用约定
 
@@ -33,11 +37,7 @@
 | --- | --- |
 | [`get_qq_classic_farm_code`](/api/get_qq_classic_farm_code) | 按 `self_id` 和 `platform` 获取在线 Bot 的 QQ 经典农场登录 code |
 
-```js
-const { code } = await api.get_qq_classic_farm_code(self_id, platform)
-```
-
-支持 `android` 和 `linux`。接口仅获取 code，由插件使用该 code 登录农场。HTTP 调用使用 `POST /api/get_qq_classic_farm_code`。
+支持 `android` 和 `linux`。接口仅获取 code，由插件使用该 code 登录农场。完整的 WebSocket 和 HTTP 示例见[接口详情](/api/get_qq_classic_farm_code#调用)。
 
 ## 用户资料与点赞
 

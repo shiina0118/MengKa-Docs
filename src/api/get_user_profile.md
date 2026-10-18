@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 查询当前 Bot：
 
 ```js
@@ -15,6 +18,23 @@ const result = await api.get_user_profile(self_id, platform)
 ```js
 const result = await api.get_user_profile(self_id, platform, user_id)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "user_id": 234567890
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

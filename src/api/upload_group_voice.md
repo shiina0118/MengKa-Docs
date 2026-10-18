@@ -4,9 +4,30 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const voice = await api.upload_group_voice(self_id, platform, group_id, file_path)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "file_path": "file:///D:/audio/example.mp3"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -37,7 +58,7 @@ const voice = await api.upload_group_voice(self_id, platform, group_id, file_pat
 
 返回段只能发送到上传时指定的群。请在上传成功后 **2 分钟内**发送；超过期限或萌卡NT重启后需重新上传。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
-## 示例
+## WebSocket 示例
 
 ```js
 const voice = await api.upload_group_voice(

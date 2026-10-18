@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.kick_group_member(
   self_id,
@@ -13,6 +16,25 @@ const result = await api.kick_group_member(
   reject_add_request,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/kick_group_member' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "user_id": 234567890,
+  "reject_add_request": false
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.like_user_profile(
   self_id,
@@ -12,6 +15,24 @@ const result = await api.like_user_profile(
   like_count,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/like_user_profile' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "user_id": 234567890,
+  "like_count": 1
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

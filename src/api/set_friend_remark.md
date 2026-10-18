@@ -4,9 +4,30 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.set_friend_remark(self_id, platform, user_id, remark)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/set_friend_remark' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "user_id": 234567890,
+  "remark": "示例备注"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -27,7 +48,7 @@ const result = await api.set_friend_remark(self_id, platform, user_id, remark)
 
 失败时 Promise 拒绝。成功后可通过 [`get_friend_list`](/api/get_friend_list) 查询好友的 `remark`。
 
-## 示例
+## WebSocket 示例
 
 ```js
 await api.set_friend_remark(self_id, platform, 234567890, '项目联系人')

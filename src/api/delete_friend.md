@@ -4,9 +4,29 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.delete_friend(self_id, platform, user_id)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/delete_friend' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "user_id": 234567890
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

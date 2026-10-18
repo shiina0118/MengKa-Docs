@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.set_group_admin(
   self_id,
@@ -13,6 +16,25 @@ const result = await api.set_group_admin(
   set_admin,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/set_group_admin' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "user_id": 234567890,
+  "set_admin": true
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

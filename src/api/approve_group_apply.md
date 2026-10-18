@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.approve_group_apply(
   self_id,
@@ -14,6 +17,26 @@ const result = await api.approve_group_apply(
   request_extra,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/approve_group_apply' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "request_id": 123456,
+  "request_type": 1,
+  "request_extra": 0
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

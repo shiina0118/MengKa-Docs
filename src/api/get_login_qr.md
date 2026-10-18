@@ -6,6 +6,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.get_login_qr(
   self_id,
@@ -14,6 +17,26 @@ const result = await api.get_login_qr(
   device_profile_id,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_login_qr' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "linux",
+  "client_profile_id": 1,
+  "device_profile_id": 1
+}'
+```
+
+`client_profile_id` 和 `device_profile_id` 使用查询配置接口返回的真实 ID；客户端配置的平台必须与 `platform` 一致。
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

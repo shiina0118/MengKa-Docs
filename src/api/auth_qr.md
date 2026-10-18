@@ -6,14 +6,36 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.auth_qr(self_id, 'android', k)
-const result = await api.auth_qr(self_id, 'android', k, true)
+// 或跳过后续的手机确认：
+// const result = await api.auth_qr(self_id, 'android', k, true)
 ```
 
 `skip_phone_confirm` 为 `true` 时，下次在同一设备登录不再要求手机确认。默认 `false`。
 
 `k` 可以是完整 URL，也可以是 `k=` 后面的值。
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/auth_qr' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "k": "K_FROM_APPLICATION_QR_CODE",
+  "skip_phone_confirm": false
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

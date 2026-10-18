@@ -4,9 +4,31 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 await api.execute_level_tasks(self_id, platform, tasks)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/execute_level_tasks' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "tasks": [
+    "每日登录QQ经典农场"
+  ]
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

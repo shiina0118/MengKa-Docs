@@ -12,10 +12,29 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const self_id = 123456789 // 要操作的 Bot QQ 号
 const result = await api.offline_account(self_id, platform)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/offline_account' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -25,6 +44,8 @@ const result = await api.offline_account(self_id, platform)
 | `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
 
 ## 返回值
+
+以下 `code` / `msg` 是 WebSocket SDK 的封装结果。HTTP 成功返回 `{ "ok": true, "data": null }`；失败返回 `{ "ok": false, "error": "错误原因" }`。
 
 ```js
 { code: 0, msg: '账号已离线' }

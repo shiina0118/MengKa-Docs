@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.get_group_forward_msg(
   self_id,
@@ -12,6 +15,24 @@ const result = await api.get_group_forward_msg(
   res_id,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_group_forward_msg' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "sender_id": 234567890,
+  "res_id": "RES_ID_FROM_FORWARD_MESSAGE"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

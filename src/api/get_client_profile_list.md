@@ -4,12 +4,28 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const clients = await api.get_client_profile_list()
 const selected = clients.find(item => item.platform === platform)
 if (!selected) throw new Error('没有适用于该平台的客户端配置')
 const client_profile_id = selected.id
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_client_profile_list' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

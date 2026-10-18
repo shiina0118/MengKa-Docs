@@ -4,10 +4,31 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const self_id = 123456789 // 正在登录的 Bot QQ 号
 const result = await api.submit_slider(self_id, platform, ticket, randstr)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/submit_slider' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "ticket": "TICKET_FROM_CAPTCHA",
+  "randstr": "RANDSTR_FROM_CAPTCHA"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

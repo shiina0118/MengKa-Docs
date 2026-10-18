@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 // 第一页，默认每页 30 条
 const result = await api.get_sent_profile_likes(self_id, platform)
@@ -11,6 +14,26 @@ const result = await api.get_sent_profile_likes(self_id, platform)
 // 指定每页数量和上一页返回的游标
 const nextPage = await api.get_sent_profile_likes(self_id, platform, 30, next_mid)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_sent_profile_likes' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "page_size": 30,
+  "next_mid": "0"
+}'
+```
+
+下一页将 `next_mid` 替换为本次响应的 `data.next_mid`；遇到 `"-1"` 停止翻页。
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -48,7 +71,7 @@ const nextPage = await api.get_sent_profile_likes(self_id, platform, 30, next_mi
 
 调用失败时 Promise 拒绝。列表只查询当前 Bot 的记录，不接受另一个用户作为查询主体。
 
-## 翻页示例
+## WebSocket 翻页示例
 
 ```js
 const likes = []

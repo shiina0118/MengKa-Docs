@@ -11,15 +11,39 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const self_id = 123456789 // 正在登录的 Bot QQ 号
 
 // 接收短信：提交用户收到的验证码
-const result = await api.check_sms(self_id, platform, 4, sms.sign, code)
+const receiveResult = await api.check_sms(self_id, platform, 4, sms.sign, code)
 
 // 发送短信：用户发完短信后回查，不需要 code
-const result = await api.check_sms(self_id, platform, 3, sms.sign)
+const sendResult = await api.check_sms(self_id, platform, 3, sms.sign)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "verify_type": 4,
+  "sign": "SIGN_FROM_VERIFY_RESPONSE",
+  "code": "123456"
+}'
+```
+
+发送短信验证时，将 `verify_type` 改为 `3` 并省略 `code`；`sign` 使用 `get_sms` 下发的新值。
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

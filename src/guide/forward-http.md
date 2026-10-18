@@ -55,11 +55,13 @@ if (!response.ok || !result.ok) throw new Error(result.error)
 console.log(result.data)
 ```
 
-成功响应的 `data` 与 WebSocket API 的业务结果一致：
+成功响应的 `data` 为后端业务结果，API 页“调用”区域可切换到 HTTP 查看对应请求示例：
 
 ```json
 { "ok": true, "data": [] }
 ```
+
+多数接口的 `data` 与 WebSocket SDK 返回值一致。`add_account`、`update_account`、`offline_account`、`delete_account` 的 SDK 会额外包装 `code` / `msg`，HTTP 直接返回原始业务结果，具体见对应 API 页。`like_qzone_feed` 与 `unlike_qzone_feed` 的 SDK 不等待响应，HTTP 则等待处理后返回结果。不要将业务数据里的 `code`、`success` 等字段与 HTTP 外层的 `ok` 混淆。
 
 失败响应：
 

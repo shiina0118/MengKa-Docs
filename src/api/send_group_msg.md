@@ -4,9 +4,37 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.send_group_msg(self_id, platform, group_id, message)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/send_group_msg' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "message": [
+    {
+      "type": "text",
+      "data": {
+        "text": "你好"
+      }
+    }
+  ]
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -36,7 +64,7 @@ const result = await api.send_group_msg(self_id, platform, group_id, message)
 
 领取文字口令红包时，将本次发送结果的 `client_seq` 填入 [`grab_red_packet`](/api/grab_red_packet) 的 `red_packet.client_seq`，同时传入 `msg_random`。
 
-## 示例
+## WebSocket 示例
 
 ```js
 await api.send_group_msg(123456789, 'android', 987654321, [

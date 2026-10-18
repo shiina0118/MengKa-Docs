@@ -6,10 +6,29 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const self_id = 123456789 // 正在登录的 Bot QQ 号
 const result = await api.get_security_verify_qr(self_id, platform)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_security_verify_qr' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

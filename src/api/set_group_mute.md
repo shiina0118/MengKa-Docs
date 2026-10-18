@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.set_group_mute(
   self_id,
@@ -13,6 +16,25 @@ const result = await api.set_group_mute(
   duration_sec,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/set_group_mute' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "user_id": 234567890,
+  "duration_sec": 60
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

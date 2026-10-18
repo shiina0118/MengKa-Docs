@@ -4,9 +4,29 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.get_ps_key(self_id, platform, domain)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_ps_key' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "domain": "qzone.qq.com"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

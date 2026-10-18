@@ -4,10 +4,30 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const self_id = 123456789
 const result = await api.query_security_verify_qr(self_id, platform, guarantee_token)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/query_security_verify_qr' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "guarantee_token": "GUARANTEE_TOKEN_FROM_VERIFY_QR"
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

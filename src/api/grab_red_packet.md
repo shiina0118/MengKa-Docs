@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const redPacket = event.message.find(segment => segment.type === 'red_packet')
 const result = await api.grab_red_packet(
@@ -18,6 +21,35 @@ const result = await api.grab_red_packet(
 以上示例用于普通红包。普通红包领取前必须取得 `claim_token`；省略第 6 个参数时，后端会先查询详情取得 token，再发送领取请求。查询失败或未取得有效 token 时会报错，不会继续领取。
 
 如已调用 [`get_red_packet_info`](/api/get_red_packet_info)，请将返回的 `claim_token` 原样作为第 6 个参数传入，后端就会使用该 token，跳过自动查询。文字口令红包不使用该参数。
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "red_packet": {
+    "listid": "LISTID_FROM_RED_PACKET",
+    "authkey": "AUTHKEY_FROM_RED_PACKET",
+    "title": "恭喜发财",
+    "channel": 1,
+    "pay_flag": 0,
+    "hb_from": 0
+  },
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "sender_id": 234567890,
+  "claim_token": "CLAIM_TOKEN_FROM_GET_RED_PACKET_INFO"
+}'
+```
+
+`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。 `claim_token` 来自 `get_red_packet_info`；省略时后端会自动预查询。
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

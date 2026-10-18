@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.recall_group_msg(
   self_id,
@@ -13,6 +16,25 @@ const result = await api.recall_group_msg(
   msg_random,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/recall_group_msg' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "group_id": 987654321,
+  "msg_seq": 123,
+  "msg_random": 456
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

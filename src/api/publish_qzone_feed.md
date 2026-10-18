@@ -4,6 +4,9 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.publish_qzone_feed(
   self_id,
@@ -14,6 +17,26 @@ const result = await api.publish_qzone_feed(
   declare_ai_generated,
 )
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/publish_qzone_feed' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "content": "你好，今天也要开心。",
+  "visibility": 1,
+  "self_delete_after_one_day": false,
+  "declare_ai_generated": false
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

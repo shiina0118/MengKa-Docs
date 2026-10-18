@@ -4,9 +4,25 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const profiles = await api.get_device_profile_list()
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/get_device_profile_list' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 

@@ -4,9 +4,37 @@
 
 ## 调用
 
+<ApiCallTabs>
+<template #websocket>
+
 ```js
 const result = await api.send_friend_msg(self_id, platform, user_id, message)
 ```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/send_friend_msg' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "user_id": 234567890,
+  "message": [
+    {
+      "type": "text",
+      "data": {
+        "text": "你好"
+      }
+    }
+  ]
+}'
+```
+
+</template>
+</ApiCallTabs>
 
 ## 参数
 
@@ -23,7 +51,7 @@ const result = await api.send_friend_msg(self_id, platform, user_id, message)
 { success: true, msg_seq: 123, msg_random: 456 }
 ```
 
-## 示例
+## WebSocket 示例
 
 ```js
 await api.send_friend_msg(123456789, 'android', 112233445, [
