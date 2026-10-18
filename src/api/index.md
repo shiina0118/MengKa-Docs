@@ -27,6 +27,18 @@
 - 完整 API 请求的大小上限为 4 MiB，Base64 音频也计入其中，见[请求大小限制](/guide/protocol#请求大小限制)。
 - 图片、语音、视频的发送标识需在 2 分钟内使用，超过期限或后端重启后需重新上传，见[媒体有效期](/guide/message-segments#媒体有效期)。
 
+## 农场登录
+
+| API | 用途 |
+| --- | --- |
+| [`get_qq_classic_farm_code`](/api/get_qq_classic_farm_code) | 按 `self_id` 和 `platform` 获取在线 Bot 的 QQ 经典农场登录 code |
+
+```js
+const { code } = await api.get_qq_classic_farm_code(self_id, platform)
+```
+
+支持 `android` 和 `linux`。接口仅获取 code，由插件使用该 code 登录农场。HTTP 调用使用 `POST /api/get_qq_classic_farm_code`。
+
 ## 用户资料与点赞
 
 | API | 用途 |
