@@ -49,7 +49,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_friend_image' \
 { type: 'image', data: { file_id: 'FILE_ID' } }
 ```
 
-请在上传成功后 **2 分钟内**发送。超过期限或萌卡NT重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
+请在上传成功后 **2 分钟内**发送。超过期限或 Meng Ka 重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## WebSocket 示例
 

@@ -1,14 +1,14 @@
 # 快速开始
 
-萌卡NT 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还可以接收事件。
+Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还可以接收事件。
 
 ## 选择连接模式
 
 | 模式 | 连接发起方 | 适用场景 |
 | --- | --- | --- |
-| 正向 WebSocket | 插件连接萌卡NT | 插件与萌卡NT在同一设备或插件能访问萌卡NT端口 |
-| 反向 WebSocket | 萌卡NT连接插件 | 插件有稳定地址，或希望由萌卡NT负责断线重连 |
-| [正向 HTTP](/guide/forward-http) | 插件向萌卡NT发起 HTTP 请求 | 只需调用 API，通过请求头携带令牌 |
+| 正向 WebSocket | 插件连接 Meng Ka | 插件与 Meng Ka 在同一设备或插件能访问 Meng Ka 端口 |
+| 反向 WebSocket | Meng Ka 连接插件 | 插件有稳定地址，或希望由 Meng Ka 负责断线重连 |
+| [正向 HTTP](/guide/forward-http) | 插件向 Meng Ka 发起 HTTP 请求 | 只需调用 API，通过请求头携带令牌 |
 
 三种模式使用相同的 API 参数和业务结果；WebSocket 支持事件推送，HTTP 使用独立端口的 `POST /api/{action}` 路由。
 
@@ -32,14 +32,14 @@ npm install
 
 ## 配置插件服务
 
-在萌卡NT管理后台创建插件服务。三种模式都需要填写：
+在 Meng Ka 管理后台创建插件服务。三种模式都需要填写：
 
 | 字段 | 说明 |
 | --- | --- |
 | 名称 | 插件服务的唯一名称 |
 | 模式 | 正向 WS、反向 WS 或正向 HTTP |
 | 节点 | 插件可访问的 Bot 所属节点 |
-| 服务令牌 | 插件与萌卡NT之间使用的共享令牌 |
+| 服务令牌 | 插件与 Meng Ka 之间使用的共享令牌 |
 | 启用状态 | 启用后启动监听或连接任务 |
 
 正向 WS 和正向 HTTP 需要各自独立的监听端口；反向 WS 需要 WebSocket 地址和重连间隔。

@@ -49,7 +49,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_image' \
 { type: 'image', data: { file_id: 'FILE_ID' } }
 ```
 
-请在上传成功后 **2 分钟内**发送。超过期限或萌卡NT重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
+请在上传成功后 **2 分钟内**发送。超过期限或 Meng Ka 重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## WebSocket 示例
 
@@ -64,4 +64,4 @@ const image = await api.upload_group_image(
 await api.send_group_msg(123456789, 'android', 987654321, [image])
 ```
 
-插件与萌卡NT不在同一台主机时，不要传插件主机的本地路径；应传后端可访问的 HTTP(S) 地址。
+插件与 Meng Ka 不在同一台主机时，不要传插件主机的本地路径；应传后端可访问的 HTTP(S) 地址。

@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: 萌卡NT
+  name: Meng Ka
   text: WebSocket 插件文档
   tagline: 面向插件开发者的连接指南、API 与事件参考
   image:
     src: /logo.png
-    alt: 萌卡形象
+    alt: Meng Ka 形象
   actions:
     - theme: brand
       text: 快速上手

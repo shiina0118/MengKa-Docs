@@ -55,7 +55,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_video' \
 
 返回段可直接传给 `send_group_msg`，并应发送到上传时指定的群聊。视频必须作为唯一消息段单独发送。
 
-请在上传成功后 **2 分钟内**发送。超过期限或萌卡NT重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
+请在上传成功后 **2 分钟内**发送。超过期限或 Meng Ka 重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## WebSocket 示例
 
@@ -70,4 +70,4 @@ const video = await api.upload_group_video(
 await api.send_group_msg(123456789, 'android', 987654321, [video])
 ```
 
-插件与萌卡NT不在同一台主机时，应传后端可访问的 HTTP(S) 地址。
+插件与 Meng Ka 不在同一台主机时，应传后端可访问的 HTTP(S) 地址。

@@ -1,6 +1,6 @@
 # 反向 WebSocket
 
-反向模式下，插件监听 WebSocket 地址，萌卡NT作为客户端主动连接。
+反向模式下，插件监听 WebSocket 地址，Meng Ka 作为客户端主动连接。
 
 ## 启动插件服务
 
@@ -42,7 +42,7 @@ console.log(connection.service, connection.node_id)
 | 节点 | 当前节点 | 限定事件与 API 范围 |
 | 重连间隔 | `5` | 取值 1 到 300 秒 |
 
-萌卡NT会在断线后按重连间隔再次连接。反向 SDK 同一时间只接受一个萌卡NT连接。
+Meng Ka 会在断线后按重连间隔再次连接。反向 SDK 同一时间只接受一个 Meng Ka 连接。
 
 ## 等待与关闭
 
@@ -55,11 +55,11 @@ console.log(api.connected)
 await api.close()
 ```
 
-`waitForConnection(timeoutMs)` 在收到萌卡NT的 `ready` 帧后返回。传入 `0` 或省略参数时不设置等待超时。
+`waitForConnection(timeoutMs)` 在收到 Meng Ka 的 `ready` 帧后返回。传入 `0` 或省略参数时不设置等待超时。
 
 ## 连接认证
 
-萌卡NT发起握手时会携带以下请求头：
+Meng Ka 发起握手时会携带以下请求头：
 
 | 请求头 | 内容 |
 | --- | --- |
@@ -68,7 +68,7 @@ await api.close()
 | `X-Mengka-Service` | 服务名称 |
 | `X-Mengka-Node-ID` | 绑定节点 ID |
 
-SDK校验令牌后接受连接。随后萌卡NT发送：
+SDK校验令牌后接受连接。随后 Meng Ka 发送：
 
 ```json
 {

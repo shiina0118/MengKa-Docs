@@ -13,15 +13,15 @@ function findSidebarTitle(items: DefaultTheme.SidebarItem[], link: string): stri
 export default defineConfig({
   base,
   lang: "zh-CN",
-  title: "萌卡NT开发文档",
-  titleTemplate: ":title | 萌卡NT",
+  title: "Meng Ka 开发文档",
+  titleTemplate: ":title | Meng Ka",
   transformPageData(pageData, { siteConfig }) {
     if (!pageData.relativePath.startsWith("api/")) return;
     const link = "/" + pageData.relativePath.replace(/(?:index)?\.md$/, "");
     const title = findSidebarTitle(siteConfig.site.themeConfig.sidebar["/api/"], link);
     if (title) return { title };
   },
-  description: "萌卡 API 参考文档",
+  description: "Meng Ka API 参考文档",
   cleanUrls: true,
   head: [
     ["link", { rel: "icon", href: `${base}favicon.ico` }],
@@ -31,7 +31,7 @@ export default defineConfig({
   ],
   themeConfig: {
     logo: "/pwa-192x192.png",
-    siteTitle: "萌卡NT",
+    siteTitle: "Meng Ka",
     nav: [
       { text: "快速开始", link: "/guide/" },
       { text: "API", link: "/api/" },
@@ -337,8 +337,8 @@ export default defineConfig({
     lightModeSwitchTitle: "切换到浅色模式",
     darkModeSwitchTitle: "切换到深色模式",
     footer: {
-      message: "萌卡NT 开发文档",
-      copyright: "Mengka NT",
+      message: "Meng Ka 开发文档",
+      copyright: "Meng Ka",
     },
   },
 });

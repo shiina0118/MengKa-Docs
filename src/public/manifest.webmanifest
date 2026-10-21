@@ -1,6 +1,6 @@
 {
-  "name": "萌卡NT开发文档",
-  "short_name": "萌卡NT",
+  "name": "Meng Ka 开发文档",
+  "short_name": "Meng Ka",
   "icons": [
     { "src": "./pwa-192x192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "./pwa-512x512.png", "sizes": "512x512", "type": "image/png" }

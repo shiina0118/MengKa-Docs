@@ -1,6 +1,6 @@
 # get_group_list
 
-获取 Bot 的完整群聊列表。萌卡NT会自动完成分页。
+获取 Bot 的完整群聊列表。Meng Ka 会自动完成分页。
 
 ## 调用
 

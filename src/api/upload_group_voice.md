@@ -56,7 +56,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
 }
 ```
 
-返回段只能发送到上传时指定的群。请在上传成功后 **2 分钟内**发送；超过期限或萌卡NT重启后需重新上传。见[媒体有效期](/guide/message-segments#媒体有效期)。
+返回段只能发送到上传时指定的群。请在上传成功后 **2 分钟内**发送；超过期限或 Meng Ka 重启后需重新上传。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## WebSocket 示例
 
@@ -71,4 +71,4 @@ const voice = await api.upload_group_voice(
 await api.send_group_msg(123456789, 'android', 987654321, [voice])
 ```
 
-插件与萌卡NT不在同一台主机时，可使用后端可访问的 HTTP(S) 地址；小文件也可按上述大小限制传入 Base64。
+插件与 Meng Ka 不在同一台主机时，可使用后端可访问的 HTTP(S) 地址；小文件也可按上述大小限制传入 Base64。

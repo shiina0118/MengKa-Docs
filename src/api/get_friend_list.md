@@ -1,6 +1,6 @@
 # get_friend_list
 
-获取 Bot 的完整好友列表。萌卡NT会自动完成分页。
+获取 Bot 的完整好友列表。Meng Ka 会自动完成分页。
 
 ## 调用
 

@@ -6,11 +6,11 @@ import { withBase } from "vitepress";
   <section class="lost-page" aria-labelledby="lost-title">
     <div class="lost-layout">
       <div class="lost-copy">
-        <p class="lost-eyebrow">MENGKA NT · DOCS</p>
+        <p class="lost-eyebrow">Meng Ka · DOCS</p>
         <p class="lost-code" aria-label="错误 404">4<span>0</span>4</p>
         <p class="lost-kicker">PAGE NOT FOUND</p>
         <h1 id="lost-title">这一页，<br />暂时迷路了。</h1>
-        <p class="lost-description">你寻找的文档可能已搬家，或地址有一点偏差。<br class="lost-desktop-break" />没关系，跟着萌卡回到熟悉的地方吧。</p>
+        <p class="lost-description">你寻找的文档可能已搬家，或地址有一点偏差。<br class="lost-desktop-break" />没关系，跟着 Meng Ka 回到熟悉的地方吧。</p>
         <div class="lost-actions">
           <a class="lost-primary" :href="withBase('/')">返回文档首页 <span aria-hidden="true">↗</span></a>
           <a class="lost-secondary" :href="withBase('/guide/')">快速开始 <span aria-hidden="true">→</span></a>
@@ -22,7 +22,7 @@ import { withBase } from "vitepress";
         <img class="lost-character" :src="withBase('/brand/mengka-404-lolita-blue-fullbody.webp')" alt="" width="800" height="1200" draggable="false" />
       </div>
     </div>
-    <footer class="lost-footer"><span>萌卡NT <span class="lost-footer-separator">/</span> 开发文档</span><span>偶尔迷路，也会遇见新的风景。</span></footer>
+    <footer class="lost-footer"><span>Meng Ka <span class="lost-footer-separator">/</span> 开发文档</span><span>偶尔迷路，也会遇见新的风景。</span></footer>
   </section>
 </template>
 

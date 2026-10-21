@@ -30,7 +30,7 @@ jobs:
       - name: Build documentation
         run: npm run build
         env:
-          DOCS_BASE: /mengka-nt-docs/
+          DOCS_BASE: /MengKa-Docs/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
