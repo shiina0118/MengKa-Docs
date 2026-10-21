@@ -70,6 +70,12 @@
   text-decoration: none;
 }
 
+@media (max-width: 959px) {
+  .VPHero .image {
+    margin-bottom: 16px;
+  }
+}
+
 @media (max-width: 640px) {
   .VPHero .image-src {
     max-width: 260px;
