@@ -28,7 +28,8 @@ ws://HOST:PORT/
     "friend_message": true,
     "group_event": true,
     "friend_event": true,
-    "bot_offline": true
+    "bot_offline": true,
+    "bot_online": true
   }
 }
 ```
@@ -65,6 +66,7 @@ ws://HOST:PORT/
 | `group_event` | `group_notice` |
 | `friend_event` | `friend_notice` |
 | `bot_offline` | `bot_offline` |
+| `bot_online` | `bot_online` |
 
 权限在认证时确定，连接期间不能修改。需要新增事件类型时，断开并重新连接。
 

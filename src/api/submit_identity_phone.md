@@ -54,7 +54,7 @@ curl --request POST 'http://127.0.0.1:3003/api/submit_identity_phone' \
 
 ## 返回值
 
-成功时返回短信内容 `sms` 与目标号码 `sendTo`。请将这两个字段展示给用户，引导其用密保手机发送短信。
+成功时返回短信内容 `sms` 与目标号码 `sendTo`。请将这两个字段展示给用户，引导其用密保手机发送短信。结果中的 `next` 为 `identity`。
 
 拿到短信内容与号码后，引导用户**用该密保手机**把内容原样发送到目标号码，发送完成后再调用 [`confirm_identity_sms`](/api/confirm_identity_sms)。
 

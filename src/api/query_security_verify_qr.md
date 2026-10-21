@@ -50,25 +50,31 @@ curl --request POST 'http://127.0.0.1:3003/api/query_security_verify_qr' \
 未扫码：
 
 ```js
-{ code: 0, message: '等待扫码', status: 'waiting', status_code: 0 }
+{ code: 0, message: '等待扫码', status: 'waiting', status_code: 0, next: 'security' }
 ```
 
 已扫码、等待手机确认：
 
 ```js
-{ code: 0, message: '扫码成功，等待确认', status: 'scanned', status_code: 3 }
+{ code: 0, message: '扫码成功，等待确认', status: 'scanned', status_code: 3, next: 'security' }
 ```
 
 已失效：
 
 ```js
-{ code: 0, message: '二维码已失效', status: 'expired', status_code: 2 }
+{ code: 0, message: '二维码已失效', status: 'expired', status_code: 2, next: 'security' }
 ```
 
 已确认时，`status` 为 `confirmed`，并返回与 [`login_account`](/api/login_account) 相同的登录结果：
 
 ```js
-{ code: 0, message: '登录成功', status: 'confirmed', status_code: 1 }
+{ code: 0, message: '登录成功', status: 'confirmed', status_code: 1, next: 'done' }
 ```
 
-收到 `confirmed` 或 `expired` 后应停止轮询。
+已取消（仅 PC 账号，用户在手机上取消了授权）：
+
+```js
+{ code: 0, message: '扫码验证已取消', status: 'canceled', status_code: 4, next: 'security' }
+```
+
+收到 `confirmed`、`expired` 或 `canceled` 后应停止轮询。二维码失效或取消时 `next` 仍为 `security`，可重新调用 [`get_security_verify_qr`](/api/get_security_verify_qr)。结果中的 `next` 表示下一步，取值见[登录结果的 next 字段](/guide/login-flow#next)。

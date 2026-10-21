@@ -44,8 +44,8 @@ curl --request POST 'http://127.0.0.1:3003/api/check_cache' \
 
 ## 返回值
 
-```js
-{ valid: true }
+```json
+{ "has_cache": true }
 ```
 
-`valid === true` 时可以尝试 [`cache_login`](/api/cache_login)，但不保证能够登录成功，仍需检查登录结果。`valid === false` 时，密码登录账号使用 [`login_account`](/api/login_account)，扫码登录账号使用 [`get_login_qr`](/api/get_login_qr)。
+`has_cache` 只表示本地是否存有登录缓存。缓存能否继续使用只有服务端知道，必须通过 [`cache_login`](/api/cache_login) 的登录结果判断。`has_cache` 为 `false` 时直接调用 [`login_account`](/api/login_account)。

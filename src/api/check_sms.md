@@ -66,7 +66,7 @@ curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
 
 **校验通过**：自动继续登录，返回结构与 [`login_account`](/api/login_account) 一致。
 
-**校验未通过**：返回验证结果，`result.prompt` 是失败原因。登录会话保留，可以用同一个 `sign` 重试。
+**校验未通过**：返回验证结果，`result.prompt` 是失败原因，`next` 为 `security`。登录会话保留，可以用同一个 `sign` 重试。
 
 ```js
 {
@@ -75,6 +75,7 @@ curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
     code: 3,
     prompt: '未收到短信，原因可能是：未使用密保手机发送；短信内容不正确；运营商不稳定。',
   },
+  next: 'security',
 }
 ```
 

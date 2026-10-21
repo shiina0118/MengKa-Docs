@@ -56,7 +56,7 @@ curl --request POST 'http://127.0.0.1:3003/api/submit_identity_captcha' \
 
 ## 返回值
 
-成功时返回绑定手机信息，包括掩码手机号 `phoneNum`、区号 `areaCode` 等，可用于提示用户进入下一步。失败返回 `{ code, message }`，账号仍处于等待验证状态，可修正后重试。
+成功时返回绑定手机信息，包括掩码手机号 `phoneNum`、区号 `areaCode` 等，可用于提示用户进入下一步。失败返回 `{ code, message }`，账号仍处于等待验证状态，可修正后重试。成功和可重试的失败都返回 `next: "identity"`。
 
 成功后调用 [`submit_identity_phone`](/api/submit_identity_phone)。
 

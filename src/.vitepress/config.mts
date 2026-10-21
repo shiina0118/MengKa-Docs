@@ -85,7 +85,6 @@ export default defineConfig({
                 { text: "查询安全验证方式", link: "/api/get_security_verify_methods" },
                 { text: "获取安全验证二维码", link: "/api/get_security_verify_qr" },
                 { text: "查询安全验证二维码状态", link: "/api/query_security_verify_qr" },
-                { text: "获取登录二维码", link: "/api/get_login_qr" },
                 { text: "查询登录二维码", link: "/api/query_login_qr" },
                 { text: "扫描应用登录二维码", link: "/api/scan_qr" },
                 { text: "确认应用登录二维码", link: "/api/auth_qr" },

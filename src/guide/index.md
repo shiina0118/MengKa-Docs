@@ -47,7 +47,8 @@ Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还�
     "friend_message": false,
     "group_event": false,
     "friend_event": false,
-    "bot_offline": true
+    "bot_offline": true,
+    "bot_online": true
   }
 }
 ```

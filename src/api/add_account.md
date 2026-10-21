@@ -1,6 +1,6 @@
 # add_account
 
-向当前插件节点添加 Bot 账号。仅支持 Android 密码登录账号。扫码登录账号请用 [`get_login_qr`](/api/get_login_qr) 创建。
+向当前插件节点添加 Bot 账号，支持 Android 和 PC（Linux）协议。Android 账号必须提供密码；PC 账号可以提供密码走密码登录，也可以省略密码走扫码登录。添加后统一用 [`login_account`](/api/login_account) 登录，按是否有密码自动选择方式。
 
 ## 调用
 
@@ -45,7 +45,7 @@ curl --request POST 'http://127.0.0.1:3003/api/add_account' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 5 到 10 位 QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `password` | string | 是 | 账号密码 |
+| `password` | string | 视协议而定 | 账号密码；Android 协议必填，PC 协议可省略（省略时扫码登录） |
 | `device_profile_id` | number | 是 | `get_device_profile_list` 返回的设备配置记录 ID |
 
 ## 返回值

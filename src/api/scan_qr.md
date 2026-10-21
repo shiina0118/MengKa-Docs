@@ -2,7 +2,7 @@
 
 用已登录的 Android Bot 扫描应用登录二维码。`k` 取自二维码链接里的 `k=`。
 
-仅支持已在线的 Android 账号，不能代替 [`get_login_qr`](/api/get_login_qr) 做扫码登录。
+仅支持已在线的 Android 账号，不能代替 [`login_account`](/api/login_account) 发起扫码登录。
 
 ## 调用
 

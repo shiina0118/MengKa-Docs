@@ -72,10 +72,14 @@ curl --request POST 'http://127.0.0.1:3003/api/get_security_verify_methods' \
 | 包含多个值 | 同时支持多种验证方式 | 选择任意一种可用方式 |
 | 不包含 `3`、`4`、`10` | 需要其他验证方式 | 使用 `login_account` 返回的 `security_url` 完成验证 |
 
+PC（Linux）账号始终支持扫码验证，`verify_list` 总会包含 `10`。
+
 `3` 和 `4` 共用 `methods.sms_phone.sign`，区别只在调用 `get_sms` / `check_sms` 时传的 `verify_type`。可用类型以 `verify_list` 为准，不要写死。
 
 `reason.prompt` 或 `methods.prompt` 是可展示给用户的验证原因或提示文案。
 
-返回结构与 [`login_account`](/api/login_account) 的 `security_verify` 字段一致。
+成功结果还带有 `next: "security"`。查询失败时返回 `{ code, message, next: "security" }`，账号仍在等待安全验证，可以重新查询。
+
+`reason`、`methods` 的结构与 [`login_account`](/api/login_account) 的 `security_verify` 字段一致。
 
 完整流程见[Bot 登录流程](/guide/login-flow)。
