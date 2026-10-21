@@ -2,6 +2,8 @@
 
 处理宠物故事后续。仅支持 `android` 账号。
 
+结算动态活动或PK时，使用真实的 `story_id`、`pet_id`，填写 `field_2: 6000` 和 `outdoor_version: 2`。首页流程仍可使用原有页面值。
+
 ## 调用
 
 <ApiCallTabs>
@@ -50,9 +52,10 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_do_after_story_info' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `request.story_id` | string | 否 | 故事 ID |
-| `request.field_2` | number | 否 | 扩展参数，说明待补充 |
+| `request.field_2` | number | 否 | 页面场景；首页流程为1000，动态活动和PK为6000 |
 | `request.pet_id` | string | 否 | 宠物 ID |
-| `request.field_4` | number | 否 | 扩展参数，说明待补充 |
+| `request.field_4` | number | 否 | 结算来源，按当前活动场景填写 |
+| `request.outdoor_version` | number | 否 | 户外功能版本；动态活动与PK使用2 |
 
 ## 返回值
 

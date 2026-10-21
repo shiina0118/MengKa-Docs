@@ -54,6 +54,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_push_feed_msg' \
 | `request.avatar_url` | string | 否 | 头像地址 |
 | `request.field_4` | number | 否 | 扩展参数，说明待补充 |
 | `request.field_5` | number | 否 | 扩展参数，说明待补充 |
+| `request.food_id` | string | 否 | 本次累计喂食使用的食物 ID |
 
 ## 返回值
 

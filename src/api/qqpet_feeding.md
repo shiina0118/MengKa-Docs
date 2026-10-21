@@ -11,7 +11,7 @@
 const request = {
   "pet_master_uin": "123456789",
   "pet_id": "example-pet-id",
-  "field_5": 1
+  "food_id": "FOOD_ID"
 }
 const result = await api.qqpet_feeding(self_id, platform, request)
 ```
@@ -29,7 +29,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_feeding' \
   "request": {
     "pet_master_uin": "123456789",
     "pet_id": "example-pet-id",
-    "field_5": 1
+    "food_id": "FOOD_ID"
   }
 }'
 ```
@@ -53,9 +53,10 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_feeding' \
 | `request.nick` | string | 否 | 昵称 |
 | `request.avatar_url` | string | 否 | 头像地址 |
 | `request.pet_id` | string | 否 | 宠物 ID |
-| `request.field_5` | number | 否 | 扩展参数，说明待补充 |
+| `request.field_5` | number | 否 | 旧版食物种类；使用食物库存中的 `food_id` 可指定具体食物 |
 | `request.field_10` | object | 否 | 扩展参数，说明待补充 |
 | `request.field_99` | number | 否 | 扩展参数，说明待补充 |
+| `request.food_id` | string | 否 | 食物目录返回的食物 ID |
 
 ## 返回值
 

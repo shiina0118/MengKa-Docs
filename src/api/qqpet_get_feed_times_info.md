@@ -39,7 +39,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_feed_times_info' \
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.field_4` | string | 否 | 扩展参数，说明待补充 |
+| `request.field_4` | string | 否 | 宠物 ID；当前页面查询本人库存时可省略 |
 
 ## 返回值
 
@@ -54,3 +54,15 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_feed_times_info' \
 | --- | --- | --- |
 | `field_1` | number | 扩展结果，说明待补充 |
 | `field_2` | number | 扩展结果，说明待补充 |
+| `food_info` | object | 食物状态和商品配置 |
+| `food_inventory` | object[] | 食物库存列表 |
+
+### response.food_inventory[]
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `food_type` | number | 食物种类 |
+| `balance` | number | 当前库存数量 |
+| `food_id` | string | 喂食和购买时使用的食物 ID |
+| `name` | string | 食物名称 |
+| `icon_url` | string | 食物图标 |
