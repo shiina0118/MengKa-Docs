@@ -30,7 +30,7 @@ Content-Type: application/json
 
 所有 API（包括查询类 API）均使用 POST；路由没有版本前缀。请求体直接使用对应 API 的 `params` 对象，无需外层 `type`、`id`、`action`、`params` 包装。无参数时传 `{}`。账号相关接口按原有约定传 `self_id` 和 `platform`。
 
-也支持 `X-Mengka-Token: TOKEN` 请求头。两种令牌头同时存在时，以 `Authorization` 为准；URL 查询参数和请求体中的令牌不用于认证。
+也支持 `X-Meng-Ka-Token: TOKEN` 请求头，旧的 `X-Mengka-Token` 仅作为兼容兜底。优先级为 `Authorization` → `X-Meng-Ka-Token` → `X-Mengka-Token`；只有更高优先级的请求头不存在时才使用后者。已提供的令牌错误、为空或格式非法时，不会回退尝试其他令牌。URL 查询参数和请求体中的令牌不用于认证。
 
 ## 调用示例
 

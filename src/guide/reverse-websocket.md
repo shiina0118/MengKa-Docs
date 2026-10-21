@@ -64,9 +64,11 @@ Meng Ka 发起握手时会携带以下请求头：
 | 请求头 | 内容 |
 | --- | --- |
 | `Authorization` | `Bearer TOKEN` |
-| `X-Mengka-Token` | 服务令牌 |
-| `X-Mengka-Service` | 服务名称 |
-| `X-Mengka-Node-ID` | 绑定节点 ID |
+| `X-Meng-Ka-Token` | 服务令牌 |
+| `X-Meng-Ka-Service` | 服务名称 |
+| `X-Meng-Ka-Node-ID` | 绑定节点 ID |
+
+后端同时携带旧的 `X-Mengka-Token`、`X-Mengka-Service` 和 `X-Mengka-Node-ID`，兼容尚未更新的 SDK。新版 SDK 优先读取 `X-Meng-Ka-*`，对应新头不存在时才读取旧头。令牌认证优先级为 `Authorization` → `X-Meng-Ka-Token` → `X-Mengka-Token`；高优先级令牌错误或为空时不会继续尝试低优先级令牌。
 
 SDK校验令牌后接受连接。随后 Meng Ka 发送：
 
