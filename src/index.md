@@ -1,9 +1,10 @@
 ---
 layout: home
+title: 开发文档
 
 hero:
   name: Meng Ka
-  text: WebSocket 插件文档
+  text: 插件开发文档
   tagline: 面向插件开发者的连接指南、API 与事件参考
   image:
     src: /logo.png
