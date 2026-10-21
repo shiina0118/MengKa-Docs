@@ -9,20 +9,28 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const request = {
-  "event_type": 6900,
-  "pet_id": "PET_ID",
-  "target": {
-    "pet_id": "TARGET_PET_ID",
-    "uin": "987654321"
-  },
-  "target_uin": "987654321",
-  "event_name": "PK",
-  "sub_event_type": 6901,
-  "outdoor_version": 2
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "qqpet_start_story",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "request": {
+      "event_type": 6900,
+      "pet_id": "PET_ID",
+      "target": {
+        "pet_id": "TARGET_PET_ID",
+        "uin": "987654321"
+      },
+      "target_uin": "987654321",
+      "event_name": "PK",
+      "sub_event_type": 6901,
+      "outdoor_version": 2
+    }
+  }
 }
-const result = await api.qqpet_start_story(self_id, platform, request)
 ```
 
 </template>
@@ -34,7 +42,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_start_story' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "request": {
     "event_type": 6900,
     "pet_id": "PET_ID",
@@ -58,7 +66,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_start_story' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `request` | object | 否 | 本次操作的参数，默认 `{}` |
 
 ### request

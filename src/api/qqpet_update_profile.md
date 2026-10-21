@@ -7,16 +7,24 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const request = {
-  "filter": {
-    "field_1": 1
-  },
-  "profile": {
-    "pet_name": "Momo"
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "qqpet_update_profile",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "request": {
+      "filter": {
+        "field_1": 1
+      },
+      "profile": {
+        "pet_name": "Momo"
+      }
+    }
   }
 }
-const result = await api.qqpet_update_profile(self_id, platform, request)
 ```
 
 </template>
@@ -28,7 +36,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_update_profile' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "request": {
     "filter": {
       "field_1": 1
@@ -48,7 +56,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_update_profile' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `request` | object | 否 | 本次操作的参数，默认 `{}` |
 
 ### request

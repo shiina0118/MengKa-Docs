@@ -7,13 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const image = await api.upload_friend_image(
-  self_id,
-  platform,
-  user_id,
-  file_path,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "upload_friend_image",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "user_id": 234567890,
+    "file_path": "file:///D:/images/example.png"
+  }
+}
 ```
 
 </template>
@@ -25,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_friend_image' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "user_id": 234567890,
   "file_path": "file:///D:/images/example.png"
 }'
@@ -39,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_friend_image' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `user_id` | number | 是 | 目标好友 QQ 号 |
 | `file_path` | string | 是 | 后端可访问的本地路径、`file://` 或 HTTP(S) 地址 |
 
@@ -51,15 +56,27 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_friend_image' \
 
 请在上传成功后 **2 分钟内**发送。超过期限或 Meng Ka 重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
-## WebSocket 示例
+## 发送
 
-```js
-const image = await api.upload_friend_image(
-  123456789,
-  'android',
-  234567890,
-  'https://example.com/image.jpg',
-)
+上传只返回图片消息段，不会发出消息。把返回的 `data` 原样放进 [`send_friend_msg`](/api/send_friend_msg) 的 `message` 数组：
 
-await api.send_friend_msg(123456789, 'android', 234567890, [image])
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "send_friend_msg",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "user_id": 234567890,
+    "message": [
+      {
+        "type": "image",
+        "data": {
+          "file_id": "FILE_ID"
+        }
+      }
+    ]
+  }
+}
 ```

@@ -7,8 +7,17 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.set_qq_avatar(self_id, platform, file_path)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "set_qq_avatar",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "file_path": "file:///D:/images/example.png"
+  }
+}
 ```
 
 </template>
@@ -20,7 +29,7 @@ curl --request POST 'http://127.0.0.1:3003/api/set_qq_avatar' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "file_path": "file:///D:/images/example.png"
 }'
 ```
@@ -33,7 +42,7 @@ curl --request POST 'http://127.0.0.1:3003/api/set_qq_avatar' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `file_path` | string | 是 | 后端本地路径、`file://` 或后端可访问的 HTTP(S) 地址 |
 
 图片大小上限为 5MB。建议使用 PNG 或 JPEG 图片。
@@ -49,13 +58,3 @@ curl --request POST 'http://127.0.0.1:3003/api/set_qq_avatar' \
 ```
 
 QQ头像 CDN 可能存在短暂缓存，上传成功后旧头像仍可能显示一段时间。
-
-## WebSocket 示例
-
-```js
-await api.set_qq_avatar(
-  123456789,
-  'android',
-  'https://example.com/avatar.png',
-)
-```

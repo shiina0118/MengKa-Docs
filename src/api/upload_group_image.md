@@ -7,13 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const image = await api.upload_group_image(
-  self_id,
-  platform,
-  group_id,
-  file_path,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "upload_group_image",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "file_path": "file:///D:/images/example.png"
+  }
+}
 ```
 
 </template>
@@ -25,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_image' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "file_path": "file:///D:/images/example.png"
 }'
@@ -39,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_image' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 目标群聊 ID |
 | `file_path` | string | 是 | 后端本地路径、`file://` 或后端可访问的 HTTP(S) 地址 |
 
@@ -51,17 +56,29 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_image' \
 
 请在上传成功后 **2 分钟内**发送。超过期限或 Meng Ka 重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
-## WebSocket 示例
+## 发送
 
-```js
-const image = await api.upload_group_image(
-  123456789,
-  'android',
-  987654321,
-  'D:/images/example.png',
-)
+上传只返回图片消息段，不会发出消息。把返回的 `data` 原样放进 [`send_group_msg`](/api/send_group_msg) 的 `message` 数组：
 
-await api.send_group_msg(123456789, 'android', 987654321, [image])
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "send_group_msg",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "message": [
+      {
+        "type": "image",
+        "data": {
+          "file_id": "FILE_ID"
+        }
+      }
+    ]
+  }
+}
 ```
 
 插件与 Meng Ka 不在同一台主机时，不要传插件主机的本地路径；应传后端可访问的 HTTP(S) 地址。

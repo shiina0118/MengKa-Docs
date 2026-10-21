@@ -9,8 +9,16 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.query_login_qr(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "query_login_qr",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 </template>
@@ -22,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/query_login_qr' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android"
+  "protocol_id": 0
 }'
 ```
 
@@ -34,7 +42,7 @@ curl --request POST 'http://127.0.0.1:3003/api/query_login_qr' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在扫码登录的 Bot QQ 号 |
-| `platform` | string | 是 | 与 `get_login_qr` 时相同。`windows` 暂未支持 |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 
 账号必须处于登录中状态，且已调用过 [`get_login_qr`](/api/get_login_qr)。
 

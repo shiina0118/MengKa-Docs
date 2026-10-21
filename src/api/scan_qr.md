@@ -9,15 +9,17 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.scan_qr(self_id, 'android', k)
-```
-
-`k` 可以是完整 URL，也可以是 `k=` 后面的值：
-
-```js
-await api.scan_qr(self_id, 'android', 'https://qun.qq.com/qunpay/...&k=XXXX')
-await api.scan_qr(self_id, 'android', 'XXXX')
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "scan_qr",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "k": "K_FROM_APPLICATION_QR_CODE"
+  }
+}
 ```
 
 </template>
@@ -29,7 +31,7 @@ curl --request POST 'http://127.0.0.1:3003/api/scan_qr' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "k": "K_FROM_APPLICATION_QR_CODE"
 }'
 ```
@@ -42,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/scan_qr' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `android`（`phone`、`pad` 视为 `android`） |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `k` | string | 是 | 应用登录二维码 URL 或其中的 `k` 参数 |
 
 ## 返回值

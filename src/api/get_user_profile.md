@@ -2,21 +2,40 @@
 
 获取用户的 QQ 资料。省略 `user_id` 时查询当前 Bot。
 
+当前按账号绑定协议的 `platform` 分支：Android 执行，PC 暂时跳过，不发送对应业务请求。PC 返回的数据为 `{ self_id, protocol_id, skipped: true, reason: "PC 平台暂时跳过此功能" }`，调用方应先检查 `skipped`。
+
 ## 调用
 
 <ApiCallTabs>
 <template #websocket>
 
-查询当前 Bot：
+查询当前 Bot（省略 `user_id`）：
 
-```js
-const result = await api.get_user_profile(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_user_profile",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 查询指定用户：
 
-```js
-const result = await api.get_user_profile(self_id, platform, user_id)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_user_profile",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "user_id": 234567890
+  }
+}
 ```
 
 </template>
@@ -28,7 +47,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "user_id": 234567890
 }'
 ```
@@ -41,7 +60,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `user_id` | number | 否 | 目标 QQ 号，省略时查询自己 |
 
 ## 返回值
@@ -81,6 +100,6 @@ curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
 | `photo_count` | number | 照片数量 |
 | `status_text` | string | 状态文案 |
 
-返回字段以上表为准，统一使用下划线命名。可见信息取决于目标账号和实际返回，缺失的信息可能为空字符串或 `0`，不应据此推断账号的真实资料。调用失败时 Promise 拒绝。
+返回字段以上表为准，统一使用下划线命名。可见信息取决于目标账号和实际返回，缺失的信息可能为空字符串或 `0`，不应据此推断账号的真实资料。调用失败时返回 `ok: false`。
 
 点赞该用户使用 [`like_user_profile`](/api/like_user_profile)；查询当前 Bot 的点赞记录使用 [`get_sent_profile_likes`](/api/get_sent_profile_likes) 和 [`get_received_profile_likes`](/api/get_received_profile_likes)。

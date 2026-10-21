@@ -15,7 +15,7 @@ import { withBase } from "vitepress";
           <a class="lost-primary" :href="withBase('/')">返回文档首页 <span aria-hidden="true">↗</span></a>
           <a class="lost-secondary" :href="withBase('/guide/')">快速开始 <span aria-hidden="true">→</span></a>
         </div>
-        <p class="lost-hint">也可以前往 <a :href="withBase('/api/')">API 总览 <span aria-hidden="true">↗</span></a>，继续你的探索。</p>
+        <p class="lost-hint"><a :href="withBase('/api/get_bot_list')">API 文档 <span aria-hidden="true">↗</span></a></p>
       </div>
 
       <div class="lost-art" aria-hidden="true">

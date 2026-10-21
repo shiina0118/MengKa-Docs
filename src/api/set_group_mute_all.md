@@ -7,8 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.set_group_mute_all(self_id, platform, group_id, mute)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "set_group_mute_all",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "mute": true
+  }
+}
 ```
 
 </template>
@@ -20,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/set_group_mute_all' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "mute": true
 }'
@@ -34,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/set_group_mute_all' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 群聊 ID |
 | `mute` | boolean | 是 | `true` 开启，`false` 取消 |
 

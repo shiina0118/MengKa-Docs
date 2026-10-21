@@ -2,27 +2,7 @@
 
 ## 群聊通知
 
-```js
-api.on('group_notice', event => {
-  switch (event.sub_type) {
-    case 'apply':
-      console.log('入群申请', event.user_id)
-      break
-    case 'increase':
-      console.log('成员进群', event.user_id)
-      break
-    case 'decrease':
-      console.log('成员退群', event.user_id)
-      break
-    case 'mute':
-      console.log('禁言变化', event.body.duration)
-      break
-    case 'recall':
-      console.log('消息撤回', event.body.msg_seq)
-      break
-  }
-})
-```
+以事件帧推送，`data.post_type` 为 `group_notice`，`sub_type` 区分具体通知。需要在认证时声明 `group_event` 权限。
 
 ### apply
 
@@ -105,11 +85,7 @@ api.on('group_notice', event => {
 
 ## 好友通知
 
-```js
-api.on('friend_notice', event => {
-  console.log(event.sub_type, event.operator)
-})
-```
+以事件帧推送，`data.post_type` 为 `friend_notice`，`sub_type` 区分具体通知。需要在认证时声明 `friend_event` 权限。
 
 ### like
 

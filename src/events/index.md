@@ -1,29 +1,34 @@
 # 事件概述
 
-插件通过 `on(eventType, handler)` 注册事件处理函数。正向和反向 SDK 支持相同的五类事件：
+WebSocket 连接（正向和反向）支持相同的五类事件，正向 HTTP 不推送事件：
 
-| 监听器 | `post_type` | 说明 |
+| `post_type` | 正向认证权限字段 | 说明 |
 | --- | --- | --- |
 | `group_message` | `group_message` | 群聊消息 |
 | `friend_message` | `friend_message` | 好友消息 |
-| `group_notice` | `group_notice` | 入群、退群、禁言、撤回等群聊通知 |
-| `friend_notice` | `friend_notice` | 好友点赞等通知 |
+| `group_notice` | `group_event` | 入群、退群、禁言、撤回等群聊通知 |
+| `friend_notice` | `friend_event` | 好友点赞等通知 |
 | `bot_offline` | `bot_offline` | Bot 离线 |
 
-## 注册监听器
+## 事件帧
 
-```js
-api.on('group_message', event => {
-  console.log(event.self_id)
-  console.log(event.group_id)
-  console.log(event.alt_message)
-})
+事件以 `type` 为 `event` 的消息推送，事件内容位于 `data`，按 `data.post_type` 分发：
+
+```json
+{
+  "type": "event",
+  "data": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "post_type": "group_message",
+    "group_id": 987654321,
+    "alt_message": "你好"
+  }
+}
 ```
 
-每种事件只能注册一个处理函数；再次调用 `on()` 会替换该类型已有的处理函数。
-
 ::: tip 正向连接
-正向 SDK在认证时根据已注册的监听器声明权限，因此监听器应在 `connect()` 前注册。
+正向连接只推送认证消息 `permissions` 中声明为 `true` 的事件，连接期间不能修改。反向连接默认接收全部五类事件。
 :::
 
 ## 公共字段
@@ -33,18 +38,13 @@ api.on('group_message', event => {
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 接收事件的 Bot QQ 号 |
+| `protocol_id` | number | 接收事件的账号协议 ID，允许为 `0` |
 | `post_type` | string | 事件大类 |
 
 通知事件额外包含 `sub_type`，用于区分具体通知。
 
-事件目前不带 `platform`。用 `self_id` 调用 API 时仍需传入该 Bot 的 `platform`；同一 QQ 可同时存在 android 与 linux 账号。
+事件中的 `self_id + protocol_id` 精确定位接收实例。回复消息时直接使用这两个字段，避免同一 QQ 的手机、平板、手表账号混用。
 
-## 回调异常
+## 处理建议
 
-SDK会捕获事件回调中的同步异常并输出日志，不会因此断开 WebSocket。异步回调中的异常仍应由插件自行处理。
-
-```js
-api.on('friend_message', event => {
-  void handleMessage(event).catch(console.error)
-})
-```
+事件与 API 结果共用同一个连接。耗时的事件处理应异步进行，不要阻塞读取循环，否则会延迟后续事件和 API 结果的接收。

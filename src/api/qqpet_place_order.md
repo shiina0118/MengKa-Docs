@@ -9,24 +9,32 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const request = {
-  "account": {
-    "platform": 1,
-    "currency_type": 1001,
-    "pet_id": "PET_ID"
-  },
-  "currency_type": 1001,
-  "goods": [
-    {
-      "goods_kind": "355",
-      "item_id": "123",
-      "count": "1"
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "qqpet_place_order",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "request": {
+      "account": {
+        "platform": 1,
+        "currency_type": 1001,
+        "pet_id": "PET_ID"
+      },
+      "currency_type": 1001,
+      "goods": [
+        {
+          "goods_kind": "355",
+          "item_id": "123",
+          "count": "1"
+        }
+      ],
+      "scene": 21
     }
-  ],
-  "scene": 21
+  }
 }
-const result = await api.qqpet_place_order(self_id, platform, request)
 ```
 
 </template>
@@ -38,7 +46,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_place_order' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "request": {
     "account": {
       "platform": 1,
@@ -66,7 +74,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_place_order' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `request` | object | 否 | 本次操作的参数，默认 `{}` |
 
 ### request

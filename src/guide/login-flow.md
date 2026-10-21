@@ -1,57 +1,41 @@
 # Bot 登录流程
 
-登录 API 只能操作插件绑定节点下的账号。带 `self_id` 的接口必须同时传入 `platform`，顺序为 `self_id, platform, …`。
+登录 API 只能操作插件绑定节点下的账号。带 `self_id` 的接口必须同时传入 `protocol_id`。
 
-以下示例中的 `self_id` 是要登录的 Bot QQ 号，`platform` 是该账号的端：
+本页只列出各步骤请求的 `action` 和 `params`，请求帧的完整格式见 [WebSocket API 格式](/guide/protocol)，HTTP 调用见[正向 HTTP](/guide/forward-http)。示例中的 `self_id` 是要登录的 Bot QQ 号，`protocol_id` 是该账号的协议 ID，可取自 [`get_protocol_list`](/api/get_protocol_list) 返回的 `id`，也可取自 [`get_bot_list`](/api/get_bot_list) 返回项的 `protocol.id`。
 
-```js
-const self_id = 123456789
-const platform = 'android' // 或 'linux'
-```
-
-也可以从 `get_bot_list()` 返回项取得：
-
-```js
-const bots = await api.get_bot_list()
-const self_id = bots[0].self_id
-const platform = bots[0].platform
-```
-
-同一 QQ 可同时存在 android 与 linux 账号，查找时要用 `self_id` + `platform`。
+同一 QQ 可同时存在手机、平板等不同协议账号，查找时要用 `self_id` + `protocol_id`。
 
 ## 登录前检查
 
-```js
-const bots = await api.get_bot_list()
-const bot = bots.find(item => item.self_id === self_id && item.platform === platform)
+调用 [`get_bot_list`](/api/get_bot_list)，找到 `self_id` 与 `protocol.id` 都匹配的账号。如果它的 `status` 不为 `0`，先调用 [`offline_account`](/api/offline_account)：
 
-if (bot && bot.status !== 0) {
-  await api.offline_account(self_id, platform)
-}
+```json
+{ "self_id": 123456789, "protocol_id": 0 }
 ```
 
 ## 添加账号
 
-Android 账号用 `add_account`。`add_account` 不支持 `linux`。
+Android 账号用 [`add_account`](/api/add_account)，不支持 `linux`：
 
-```js
-await api.add_account(self_id, 'android', password, client_profile_id, device_profile_id)
+```json
+{ "self_id": 123456789, "protocol_id": 0, "password": "YOUR_ACCOUNT_PASSWORD", "device_profile_id": 1 }
 ```
 
 扫码登录账号在首次 [`get_login_qr`](/api/get_login_qr) 时创建，见下方「扫码登录」。
 
 ## 密码登录
 
-Android 账号使用密码登录：
+Android 账号调用 [`login_account`](/api/login_account)：
 
-```js
-const result = await api.login_account(self_id, platform)
+```json
+{ "self_id": 123456789, "protocol_id": 0 }
 ```
 
-返回基础结构：
+结果 `data` 的基础结构：
 
-```js
-{ code: Number, message: String }
+```json
+{ "code": 0, "message": "登录成功" }
 ```
 
 常见状态：
@@ -68,14 +52,16 @@ const result = await api.login_account(self_id, platform)
 
 ## 滑块验证
 
-```js
-const result = await api.submit_slider(self_id, platform, ticket, randstr)
+调用 [`submit_slider`](/api/submit_slider)：
+
+```json
+{ "self_id": 123456789, "protocol_id": 0, "ticket": "TICKET", "randstr": "RANDSTR" }
 ```
 
 | 参数 | 说明 |
 | --- | --- |
 | `self_id` | QQ 号 |
-| `platform` | 账号平台 |
+| `protocol_id` | 当前账号的协议 ID |
 | `ticket` | 滑块完成后返回的 ticket |
 | `randstr` | 滑块完成后返回的 randstr |
 
@@ -89,27 +75,14 @@ const result = await api.submit_slider(self_id, platform, ticket, randstr)
 
 ### 扫码安全验证
 
-当结果为 `140022010` 时，可使用响应中的 `security_verify`，也可以重新查询当前验证原因和可用方式：
+当结果为 `140022010` 时，可使用响应中的 `security_verify`，也可以调用 [`get_security_verify_methods`](/api/get_security_verify_methods) 重新查询当前验证原因和可用方式。
 
-```js
-const securityVerify = await api.get_security_verify_methods(self_id, platform)
-```
+当 `methods` 包含扫码方式时，调用 [`get_security_verify_qr`](/api/get_security_verify_qr)（参数为 `self_id`、`protocol_id`），把返回的 `qr_url` 渲染为二维码。
 
-当 `securityVerify.methods` 包含扫码方式时，获取安全验证二维码：
+随后使用返回的 `guarantee_token` 每秒调用一次 [`query_security_verify_qr`](/api/query_security_verify_qr)：
 
-```js
-const qr = await api.get_security_verify_qr(self_id, platform)
-// 将 qr.qr_url 渲染为二维码
-```
-
-使用返回的 `guarantee_token` 每秒查询一次状态：
-
-```js
-const result = await api.query_security_verify_qr(
-  self_id,
-  platform,
-  qr.guarantee_token,
-)
+```json
+{ "self_id": 123456789, "protocol_id": 0, "guarantee_token": "GUARANTEE_TOKEN" }
 ```
 
 `status` 依次可能为 `waiting`、`scanned`、`confirmed` 或 `expired`。当状态为 `confirmed` 时会自动继续登录，应停止轮询，再按当前响应的 `code` 与 `message` 处理登录结果。
@@ -125,39 +98,43 @@ const result = await api.query_security_verify_qr(
 
 #### 接收短信（verify_type 4）
 
-```js
-const sms = await api.get_sms(self_id, platform, 4, sign)
+调用 [`get_sms`](/api/get_sms)：
+
+```json
+{ "self_id": 123456789, "protocol_id": 0, "verify_type": 4, "sign": "SMS_SIGN" }
 ```
 
 返回短信验证信息：
 
-```js
-{ result: { state: 1, code: 1 }, sign: 'NEW_SMS_SIGN', masked_phone: '166******00', country_code: '86' }
+```json
+{ "result": { "state": 1, "code": 1 }, "sign": "NEW_SMS_SIGN", "masked_phone": "166******00", "country_code": "86" }
 ```
 
-提交时必须使用这里**新返回**的 `sign`：
+调用 [`check_sms`](/api/check_sms) 提交验证码，必须使用这里**新返回**的 `sign`：
 
-```js
-const result = await api.check_sms(self_id, platform, 4, sms.sign, code)
+```json
+{ "self_id": 123456789, "protocol_id": 0, "verify_type": 4, "sign": "NEW_SMS_SIGN", "code": "123456" }
 ```
 
 #### 发送短信（verify_type 3）
 
-```js
-const sms = await api.get_sms(self_id, platform, 3, sign)
+调用 [`get_sms`](/api/get_sms)：
+
+```json
+{ "self_id": 123456789, "protocol_id": 0, "verify_type": 3, "sign": "SMS_SIGN" }
 ```
 
 返回里多出 `sms`（短信内容）和 `send_to`（接收号码）：
 
-```js
-{ result: { state: 1, code: 1 }, sign: 'NEW_SMS_SIGN', sms: '验证QQ',
-  send_to: '10690700511', masked_phone: '166******00', country_code: '86' }
+```json
+{ "result": { "state": 1, "code": 1 }, "sign": "NEW_SMS_SIGN", "sms": "验证QQ",
+  "send_to": "10690700511", "masked_phone": "166******00", "country_code": "86" }
 ```
 
-引导用户用密保手机把 `sms` 的内容原样发送到 `send_to`，发送后回查，不需要传 `code`：
+引导用户用密保手机把 `sms` 的内容原样发送到 `send_to`，发送后调用 [`check_sms`](/api/check_sms) 回查，不需要传 `code`：
 
-```js
-const result = await api.check_sms(self_id, platform, 3, sms.sign)
+```json
+{ "self_id": 123456789, "protocol_id": 0, "verify_type": 3, "sign": "NEW_SMS_SIGN" }
 ```
 
 #### 结果处理
@@ -166,28 +143,24 @@ const result = await api.check_sms(self_id, platform, 3, sms.sign)
 
 ## 扫码登录
 
-用手机 QQ 或已登录的 Android Bot（[`scan_qr`](/api/scan_qr) + [`auth_qr`](/api/auth_qr)）扫描 `get_login_qr` 返回的二维码。`platform` 指定要登录的端，当前实现了 `linux`，`windows` 暂未支持。
+用手机 QQ 或已登录的 Android Bot（[`scan_qr`](/api/scan_qr) + [`auth_qr`](/api/auth_qr)）扫描 `get_login_qr` 返回的二维码。`protocol_id` 指定要登录的协议，目前扫码登录支持 Linux 类型，Windows 暂未支持。
 
-```js
-const qr = await api.get_login_qr(self_id, platform, client_profile_id, device_profile_id)
-// 将 qr.url 渲染为二维码
+调用 [`get_login_qr`](/api/get_login_qr)，把返回的 `url` 渲染为二维码：
+
+```json
+{ "self_id": 123456789, "protocol_id": 2, "device_profile_id": 1 }
 ```
 
-账号不存在时会按传入的客户端配置和设备配置创建。之后轮询：
-
-```js
-const result = await api.query_login_qr(self_id, platform)
-```
+账号不存在时会按传入的协议和设备配置创建。之后以 `self_id`、`protocol_id` 轮询 [`query_login_qr`](/api/query_login_qr)。
 
 `state` 可能为 `waiting_for_scan`、`waiting_for_confirm`、`confirmed`、`code_expired`、`canceled` 或 `invalid`。当 `login_complete` 为 `true` 或 `state` 为终态时停止轮询。
 
 ## 应用登录二维码
 
-已登录的 Android Bot 可以扫描应用登录二维码（链接中的 `k=`）：
+已登录的 Android Bot 可以扫描应用登录二维码（链接中的 `k=`），依次调用 [`scan_qr`](/api/scan_qr) 和 [`auth_qr`](/api/auth_qr)：
 
-```js
-await api.scan_qr(self_id, 'android', k)
-await api.auth_qr(self_id, 'android', k)
+```json
+{ "self_id": 123456789, "protocol_id": 0, "k": "QR_K" }
 ```
 
 [`scan_qr`](/api/scan_qr) 只完成扫码，[`auth_qr`](/api/auth_qr) 才确认登录。确认 Linux 码后继续 [`query_login_qr`](/api/query_login_qr)。不能单独用这两条代替 [`get_login_qr`](/api/get_login_qr) 创建扫码登录账号。
@@ -204,31 +177,22 @@ await api.auth_qr(self_id, 'android', k)
 
 ## 缓存登录
 
-先检查缓存：
+先以 `self_id`、`protocol_id` 调用 [`check_cache`](/api/check_cache)，返回 `{ "valid": true }` 或 `{ "valid": false }`。
 
-```js
-const cache = await api.check_cache(self_id, platform)
-// { valid: true | false }
-```
-
-`cache.valid === true` 表示可以尝试缓存登录，不保证登录成功：
-
-```js
-const result = await api.cache_login(self_id, platform)
-```
+`valid` 为 `true` 表示可以尝试缓存登录，不保证登录成功。随后以同样参数调用 [`cache_login`](/api/cache_login)。
 
 成功：
 
-```js
-{ code: 0, message: '登录成功' }
+```json
+{ "code": 0, "message": "登录成功" }
 ```
 
 失败时可能返回：
 
-```js
-{ code: 1, message: '...', cache_invalid: true }
+```json
+{ "code": 1, "message": "...", "cache_invalid": true }
 ```
 
 `cache_invalid` 为 `true` 时，密码登录账号改用 `login_account`，扫码登录账号改用 `get_login_qr`。
 
-`cache.valid === false` 时也按账号的登录方式重新登录。缓存登录的失败结果可能没有 `cache_invalid`，应检查 `code` 和 `message`；仅 `code === 0` 表示成功。详细说明见 [`cache_login`](/api/cache_login)。
+`valid` 为 `false` 时也按账号的登录方式重新登录。缓存登录的失败结果可能没有 `cache_invalid`，应检查 `code` 和 `message`；仅 `code` 为 `0` 表示成功。详细说明见 [`cache_login`](/api/cache_login)。

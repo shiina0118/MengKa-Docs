@@ -7,8 +7,13 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const bots = await api.get_bot_list()
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_bot_list",
+  "params": {}
+}
 ```
 
 </template>
@@ -30,16 +35,4 @@ curl --request POST 'http://127.0.0.1:3003/api/get_bot_list' \
 
 ## 返回值
 
-返回账号数组。常用字段：
-
-| 字段 | 说明 |
-| --- | --- |
-| `self_id` | Bot QQ 号 |
-| `platform` | 账号平台：`linux` 或 `android` |
-| `client_profile_id` | 当前客户端配置 ID |
-| `device_profile_id` | 当前设备配置 ID |
-| `nickname` | Bot 昵称 |
-| `status` | `0` 离线、`1` 在线、`2` 登录中 |
-| `received`, `sent` | 运行期收发消息计数 |
-
-只返回当前节点的账号。
+返回账号数组，每项结构见 [`get_bot_info`](/api/get_bot_info#返回值)。

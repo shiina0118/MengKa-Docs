@@ -2,12 +2,7 @@
 
 ## 群聊消息
 
-```js
-api.on('group_message', event => {
-  console.log(event.group_name, event.sender.nickname)
-  console.log(event.message)
-})
-```
+以事件帧推送，`data.post_type` 为 `group_message`。需要在认证时声明 `group_message` 权限。
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -23,11 +18,7 @@ api.on('group_message', event => {
 
 ## 好友消息
 
-```js
-api.on('friend_message', event => {
-  console.log(event.sender.user_id, event.alt_message)
-})
-```
+以事件帧推送，`data.post_type` 为 `friend_message`。需要在认证时声明 `friend_message` 权限。
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

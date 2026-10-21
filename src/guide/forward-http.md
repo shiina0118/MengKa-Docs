@@ -18,7 +18,7 @@ Authorization: Bearer TOKEN
 Content-Type: application/json
 ```
 
-`{action}` 与 [API 参考](/api/)中的名称完全相同，例如：
+`{action}` 为接口名称，例如：
 
 | 路由 | 用途 |
 | --- | --- |
@@ -30,9 +30,9 @@ Content-Type: application/json
 | `POST /api/upload_group_image` | 上传群图片 |
 | `POST /api/login_account` | 登录账号 |
 
-所有 API（包括查询类 API）均使用 POST；路由没有版本前缀。请求体直接使用对应 API 的 `params` 对象，无需外层 `type`、`id`、`action`、`params` 包装。无参数时传 `{}`。账号相关接口按原有约定传 `self_id` 和 `platform`。
+所有 API（包括查询类 API）均使用 POST；路由没有版本前缀。请求体直接使用对应 API 的 `params` 对象，无需外层 `type`、`id`、`action`、`params` 包装。无参数时传 `{}`。账号相关接口按原有约定传 `self_id` 和 `protocol_id`。
 
-也支持 `X-Meng-Ka-Token: TOKEN` 请求头，旧的 `X-Mengka-Token` 仅作为兼容兜底。优先级为 `Authorization` → `X-Meng-Ka-Token` → `X-Mengka-Token`；只有更高优先级的请求头不存在时才使用后者。已提供的令牌错误、为空或格式非法时，不会回退尝试其他令牌。URL 查询参数和请求体中的令牌不用于认证。
+未提供 `Authorization` 时，可使用 `X-Meng-Ka-Token: TOKEN`。已提供的 `Authorization` 错误、为空或格式非法时直接拒绝。URL 查询参数和请求体中的令牌不用于认证。
 
 ## 调用示例
 
@@ -50,7 +50,7 @@ const response = await fetch('http://127.0.0.1:3003/api/get_group_list', {
     Authorization: 'Bearer TOKEN',
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({ self_id: 123456789, platform: 'android' }),
+  body: JSON.stringify({ self_id: 123456789, protocol_id: 0 }),
 })
 const result = await response.json()
 if (!response.ok || !result.ok) throw new Error(result.error)
@@ -63,7 +63,7 @@ console.log(result.data)
 { "ok": true, "data": [] }
 ```
 
-多数接口的 `data` 与 WebSocket SDK 返回值一致。`add_account`、`update_account`、`offline_account`、`delete_account` 的 SDK 会额外包装 `code` / `msg`，HTTP 直接返回原始业务结果，具体见对应 API 页。`like_qzone_feed` 与 `unlike_qzone_feed` 的 SDK 不等待响应，HTTP 则等待处理后返回结果。不要将业务数据里的 `code`、`success` 等字段与 HTTP 外层的 `ok` 混淆。
+HTTP 响应的 `data` 与 WebSocket `action_result` 中的 `data` 一致。HTTP 总会等待处理完成后返回结果。不要将业务数据里的 `code`、`success` 等字段与外层的 `ok` 混淆。
 
 失败响应：
 

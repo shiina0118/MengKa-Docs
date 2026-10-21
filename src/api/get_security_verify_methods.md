@@ -7,9 +7,16 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const self_id = 123456789 // 正在登录的 Bot QQ 号
-const result = await api.get_security_verify_methods(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_security_verify_methods",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 </template>
@@ -21,7 +28,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_security_verify_methods' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android"
+  "protocol_id": 0
 }'
 ```
 
@@ -33,7 +40,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_security_verify_methods' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在等待安全验证的 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 
 ## 返回值
 

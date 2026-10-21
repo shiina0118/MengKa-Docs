@@ -7,8 +7,13 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const profiles = await api.get_device_profile_list()
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_device_profile_list",
+  "params": {}
+}
 ```
 
 </template>
@@ -30,6 +35,9 @@ curl --request POST 'http://127.0.0.1:3003/api/get_device_profile_list' \
 
 ## 返回值
 
-返回设备配置数组。使用记录的 `name` 展示配置名称，使用 `id` 作为账号 API 的 `device_profile_id`，无需自行构造设备配置。
+返回设备配置数组，每项字段：
 
-每项只返回 `{ id, name }`，`id` 为 number，`name` 为 string。
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `id` | number | 设备配置 ID，对应请求参数 `device_profile_id` |
+| `name` | string | 设备配置名称 |

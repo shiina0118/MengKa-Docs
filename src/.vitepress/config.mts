@@ -34,7 +34,7 @@ export default defineConfig({
     siteTitle: "Meng Ka",
     nav: [
       { text: "快速开始", link: "/guide/" },
-      { text: "API", link: "/api/" },
+      { text: "API", link: "/api/get_bot_list" },
       { text: "事件", link: "/events/" },
     ],
     sidebar: {
@@ -53,10 +53,6 @@ export default defineConfig({
         },
       ],
       "/api/": [
-        {
-          text: "API 参考",
-          items: [{ text: "API 总览", link: "/api/" }],
-        },
         {
           text: "账号相关",
           items: [
@@ -77,7 +73,7 @@ export default defineConfig({
               text: "登录类",
               collapsed: true,
               items: [
-                { text: "获取客户端配置", link: "/api/get_client_profile_list" },
+                { text: "获取协议列表", link: "/api/get_protocol_list" },
                 { text: "获取设备配置", link: "/api/get_device_profile_list" },
                 { text: "密码登录", link: "/api/login_account" },
                 { text: "检查登录缓存", link: "/api/check_cache" },

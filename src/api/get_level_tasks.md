@@ -2,13 +2,23 @@
 
 刷新并获取当前 Bot 的 QQ 等级加速面板。
 
+当前按账号绑定协议的 `platform` 分支：Android 执行，PC 暂时跳过，不发送对应业务请求。PC 返回的数据为 `{ self_id, protocol_id, skipped: true, reason: "PC 平台暂时跳过此功能" }`，调用方应先检查 `skipped`。
+
 ## 调用
 
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.get_level_tasks(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_level_tasks",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 </template>
@@ -20,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_level_tasks' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android"
+  "protocol_id": 0
 }'
 ```
 
@@ -32,7 +42,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_level_tasks' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 
 ## 返回值
 

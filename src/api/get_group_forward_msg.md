@@ -7,13 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.get_group_forward_msg(
-  self_id,
-  platform,
-  sender_id,
-  res_id,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_group_forward_msg",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "sender_id": 234567890,
+    "res_id": "RES_ID_FROM_FORWARD_MESSAGE"
+  }
+}
 ```
 
 </template>
@@ -25,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_forward_msg' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "sender_id": 234567890,
   "res_id": "RES_ID_FROM_FORWARD_MESSAGE"
 }'
@@ -39,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_forward_msg' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `sender_id` | number | 是 | 合并转发消息发送者 QQ 号 |
 | `res_id` | string | 是 | 合并转发资源 ID |
 

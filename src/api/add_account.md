@@ -1,22 +1,24 @@
 # add_account
 
-向当前插件节点添加 Bot 账号。仅支持密码登录账号（`android`）。扫码登录账号请用 [`get_login_qr`](/api/get_login_qr) 创建。
+向当前插件节点添加 Bot 账号。仅支持 Android 密码登录账号。扫码登录账号请用 [`get_login_qr`](/api/get_login_qr) 创建。
 
 ## 调用
 
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const self_id = 123456789 // 要添加的 Bot QQ 号
-
-const result = await api.add_account(
-  self_id,
-  platform,
-  password,
-  client_profile_id,
-  device_profile_id,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "add_account",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "password": "YOUR_ACCOUNT_PASSWORD",
+    "device_profile_id": 1
+  }
+}
 ```
 
 </template>
@@ -28,14 +30,11 @@ curl --request POST 'http://127.0.0.1:3003/api/add_account' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "password": "YOUR_ACCOUNT_PASSWORD",
-  "client_profile_id": 1,
   "device_profile_id": 1
 }'
 ```
-
-`client_profile_id` 和 `device_profile_id` 使用查询配置接口返回的真实 ID；客户端配置的平台必须与 `platform` 一致。
 
 </template>
 </ApiCallTabs>
@@ -45,23 +44,21 @@ curl --request POST 'http://127.0.0.1:3003/api/add_account' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 5 到 10 位 QQ 号 |
-| `platform` | string | 是 | `android`（`phone`、`pad` 视为 android）。扫码登录请用 [`get_login_qr`](/api/get_login_qr) |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `password` | string | 是 | 账号密码 |
-| `client_profile_id` | number | 是 | `get_client_profile_list` 返回的客户端配置记录的 `id` |
 | `device_profile_id` | number | 是 | `get_device_profile_list` 返回的设备配置记录 ID |
 
 ## 返回值
 
-以下 `code` / `msg` 是 WebSocket SDK 的封装结果。HTTP 成功返回 `ok: true`，`data` 为新账号信息（`self_id`、`platform`、配置 ID、`node_id` 和 `status`）；失败返回 `{ "ok": false, "error": "错误原因" }`。
+成功时 `data` 为新账号信息：
 
-成功：
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `self_id` | number | 账号 QQ 号 |
+| `platform` | string | 通信实现，如 `android` |
+| `protocol_id` | number | 协议 ID |
+| `device_profile_id` | number | 设备配置记录 ID |
+| `node_id` | number | 所属节点 ID |
+| `status` | number | 账号状态 |
 
-```js
-{ code: 0, msg: '账号添加成功' }
-```
-
-失败：
-
-```js
-{ code: 1, msg: '错误信息' }
-```
+失败时 `action_result` 为 `ok: false`，`error` 为错误原因；HTTP 返回 `{ "ok": false, "error": "错误原因" }`。

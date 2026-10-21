@@ -50,7 +50,7 @@ function navigate(event: KeyboardEvent, index: number) {
       class="api-call-tabs__panel"
       tabindex="0"
     >
-      <p class="api-call-tabs__hint">正向与反向 WebSocket SDK 通用。</p>
+      <p class="api-call-tabs__hint">正向与反向 WebSocket 通用。<code>id</code> 由插件自行生成，用于匹配 <code>action_result</code>。<a :href="withBase('/guide/protocol')">WebSocket API 格式</a></p>
       <slot name="websocket" />
     </section>
     <section

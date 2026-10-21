@@ -1,13 +1,6 @@
 # Bot 离线事件
 
-当绑定节点下的 Bot 离线时，插件可接收 `bot_offline`：
-
-```js
-api.on('bot_offline', event => {
-  console.log(`Bot ${event.self_id} 已离线`)
-  console.log(event.err_msg)
-})
-```
+当绑定节点下的 Bot 离线时，插件可接收 `bot_offline`。需要在认证时声明 `bot_offline` 权限。
 
 事件结构：
 

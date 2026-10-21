@@ -7,8 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.set_friend_remark(self_id, platform, user_id, remark)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "set_friend_remark",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "user_id": 234567890,
+    "remark": "示例备注"
+  }
+}
 ```
 
 </template>
@@ -20,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/set_friend_remark' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "user_id": 234567890,
   "remark": "示例备注"
 }'
@@ -34,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/set_friend_remark' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `user_id` | number | 是 | 目标好友 QQ 号 |
 | `remark` | string | 是 | 新备注；传空字符串清除备注 |
 
@@ -46,11 +56,4 @@ curl --request POST 'http://127.0.0.1:3003/api/set_friend_remark' \
 { success: true, user_id: 234567890, remark: '项目联系人' }
 ```
 
-失败时 Promise 拒绝。成功后可通过 [`get_friend_list`](/api/get_friend_list) 查询好友的 `remark`。
-
-## WebSocket 示例
-
-```js
-await api.set_friend_remark(self_id, platform, 234567890, '项目联系人')
-await api.set_friend_remark(self_id, platform, 234567890, '') // 清除备注
-```
+失败时返回 `ok: false`。成功后可通过 [`get_friend_list`](/api/get_friend_list) 查询好友的 `remark`。

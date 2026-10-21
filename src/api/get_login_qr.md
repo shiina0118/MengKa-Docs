@@ -1,6 +1,6 @@
 # get_login_qr
 
-获取扫码登录二维码。账号不存在时会按传入的客户端配置和设备配置创建账号。
+获取扫码登录二维码。账号不存在时会按传入的协议和设备配置创建账号。
 
 这不是密码登录过程中的安全验证二维码。安全验证请用 [`get_security_verify_qr`](/api/get_security_verify_qr)。`add_account` 只用于密码登录账号；扫码登录账号通过本接口创建。
 
@@ -9,13 +9,17 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.get_login_qr(
-  self_id,
-  platform,
-  client_profile_id,
-  device_profile_id,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_login_qr",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 2,
+    "device_profile_id": 1
+  }
+}
 ```
 
 </template>
@@ -27,27 +31,25 @@ curl --request POST 'http://127.0.0.1:3003/api/get_login_qr' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "linux",
-  "client_profile_id": 1,
+  "protocol_id": 2,
   "device_profile_id": 1
 }'
 ```
 
-`client_profile_id` 和 `device_profile_id` 使用查询配置接口返回的真实 ID；客户端配置的平台必须与 `platform` 一致。
 
 </template>
 </ApiCallTabs>
+
+目前仅支持 Linux 类型的协议 ID。账号已存在时保持原设备配置。
 
 ## 参数
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 5 到 10 位 QQ 号 |
-| `platform` | string | 是 | 扫码登录平台，如 `linux`。`windows` 暂未支持 |
-| `client_profile_id` | number | 是 | `get_client_profile_list` 返回的客户端配置记录的 `id`，须与 `platform` 匹配 |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `device_profile_id` | number | 是 | `get_device_profile_list` 返回的设备配置记录 ID |
 
-账号已存在且属于当前节点时，仍须传入 `client_profile_id` 和 `device_profile_id`，但不会改写已有配置。账号已登录时会失败。
 
 ## 返回值
 

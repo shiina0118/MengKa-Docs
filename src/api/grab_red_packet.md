@@ -7,20 +7,33 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const redPacket = event.message.find(segment => segment.type === 'red_packet')
-const result = await api.grab_red_packet(
-  event.self_id,
-  platform,
-  event.group_id,
-  event.sender.user_id,
-  redPacket.data,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "grab_red_packet",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "sender_id": 234567890,
+    "red_packet": {
+      "listid": "LISTID_FROM_RED_PACKET",
+      "authkey": "AUTHKEY_FROM_RED_PACKET",
+      "title": "恭喜发财",
+      "channel": 1,
+      "pay_flag": 0,
+      "hb_from": 0
+    }
+  }
+}
 ```
 
-以上示例用于普通红包。普通红包领取前必须取得 `claim_token`；省略第 6 个参数时，后端会先查询详情取得 token，再发送领取请求。查询失败或未取得有效 token 时会报错，不会继续领取。
+`self_id`、`protocol_id`、`group_id` 取自群消息事件，`sender_id` 为事件中的 `sender.user_id`，`red_packet` 为消息中 `red_packet` 消息段的完整 `data`。
 
-如已调用 [`get_red_packet_info`](/api/get_red_packet_info)，请将返回的 `claim_token` 原样作为第 6 个参数传入，后端就会使用该 token，跳过自动查询。文字口令红包不使用该参数。
+以上示例用于普通红包。普通红包领取前必须取得 `claim_token`；省略 `claim_token` 时，后端会先查询详情取得 token，再发送领取请求。查询失败或未取得有效 token 时会报错，不会继续领取。
+
+如已调用 [`get_red_packet_info`](/api/get_red_packet_info)，请将返回的 `claim_token` 原样放入 `params.claim_token`，后端就会使用该 token，跳过自动查询。文字口令红包不使用该参数。
 
 </template>
 <template #http>
@@ -39,7 +52,7 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
     "hb_from": 0
   },
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "sender_id": 234567890,
   "claim_token": "CLAIM_TOKEN_FROM_GET_RED_PACKET_INFO"
@@ -56,7 +69,7 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_id` | number | 是 | 红包发送人 QQ 号 |
 | `red_packet` | object | 是 | 收到的 `red_packet` 消息段 `data` |
@@ -76,24 +89,53 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
 
 文字口令红包不使用 `claim_token`，无需先查询详情。
 
-```js
-const title = redPacket.data.title.trim()
-const sent = await api.send_group_msg(event.self_id, platform, event.group_id, [
-  { type: 'text', data: { text: title } },
-])
+1. 用 [`send_group_msg`](/api/send_group_msg) 在红包所在群发送去除首尾空白后的红包标题：
 
-const result = await api.grab_red_packet(
-  event.self_id,
-  platform,
-  event.group_id,
-  event.sender.user_id,
-  {
-    ...redPacket.data,
-    title,
-    msg_random: sent.msg_random,
-    client_seq: sent.client_seq,
-  },
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "send_group_msg",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "message": [
+      {
+        "type": "text",
+        "data": {
+          "text": "恭喜发财"
+        }
+      }
+    ]
+  }
+}
+```
+
+2. 把发送结果的 `client_seq`、`msg_random` 和发送的口令一并放入 `red_packet` 后领取：
+
+```json
+{
+  "type": "action",
+  "id": "2",
+  "action": "grab_red_packet",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "sender_id": 234567890,
+    "red_packet": {
+      "listid": "LISTID_FROM_RED_PACKET",
+      "authkey": "AUTHKEY_FROM_RED_PACKET",
+      "title": "恭喜发财",
+      "channel": 6,
+      "pay_flag": 0,
+      "hb_from": 0,
+      "msg_random": 1234567890,
+      "client_seq": 12345
+    }
+  }
+}
 ```
 
 调用前须先发送口令消息。将发送结果的 `client_seq` 和 `msg_random` 按同名字段填入 `red_packet`；发送结果的 `msg_seq` 用于撤回消息，不能替代 `client_seq`。领取时的 `title` 应与发送的口令一致。缺少标题或 `msg_random` 会报错；`client_seq` 必须是 `1` 至 `4294967295` 的整数，缺失、为 `null`、为 `0` 或其他无效值时会拒绝领取并返回明确错误，不会从其他字段补取。

@@ -15,7 +15,7 @@ hero:
       link: /guide/
     - theme: alt
       text: API 文档
-      link: /api/
+      link: /api/get_bot_list
     - theme: alt
       text: 事件参考
       link: /events/
@@ -35,11 +35,11 @@ features:
     linkText: 了解消息格式
   - title: 群聊与好友
     details: 查询好友、群聊与成员，处理入群申请、管理员设置、禁言、撤回和资料点赞。
-    link: /api/
+    link: /api/get_friend_list
     linkText: 查阅 API
   - title: QQ 业务接口
     details: 接入 QQ 宠物、红包、空间动态和经典农场登录等业务，按接口说明处理参数与返回结果。
-    link: /api/
+    link: /api/qqpet_get_profile
     linkText: 浏览业务接口
   - title: 事件订阅
     details: 通过 WebSocket 接收群聊与好友消息、通知和 Bot 离线事件。HTTP 仅支持 API 调用。

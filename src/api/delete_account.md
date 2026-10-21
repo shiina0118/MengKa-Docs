@@ -7,9 +7,16 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const self_id = 123456789 // 要删除的 Bot QQ 号
-const result = await api.delete_account(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "delete_account",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 </template>
@@ -21,7 +28,7 @@ curl --request POST 'http://127.0.0.1:3003/api/delete_account' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android"
+  "protocol_id": 0
 }'
 ```
 
@@ -33,16 +40,14 @@ curl --request POST 'http://127.0.0.1:3003/api/delete_account' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 当前节点下的账号 QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
-
-账号必须处于离线状态。
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 
 ## 返回值
 
-以下 `code` / `msg` 是 WebSocket SDK 的封装结果。HTTP 成功返回 `{ "ok": true, "data": null }`；失败返回 `{ "ok": false, "error": "错误原因" }`。
+成功时 `data` 为 `null`：
 
-```js
-{ code: 0, msg: '账号删除成功' }
+```json
+{ "type": "action_result", "id": "1", "ok": true, "data": null }
 ```
 
-失败时返回 `{ code: 1, msg: '错误信息' }`。
+HTTP 成功返回 `{ "ok": true, "data": null }`。失败时 `action_result` 为 `ok: false`，`error` 为错误原因；HTTP 返回 `{ "ok": false, "error": "错误原因" }`。

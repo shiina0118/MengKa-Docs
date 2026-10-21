@@ -14,14 +14,19 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const self_id = 123456789 // 正在登录的 Bot QQ 号
-
-// 接收短信：提交用户收到的验证码
-const receiveResult = await api.check_sms(self_id, platform, 4, sms.sign, code)
-
-// 发送短信：用户发完短信后回查，不需要 code
-const sendResult = await api.check_sms(self_id, platform, 3, sms.sign)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "check_sms",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "verify_type": 4,
+    "sign": "SIGN_FROM_VERIFY_RESPONSE",
+    "code": "123456"
+  }
+}
 ```
 
 </template>
@@ -33,7 +38,7 @@ curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "verify_type": 4,
   "sign": "SIGN_FROM_VERIFY_RESPONSE",
   "code": "123456"
@@ -50,7 +55,7 @@ curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在登录的 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `verify_type` | number | 是 | 短信验证类型，`4` 接收短信，`3` 发送短信 |
 | `sign` | string | 是 | `get_sms` **新返回**的 sign |
 | `code` | string | 视类型 | `verify_type` 为 `4` 时必填；为 `3` 时不需要传 |

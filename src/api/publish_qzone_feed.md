@@ -7,15 +7,20 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.publish_qzone_feed(
-  self_id,
-  platform,
-  content,
-  visibility,
-  self_delete_after_one_day,
-  declare_ai_generated,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "publish_qzone_feed",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "content": "你好，今天也要开心。",
+    "visibility": 1,
+    "self_delete_after_one_day": false,
+    "declare_ai_generated": false
+  }
+}
 ```
 
 </template>
@@ -27,7 +32,7 @@ curl --request POST 'http://127.0.0.1:3003/api/publish_qzone_feed' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "content": "你好，今天也要开心。",
   "visibility": 1,
   "self_delete_after_one_day": false,
@@ -43,7 +48,7 @@ curl --request POST 'http://127.0.0.1:3003/api/publish_qzone_feed' \
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 | --- | --- | --- | --- | --- |
 | `self_id` | number | 是 | - | 在线 Bot QQ 号 |
-| `platform` | string | 是 | - | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `content` | string | 是 | - | 动态文本，不能只包含空白字符 |
 | `visibility` | number | 否 | `1` | `1` 所有人可见、`2` 好友可见、`5` 仅自己可见 |
 | `self_delete_after_one_day` | boolean | 否 | `false` | 是否在一天后自动删除 |

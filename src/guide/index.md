@@ -1,34 +1,16 @@
 # 快速开始
 
-Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还可以接收事件。
+Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还可以接收事件。插件可以使用任意语言实现，只需按本文档收发 JSON 消息。
 
 ## 选择连接模式
 
 | 模式 | 连接发起方 | 适用场景 |
 | --- | --- | --- |
-| 正向 WebSocket | 插件连接 Meng Ka | 插件与 Meng Ka 在同一设备或插件能访问 Meng Ka 端口 |
-| 反向 WebSocket | Meng Ka 连接插件 | 插件有稳定地址，或希望由 Meng Ka 负责断线重连 |
+| [正向 WebSocket](/guide/forward-websocket) | 插件连接 Meng Ka | 插件与 Meng Ka 在同一设备或插件能访问 Meng Ka 端口 |
+| [反向 WebSocket](/guide/reverse-websocket) | Meng Ka 连接插件 | 插件有稳定地址，或希望由 Meng Ka 负责断线重连 |
 | [正向 HTTP](/guide/forward-http) | 插件向 Meng Ka 发起 HTTP 请求 | 只需调用 API，通过请求头携带令牌 |
 
 三种模式使用相同的 API 参数和业务结果；WebSocket 支持事件推送，HTTP 使用独立端口的 `POST /api/{action}` 路由。
-
-## 获取示例
-
-发行仓库提供 Node.js 示例，其中包含 `sdk.js`、`index.js` 和 `package.json`：
-
-```text
-plugin/
-├─ 正向WebSocket/Node.js/
-└─ 反向WebSocket/Node.js/
-```
-
-进入对应示例目录后安装依赖：
-
-```bash
-npm install
-```
-
-示例使用 ECMAScript Modules 和 `ws`。
 
 ## 配置插件服务
 
@@ -45,70 +27,67 @@ npm install
 正向 WS 和正向 HTTP 需要各自独立的监听端口；反向 WS 需要 WebSocket 地址和重连间隔。
 
 ::: tip 节点范围
-插件只能接收绑定节点的事件，也只能操作该节点下的 Bot。`self_id` 指向其他节点时，API 会失败。带 `self_id` 的 API 必须同时传入 `platform`（`linux` 或 `android`），参数顺序为 `self_id, platform, …`。
+插件只能接收绑定节点的事件，也只能操作该节点下的 Bot。`self_id` 指向其他节点时，API 会失败。带 `self_id` 的 API 必须同时传入非负整数 `protocol_id`（允许为 `0`）。
 :::
 
-## 正向模式示例
+## 正向 WebSocket 流程
 
-先注册事件，再连接：
+1. 连接 `ws://HOST:PORT/`。
+2. 10 秒内发送认证消息，在 `permissions` 中声明需要接收的事件：
 
-```js
-import { createAPI } from './sdk.js'
-
-const api = createAPI({
-  host: '127.0.0.1',
-  port: 3001,
-  token: '与管理后台一致的服务令牌',
-  name: 'hello-plugin',
-  version: '1.0.0',
-  author: 'developer',
-})
-
-api.on('group_message', event => {
-  console.log(event.group_id, event.alt_message)
-})
-
-await api.connect()
-
-const result = await api.get_group_list(123456789, 'android')
-console.log(result.groups)
-```
-
-`on()` 应在 `connect()` 前调用。正向 SDK 会根据已注册的监听器声明事件权限。
-
-## 反向模式示例
-
-```js
-import { createReverseAPI } from './sdk.js'
-
-const api = createReverseAPI({
-  host: '0.0.0.0',
-  port: 3002,
-  path: '/',
-  token: '与管理后台一致的服务令牌',
-})
-
-api.on('bot_offline', event => {
-  console.log(event.self_id, event.err_msg)
-})
-
-await api.listen()
-await api.waitForConnection()
-```
-
-随后在管理后台填写 `ws://127.0.0.1:3002/`。完整配置见[反向 WebSocket](/guide/reverse-websocket)。
-
-## 错误处理
-
-大多数 API 返回 Promise。传输成功时 Promise 解析为业务数据；API 校验或执行失败时 Promise 抛出错误。
-
-```js
-try {
-  const result = await api.get_friend_list(self_id, platform)
-  console.log(result.friends)
-} catch (error) {
-  console.error(error.message)
+```json
+{
+  "type": "auth",
+  "token": "与管理后台一致的服务令牌",
+  "name": "hello-plugin",
+  "version": "1.0.0",
+  "author": "developer",
+  "permissions": {
+    "group_message": true,
+    "friend_message": false,
+    "group_event": false,
+    "friend_event": false,
+    "bot_offline": true
+  }
 }
 ```
 
-API 默认等待 30 秒。连接断开时，所有尚未完成的请求都会结束。
+3. 收到 `{ "type": "auth_ok" }` 后即可发送 API 请求：
+
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_group_list",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
+```
+
+完整说明见[正向 WebSocket](/guide/forward-websocket)。
+
+## 反向 WebSocket 流程
+
+1. 插件启动一个 WebSocket 服务端，例如监听 `ws://0.0.0.0:3002/`。
+2. 在管理后台填写插件的 WebSocket 地址，例如 `ws://127.0.0.1:3002/`。
+3. Meng Ka 连接时在请求头中携带服务令牌，插件校验通过后接受连接。
+4. 收到 Meng Ka 发送的 `ready` 帧后即可发送 API 请求。
+
+完整说明见[反向 WebSocket](/guide/reverse-websocket)。
+
+## 结果与错误
+
+每个带 `id` 的请求都会收到一条同 `id` 的 `action_result`。`ok` 为 `true` 时读取 `data`；为 `false` 时读取 `error`：
+
+```json
+{
+  "type": "action_result",
+  "id": "1",
+  "ok": false,
+  "error": "bot 未在线"
+}
+```
+
+插件应自行设置等待超时，默认建议 30 秒，媒体、红包、头像和批量任务等耗时 API 适当延长。连接断开时，所有尚未收到结果的请求都应视为失败。消息格式详见 [WebSocket API 格式](/guide/protocol)。

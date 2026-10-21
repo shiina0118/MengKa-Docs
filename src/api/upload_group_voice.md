@@ -7,8 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const voice = await api.upload_group_voice(self_id, platform, group_id, file_path)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "upload_group_voice",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "file_path": "file:///D:/audio/example.mp3"
+  }
+}
 ```
 
 </template>
@@ -20,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "file_path": "file:///D:/audio/example.mp3"
 }'
@@ -34,13 +44,13 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 目标群聊 ID |
 | `file_path` | string | 是 | 后端本地路径、`file://`、HTTP(S) 音频地址，或 `base64://` / Base64 data URL |
 
 输入支持 MP3、WAV 和 QQ Silk 文件。AAC/M4A、FLAC 等其他音频格式会返回不支持错误。
 
-直接使用 WebSocket API 时，也可在 `params.base64` 中提供音频，必须与 `file_path` 二选一。SDK 使用 `file_path` 传入 `base64://…` 或 Base64 data URL。
+也可以用 `base64` 参数提供音频，必须与 `file_path` 二选一；或者将 `base64://…`、Base64 data URL 作为 `file_path` 传入。
 
 单条请求的完整 JSON 按 UTF-8 计算不得超过 **4 MiB（4,194,304 字节）**。Base64 会增大体积，3 MiB 的原始音频加上请求字段后就会超限。较大音频请使用后端可访问的 HTTP(S) 地址或后端本地路径。详见[请求大小限制](/guide/protocol#请求大小限制)。
 
@@ -58,17 +68,30 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
 
 返回段只能发送到上传时指定的群。请在上传成功后 **2 分钟内**发送；超过期限或 Meng Ka 重启后需重新上传。见[媒体有效期](/guide/message-segments#媒体有效期)。
 
-## WebSocket 示例
+## 发送
 
-```js
-const voice = await api.upload_group_voice(
-  123456789,
-  'android',
-  987654321,
-  'D:/voices/example.mp3',
-)
+上传只返回语音消息段，不会发出消息。把返回的 `data` 原样放进 [`send_group_msg`](/api/send_group_msg) 的 `message` 数组：
 
-await api.send_group_msg(123456789, 'android', 987654321, [voice])
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "send_group_msg",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "message": [
+      {
+        "type": "voice",
+        "data": {
+          "file_id": "FILE_ID",
+          "duration": 5
+        }
+      }
+    ]
+  }
+}
 ```
 
 插件与 Meng Ka 不在同一台主机时，可使用后端可访问的 HTTP(S) 地址；小文件也可按上述大小限制传入 Base64。

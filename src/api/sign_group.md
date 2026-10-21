@@ -7,8 +7,17 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.sign_group(self_id, platform, group_id)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "sign_group",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321
+  }
+}
 ```
 
 </template>
@@ -20,7 +29,7 @@ curl --request POST 'http://127.0.0.1:3003/api/sign_group' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321
 }'
 ```
@@ -33,7 +42,7 @@ curl --request POST 'http://127.0.0.1:3003/api/sign_group' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 群聊 ID |
 
 ## 返回值
@@ -62,17 +71,6 @@ curl --request POST 'http://127.0.0.1:3003/api/sign_group' \
 | `detail_url` | string | 详情地址，可能省略 |
 | `score_text`, `score_animation_url` | string | 积分提示、动画地址，可能省略 |
 
-Promise 正常返回也可能是 `success: false`；必须检查 `success`。参数、连接等调用错误会拒绝 Promise。
+调用成功（`ok: true`）时 `data.success` 也可能为 `false`，必须检查 `success`。参数、连接等调用错误会返回 `ok: false`。
 
-```js
-try {
-  const result = await api.sign_group(self_id, platform, group_id)
-  if (!result.success) {
-    console.error(result.error_code, result.error_message || '打卡未成功')
-  } else {
-    console.log(result.message || '打卡成功')
-  }
-} catch (error) {
-  console.error(error.message)
-}
-```
+成功时读取 `message`；`success` 为 `false` 时读取 `error_code` 和 `error_message`。

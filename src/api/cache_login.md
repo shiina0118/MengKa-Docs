@@ -7,9 +7,16 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const self_id = 123456789 // 要登录的 Bot QQ 号
-const result = await api.cache_login(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "cache_login",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 </template>
@@ -21,7 +28,7 @@ curl --request POST 'http://127.0.0.1:3003/api/cache_login' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android"
+  "protocol_id": 0
 }'
 ```
 
@@ -33,7 +40,7 @@ curl --request POST 'http://127.0.0.1:3003/api/cache_login' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 已创建且离线的 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 
 ## 返回值
 
@@ -57,4 +64,4 @@ curl --request POST 'http://127.0.0.1:3003/api/cache_login' \
 
 失败结果的 `code` 不一定为 `1`，也不一定包含 `cache_invalid`。缓存不存在时可能返回 `cache_invalid: false`，仍需重新登录；网络等其他失败应结合 `message` 处理。不要仅凭 `cache_invalid` 判断是否成功，只有 `code === 0` 才表示登录成功。
 
-参数错误、账号不属于当前节点或账号未离线等调用错误会拒绝 Promise。
+参数错误、账号不属于当前节点或账号未离线等调用错误会返回 `ok: false`。

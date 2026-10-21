@@ -13,8 +13,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.submit_identity_captcha(self_id, platform, ticket, randstr)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "submit_identity_captcha",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "ticket": "TICKET_FROM_CAPTCHA",
+    "randstr": "RANDSTR_FROM_CAPTCHA"
+  }
+}
 ```
 
 </template>
@@ -26,7 +36,7 @@ curl --request POST 'http://127.0.0.1:3003/api/submit_identity_captcha' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "ticket": "TICKET_FROM_CAPTCHA",
   "randstr": "RANDSTR_FROM_CAPTCHA"
 }'
@@ -40,7 +50,7 @@ curl --request POST 'http://127.0.0.1:3003/api/submit_identity_captcha' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 正在登录的 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `ticket` | string | 是 | 腾讯验证完成后返回的 ticket |
 | `randstr` | string | 是 | 腾讯验证完成后返回的 randstr |
 

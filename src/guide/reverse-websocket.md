@@ -1,35 +1,6 @@
 # 反向 WebSocket
 
-反向模式下，插件监听 WebSocket 地址，Meng Ka 作为客户端主动连接。
-
-## 启动插件服务
-
-```js
-import { createReverseAPI } from './sdk.js'
-
-const api = createReverseAPI({
-  host: '0.0.0.0',
-  port: 3002,
-  path: '/',
-  token: 'TOKEN',
-})
-
-api.on('group_message', event => {
-  console.log(event.group_id, event.alt_message)
-})
-
-await api.listen()
-
-const connection = await api.waitForConnection()
-console.log(connection.service, connection.node_id)
-```
-
-| 字段 | 必填 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| `host` | 否 | `0.0.0.0` | 插件监听地址 |
-| `port` | 否 | `3002` | 插件监听端口 |
-| `path` | 否 | `/` | WebSocket 路径 |
-| `token` | 是 | - | 与管理后台一致的服务令牌 |
+反向模式下，插件作为 WebSocket 服务端监听地址，Meng Ka 作为客户端主动连接。
 
 ## 后台配置
 
@@ -37,25 +8,12 @@ console.log(connection.service, connection.node_id)
 
 | 字段 | 示例 | 说明 |
 | --- | --- | --- |
-| WebSocket 地址 | `ws://127.0.0.1:3002/` | 必须使用 `ws://` 或 `wss://` |
-| 服务令牌 | `TOKEN` | 与插件 SDK 配置一致 |
+| WebSocket 地址 | `ws://127.0.0.1:3002/` | 插件的监听地址，必须使用 `ws://` 或 `wss://` |
+| 服务令牌 | `TOKEN` | 插件用来校验连接的共享令牌 |
 | 节点 | 当前节点 | 限定事件与 API 范围 |
 | 重连间隔 | `5` | 取值 1 到 300 秒 |
 
-Meng Ka 会在断线后按重连间隔再次连接。反向 SDK 同一时间只接受一个 Meng Ka 连接。
-
-## 等待与关闭
-
-```js
-await api.listen()
-await api.waitForConnection(15_000)
-
-console.log(api.connected)
-
-await api.close()
-```
-
-`waitForConnection(timeoutMs)` 在收到 Meng Ka 的 `ready` 帧后返回。传入 `0` 或省略参数时不设置等待超时。
+连接失败或断开后，Meng Ka 会按重连间隔再次连接。
 
 ## 连接认证
 
@@ -68,9 +26,13 @@ Meng Ka 发起握手时会携带以下请求头：
 | `X-Meng-Ka-Service` | 服务名称 |
 | `X-Meng-Ka-Node-ID` | 绑定节点 ID |
 
-后端同时携带旧的 `X-Mengka-Token`、`X-Mengka-Service` 和 `X-Mengka-Node-ID`，兼容尚未更新的 SDK。新版 SDK 优先读取 `X-Meng-Ka-*`，对应新头不存在时才读取旧头。令牌认证优先级为 `Authorization` → `X-Meng-Ka-Token` → `X-Mengka-Token`；高优先级令牌错误或为空时不会继续尝试低优先级令牌。
+插件优先校验 `Authorization`，未提供时才读取 `X-Meng-Ka-Token`；已提供的令牌错误或为空时直接拒绝。
 
-SDK校验令牌后接受连接。随后 Meng Ka 发送：
+插件校验令牌后完成 WebSocket 握手；校验失败时应拒绝握手（例如返回 HTTP `401`），Meng Ka 会在重连间隔后重试。
+
+## 就绪帧
+
+握手完成后，Meng Ka 首先发送：
 
 ```json
 {
@@ -81,4 +43,6 @@ SDK校验令牌后接受连接。随后 Meng Ka 发送：
 }
 ```
 
-反向连接默认接收全部五类事件。API 和事件帧格式与正向模式一致。
+收到 `ready` 后即可发送 API 请求。反向连接不需要发送认证消息，默认接收全部五类事件。API 和事件帧格式与正向模式一致，见 [WebSocket API 格式](/guide/protocol)。
+
+Meng Ka 会定期发送 WebSocket Ping 控制帧，插件所用的 WebSocket 库需要正确回复 Pong，否则连接会被判定失效并断开。

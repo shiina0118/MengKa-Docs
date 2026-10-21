@@ -9,17 +9,42 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const { response } = await api.qqpet_get_user_pet(self_id, platform, {
-  pet_id: 'example-pet-id',
-})
-const pet = response.pet
-if (!pet || !Array.isArray(pet.field_2) || !pet.field_3) {
-  throw new Error('宠物装扮或模型信息不完整')
+1. 查询当前宠物：
+
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "qqpet_get_user_pet",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "request": {
+      "pet_id": "example-pet-id"
+    }
+  }
 }
-const request = { field_1: pet.field_2, field_2: pet.field_3 }
-const result = await api.qqpet_save_avatar(self_id, platform, request)
 ```
+
+2. 从响应 `data.response.pet` 取出 `field_2`（装扮列表）和 `field_3`（模型信息），原样填入 `request.field_1` 和 `request.field_2` 后保存：
+
+```json
+{
+  "type": "action",
+  "id": "2",
+  "action": "qqpet_save_avatar",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "request": {
+      "field_1": [],
+      "field_2": {}
+    }
+  }
+}
+```
+
+`field_2` 不是数组或 `field_3` 缺失时，说明宠物装扮或模型信息不完整，不应继续保存。
 
 </template>
 <template #http>
@@ -30,7 +55,7 @@ const headers = {
   Authorization: 'Bearer TOKEN',
   'Content-Type': 'application/json',
 }
-const account = { self_id: 123456789, platform: 'android' }
+const account = { self_id: 123456789, protocol_id: 0 }
 
 const petResponse = await fetch(baseURL + '/api/qqpet_get_user_pet', {
   method: 'POST', headers,
@@ -59,7 +84,7 @@ console.log(result.data)
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `request` | object | 是 | 本次操作的参数 |
 
 ### request

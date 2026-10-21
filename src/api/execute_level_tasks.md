@@ -2,13 +2,26 @@
 
 按数组顺序执行指定的 QQ 等级加速任务。
 
+当前按账号绑定协议的 `platform` 分支：Android 执行，PC 暂时跳过，不发送对应业务请求。PC 返回的数据为 `{ self_id, protocol_id, skipped: true, reason: "PC 平台暂时跳过此功能" }`，调用方应先检查 `skipped`。
+
 ## 调用
 
 <ApiCallTabs>
 <template #websocket>
 
-```js
-await api.execute_level_tasks(self_id, platform, tasks)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "execute_level_tasks",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "tasks": [
+      "每日登录QQ经典农场"
+    ]
+  }
+}
 ```
 
 </template>
@@ -20,7 +33,7 @@ curl --request POST 'http://127.0.0.1:3003/api/execute_level_tasks' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "tasks": [
     "每日登录QQ经典农场"
   ]
@@ -35,7 +48,7 @@ curl --request POST 'http://127.0.0.1:3003/api/execute_level_tasks' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `tasks` | string[] | 是 | 非空任务标题数组 |
 
 当前支持的任务标题：
@@ -58,8 +71,8 @@ curl --request POST 'http://127.0.0.1:3003/api/execute_level_tasks' \
 
 从 [`get_level_tasks`](/api/get_level_tasks) 返回的任务中选择上述支持的完整标题。提交前会校验整个数组；出现未知标题或空字符串时，整批拒绝，不执行任何任务。
 
-校验通过后按数组顺序执行。某个任务失败时仍会继续后面的任务，全部尝试结束后再拒绝 Promise，错误信息包含失败的任务标题。已完成的任务不会撤销；重试时只提交需要重试的任务，避免重复发布动态等操作。
+校验通过后按数组顺序执行。某个任务失败时仍会继续后面的任务，全部尝试结束后再返回 `ok: false`，`error` 包含失败的任务标题。已完成的任务不会撤销；重试时只提交需要重试的任务，避免重复发布动态等操作。
 
 ## 返回值
 
-全部执行成功时 Promise 解析为 `null`。
+全部执行成功时 `data` 为 `null`。

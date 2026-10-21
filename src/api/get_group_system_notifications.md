@@ -7,8 +7,16 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.get_group_system_notifications(self_id, platform)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_group_system_notifications",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0
+  }
+}
 ```
 
 </template>
@@ -20,7 +28,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_system_notifications' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android"
+  "protocol_id": 0
 }'
 ```
 
@@ -32,7 +40,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_system_notifications' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 
 ## 返回值
 
@@ -90,15 +98,22 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_system_notifications' \
 | `request_type` | `request_key.type` |
 | `request_extra` | `request_key.extra`，可能省略 |
 
-```js
-// notice 是已选中的入群申请通知
-const key = notice.request_key
-if (!key?.group_id || !key.request_id || !key.type) {
-  throw new Error('该通知缺少可用的审批标识')
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "approve_group_apply",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "request_id": 1234567890,
+    "request_type": 1,
+    "request_extra": 0
+  }
 }
-await api.approve_group_apply(
-  self_id, platform, key.group_id, key.request_id, key.type, key.extra,
-)
 ```
+
+`request_key` 缺少 `group_id`、`request_id` 或 `type` 时，该通知没有可用的审批标识，不要发送请求。
 
 不要把通知顶层的 `request_id`、`type` 当作审批标识。实时 `group_notice/apply` 事件已经提供 `request_id`、`request_type`、`request_extra`，其取值方式与本列表不同。

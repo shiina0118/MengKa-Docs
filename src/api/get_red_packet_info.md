@@ -9,15 +9,26 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const redPacket = event.message.find(segment => segment.type === 'red_packet')
-const result = await api.get_red_packet_info(
-  event.self_id,
-  platform,
-  event.group_id,
-  event.sender.user_id,
-  redPacket.data,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "get_red_packet_info",
+  "params": {
+    "red_packet": {
+      "listid": "LISTID_FROM_RED_PACKET",
+      "authkey": "AUTHKEY_FROM_RED_PACKET",
+      "title": "恭喜发财",
+      "channel": 1,
+      "pay_flag": 0,
+      "hb_from": 0
+    },
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "sender_id": 234567890
+  }
+}
 ```
 
 </template>
@@ -37,7 +48,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_red_packet_info' \
     "hb_from": 0
   },
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "sender_id": 234567890
 }'
@@ -53,7 +64,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_red_packet_info' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_id` | number | 是 | 红包发送人 QQ 号 |
 | `red_packet` | object | 是 | 收到的 `red_packet` 消息段 `data` |
@@ -90,31 +101,6 @@ curl --request POST 'http://127.0.0.1:3003/api/get_red_packet_info' \
 
 `sender_id`、`state`、`channel`、金额和数量字段为数字，`send_listid` 为字符串。`send_object` 仅在返回了可解析的详情时出现。
 
-`claim_token` 是普通红包领取所需的凭据，请原样作为 `grab_red_packet` 的第 6 个参数传入。省略时后端会自动预查询，只有取得有效 token 后才会发送领取请求；获取失败会报错。文字口令红包不使用该参数。查询详情不代表已领取红包。
-
-## 直接发送 WebSocket 请求
-
-SDK 与直接请求使用相同的嵌套对象：
-
-```json
-{
-  "type": "action",
-  "id": "packet-info-1",
-  "action": "get_red_packet_info",
-  "params": {
-    "self_id": 123456789,
-    "platform": "android",
-    "group_id": 987654321,
-    "sender_id": 234567890,
-    "red_packet": {
-      "listid": "收到的红包标识",
-      "authkey": "收到的红包凭据",
-      "channel": 1,
-      "pay_flag": 0,
-      "hb_from": 0
-    }
-  }
-}
-```
+`claim_token` 是普通红包领取所需的凭据，请原样作为 `grab_red_packet` 的 `claim_token` 参数传入。省略时后端会自动预查询，只有取得有效 token 后才会发送领取请求；获取失败会报错。文字口令红包不使用该参数。查询详情不代表已领取红包。
 
 其余红包 API 同样把收到的数据放在 `red_packet` 中；普通红包的 `claim_token` 放在 `params` 顶层，省略时由后端自动预查询获取。

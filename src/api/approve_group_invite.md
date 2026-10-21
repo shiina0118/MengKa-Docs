@@ -7,8 +7,18 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.approve_group_invite(self_id, platform, group_id, msg_seq)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "approve_group_invite",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "msg_seq": 123
+  }
+}
 ```
 
 </template>
@@ -20,7 +30,7 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_invite' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "msg_seq": 123
 }'
@@ -34,7 +44,7 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_invite' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 邀请加入的群聊 ID |
 | `msg_seq` | number | 是 | 邀请卡片中的消息序列号 |
 
@@ -96,25 +106,27 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_invite' \
 }
 ```
 
-## 处理示例
+## 处理流程
 
-```js
-api.on('friend_message', async event => {
-  const ark = event.message.find(segment => (
-    segment.type === 'ark' && segment.data.bizsrc === 'qun.invite'
-  ))?.data
+1. 收到 `friend_message` 事件后，在 `message` 中查找 `type` 为 `ark` 且 `data.bizsrc` 为 `qun.invite` 的消息段。
+2. 读取该消息段的 `data.meta.news.jumpUrl`，从链接查询参数中取出 `groupcode` 和 `msgseq`。
+3. 两者均为有效数字时，以事件的 `self_id`、`protocol_id` 和取出的值发送请求：
 
-  const jumpUrl = ark?.meta?.news?.jumpUrl
-  if (!jumpUrl) return
-
-  const query = new URL(jumpUrl).searchParams
-  const groupID = Number(query.get('groupcode'))
-  const msg_seq = Number(query.get('msgseq'))
-  if (!groupID || !msg_seq) return
-
-  await api.approve_group_invite(event.self_id, platform, groupID, msg_seq)
-})
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "approve_group_invite",
+  "params": {
+    "self_id": 135792468,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "msg_seq": 1234567890
+  }
+}
 ```
+
+`group_id` 对应 `groupcode`，`msg_seq` 对应 `msgseq`。缺少任一值时不要发送请求。
 
 ## 返回值
 
@@ -124,4 +136,4 @@ api.on('friend_message', async event => {
 { success: true, error_code: 0 }
 ```
 
-处理失败时 Promise 拒绝，错误信息包含原因。
+处理失败时返回 `ok: false`，`error` 包含原因。

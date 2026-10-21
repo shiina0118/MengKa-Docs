@@ -7,15 +7,20 @@
 <ApiCallTabs>
 <template #websocket>
 
-```js
-const result = await api.approve_group_apply(
-  self_id,
-  platform,
-  group_id,
-  request_id,
-  request_type,
-  request_extra,
-)
+```json
+{
+  "type": "action",
+  "id": "1",
+  "action": "approve_group_apply",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "group_id": 987654321,
+    "request_id": 123456,
+    "request_type": 1,
+    "request_extra": 0
+  }
+}
 ```
 
 </template>
@@ -27,7 +32,7 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_apply' \
   --header 'Content-Type: application/json' \
   --data '{
   "self_id": 123456789,
-  "platform": "android",
+  "protocol_id": 0,
   "group_id": 987654321,
   "request_id": 123456,
   "request_type": 1,
@@ -43,7 +48,7 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_apply' \
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
-| `platform` | string | 是 | `linux` 或 `android`；`phone`、`pad` 视为 `android` |
+| `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 群聊 ID |
 | `request_id` | number | 是 | 请求 ID |
 | `request_type` | number | 是 | 请求类型 |
@@ -59,4 +64,4 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_apply' \
 { success: true, error_code: 0 }
 ```
 
-处理失败时 Promise 拒绝，错误信息包含原因。
+处理失败时返回 `ok: false`，`error` 包含原因。
