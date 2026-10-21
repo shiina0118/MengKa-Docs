@@ -24,23 +24,39 @@ for (const file of files) {
     assert.ok(params && !Array.isArray(params) && typeof params === 'object', `${file}: body must be an object`)
     assert.ok(!Object.hasOwn(params, 'params'), `${file}: HTTP body must not use a WS envelope`)
   } else {
-    // These actions require a complete feed object from the preceding query.
-    assert.ok(['like_qzone_feed', 'unlike_qzone_feed'].includes(action), `${file}: unexpected fetch example`)
+    // These actions preserve complete objects returned by a preceding query.
+    const avatar = action === 'qqpet_save_avatar'
+    const suit = action === 'qqpet_save_one_suit'
+    assert.ok(avatar || suit || ['like_qzone_feed', 'unlike_qzone_feed'].includes(action), `${file}: unexpected fetch example`)
     const feed = { app_id: 311, feed_id: 'original-feed', forward: { feed_id: 'original-forward' } }
+    const accessory = { field_1: '18446744073709551615', field_3: ['9007199254740993'], field_10: { field_1: ['asset'] }, _unknown_fields: ['oAYB'] }
+    const model = { field_1: 'model', field_2: '9007199254740993', field_5: -1 }
+    const completeSuit = { field_1: { field_1: [accessory] }, field_2: model, field_3: 'suit', field_4: '18446744073709551615', field_5: 'name', _unknown_fields: ['oAYB'] }
+    const queryAction = avatar ? 'qqpet_get_user_pet' : suit ? 'qqpet_get_my_suits' : 'get_qzone_friend_feeds'
+    const queryData = avatar ? { response: { pet: { field_2: [accessory], field_3: model } } }
+      : suit ? { response: { field_1: [completeSuit] } } : { feeds: [feed] }
     const requests = []
     const fetch = async (url, options) => {
       assert.equal(options.method, 'POST')
       assert.equal(options.headers.Authorization, 'Bearer TOKEN')
       assert.equal(options.headers['Content-Type'], 'application/json')
       requests.push({ url, body: JSON.parse(options.body) })
-      return { ok: true, json: async () => ({ ok: true, data: requests.length === 1 ? { feeds: [feed] } : null }) }
+      return { ok: true, json: async () => ({ ok: true, data: requests.length === 1 ? queryData : null }) }
     }
     const code = http.match(/```js\s+([\s\S]+?)```/)[1]
     await new AsyncFunction('fetch', 'console', code)(fetch, { log() {} })
     assert.equal(requests.length, 2)
-    assert.ok(requests[0].url.endsWith('/api/get_qzone_friend_feeds'))
+    assert.ok(requests[0].url.endsWith(`/api/${queryAction}`))
     assert.ok(requests[1].url.endsWith(`/api/${action}`))
-    assert.deepEqual(requests[1].body.feed, feed, `${file}: must preserve the complete feed`)
+    if (avatar) {
+      assert.deepEqual(requests[1].body.request, { field_1: [accessory], field_2: model }, `${file}: preserve and remap the complete appearance`)
+    } else if (suit) {
+      assert.deepEqual(requests[1].body.request.suit, completeSuit, `${file}: preserve the complete suit`)
+      assert.equal(requests[1].body.request.field_1, requests[0].body.request.client_version)
+      assert.equal(requests[1].body.request.field_2, requests[0].body.request.field_2)
+    } else {
+      assert.deepEqual(requests[1].body.feed, feed, `${file}: must preserve the complete feed`)
+    }
     params = requests[1].body
   }
 

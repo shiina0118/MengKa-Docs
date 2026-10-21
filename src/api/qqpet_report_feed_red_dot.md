@@ -1,0 +1,72 @@
+# qqpet_report_feed_red_dot
+
+上报喂食红点。仅支持 `android` 账号。
+
+## 调用
+
+<ApiCallTabs>
+<template #websocket>
+
+```js
+const request = {
+  "red_dots": [
+    {
+      "field_1": 1,
+      "update_seq": "1"
+    }
+  ]
+}
+const result = await api.qqpet_report_feed_red_dot(self_id, platform, request)
+```
+
+</template>
+<template #http>
+
+```bash
+curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_feed_red_dot' \
+  --header 'Authorization: Bearer TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "self_id": 123456789,
+  "platform": "android",
+  "request": {
+    "red_dots": [
+      {
+        "field_1": 1,
+        "update_seq": "1"
+      }
+    ]
+  }
+}'
+```
+
+</template>
+</ApiCallTabs>
+
+## 参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `self_id` | number | 是 | 在线 Bot QQ 号 |
+| `platform` | string | 是 | `android`；`phone`、`pad` 视为 `android` |
+| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+
+### request
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `request.red_dots` | object[] | 否 | 红点信息列表 |
+
+### request.red_dots[]
+
+| 参数 | 类型 | 说明 |
+| --- | --- | --- |
+| `field_1` | number | 扩展参数，说明待补充 |
+| `update_seq` | string | 更新序号 |
+
+## 返回值
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `self_id` | number | 当前 Bot QQ 号 |
+| `response` | object | 本次操作的返回数据 |
