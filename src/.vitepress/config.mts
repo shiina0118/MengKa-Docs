@@ -27,7 +27,7 @@ export default defineConfig({
     ["link", { rel: "icon", href: `${base}favicon.ico` }],
     ["link", { rel: "apple-touch-icon", href: `${base}apple-touch-icon.png` }],
     ["link", { rel: "manifest", href: `${base}manifest.webmanifest` }],
-    ["meta", { name: "theme-color", content: "#3451b2" }],
+    ["meta", { name: "theme-color", content: "#4268d6" }],
   ],
   themeConfig: {
     logo: "/pwa-192x192.png",

@@ -26,7 +26,11 @@
 .VPNavBarTitle .logo {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 0;
+}
+
+.brand-not-found > .VPFooter {
+  display: none;
 }
 
 .VPHero .name {

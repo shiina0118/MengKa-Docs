@@ -106,4 +106,6 @@ const result = await api.grab_red_packet(
 
 ## 返回值
 
-返回领取结果对象。检查 `retcode`、`retmsg` 判断是否领取成功。
+返回领取结果对象。先检查 `retcode`，再检查领取状态 `state`：`retcode` 为 `0` 且 `state` 为 `0` 才表示本次领取成功。仅 `retcode=0` 不代表已经领到；例如 `state=2` 表示红包已领完。缺少有效 `state` 时，不能确认本次领取成功。
+
+本次领取金额取自 `recv_object.amount`，单位为分，展示为元时除以 `100`。`recv_object` 可能是 JSON 对象或 JSON 字符串，使用前应先解析为对象。金额字段缺失时应标记金额未知，不要将红包总金额或其他领取者的金额当作本次领取金额。
