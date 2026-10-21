@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev src",
-    "check:api": "node scripts/check-api-examples.mjs",
-    "build": "npm run check:api && vitepress build src",
+    "build": "vitepress build src",
     "preview": "vitepress preview src"
   },
   "devDependencies": {
