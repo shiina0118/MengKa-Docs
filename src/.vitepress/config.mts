@@ -207,6 +207,48 @@ export default defineConfig({
           ],
         },
         {
+          text: "聊天精灵（秋秋人）",
+          items: [
+            {
+              text: "合养邀请",
+              collapsed: true,
+              items: [
+                { text: "获取邀请合养 ARK 卡片", link: "/api/qmate_get_invite_ark" },
+                { text: "确认发起合养邀请", link: "/api/qmate_confirm_invite" },
+                { text: "接受合养邀请", link: "/api/qmate_accept_invite" },
+                { text: "查询合养邀请状态", link: "/api/qmate_get_adoption_info" },
+                { text: "解除合养", link: "/api/qmate_dissolve" },
+              ],
+            },
+            {
+              text: "孵化与状态",
+              collapsed: true,
+              items: [
+                { text: "获取精灵信息", link: "/api/qmate_get_info" },
+                { text: "孵化精灵", link: "/api/qmate_hatch" },
+                { text: "上报孵化连击", link: "/api/qmate_report_incubation_combo" },
+              ],
+            },
+            {
+              text: "任务与奖励",
+              collapsed: true,
+              items: [
+                { text: "获取精灵任务", link: "/api/qmate_get_tasks" },
+                { text: "上报任务动作", link: "/api/qmate_report_task_action" },
+                { text: "领取任务奖励", link: "/api/qmate_claim_task_reward" },
+              ],
+            },
+            {
+              text: "背包道具",
+              collapsed: true,
+              items: [
+                { text: "获取精灵背包", link: "/api/qmate_get_inventory" },
+                { text: "使用精灵道具", link: "/api/qmate_use_item" },
+              ],
+            },
+          ],
+        },
+        {
           text: "QQ宠物",
           items: [
             {
