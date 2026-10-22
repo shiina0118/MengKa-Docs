@@ -189,6 +189,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "获取群聊列表", link: "/api/get_group_list" },
+                { text: "获取群分享链接", link: "/api/get_group_share_link" },
                 { text: "查询入群方式", link: "/api/get_group_join_info" },
                 { text: "申请加入群聊", link: "/api/join_group" },
                 { text: "获取群聊成员列表", link: "/api/get_group_member_list" },
