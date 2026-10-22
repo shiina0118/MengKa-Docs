@@ -21,7 +21,7 @@
 
 ## send_friend_msg
 
-[`send_friend_msg`](/api/send_friend_msg) 以 `user_id` 代替 `group_id`，其余参数相同。好友消息当前支持 `text` 和 `image` 段。成功返回结构与群聊消息一致。
+[`send_friend_msg`](/api/send_friend_msg) 以 `user_id` 代替 `group_id`，其余参数相同。好友消息支持 `text`、`image` 和 `ark` 段。成功返回结构与群聊消息一致。
 
 好友消息可通过 [`recall_friend_msg`](/api/recall_friend_msg) 撤回。将同一次发送结果的 `msg_seq`、`msg_random`、`client_seq`、`msg_time` 原样传入，`msg_time` 单位为 Unix 秒。
 
@@ -84,6 +84,16 @@ QQ 原生表情：
 ```
 
 普通表情可按 `face_id` 发送。资源表情使用 `"kind": "super_face"`，并按收到的 `face` 消息段原样传递 `type`、`category_id`、`face_id`、`package_id` 和 `text`。
+
+### ark
+
+群聊和好友消息均支持。`data` 为完整 ARK JSON 对象，或包含该对象的 JSON 字符串。`app` 和 `view` 必须为非空字符串，其余字段按卡片内容传入：
+
+```js
+{ type: "ark", data: arkJson }
+```
+
+`arkJson` 可直接使用业务接口返回的卡片字符串。后端保留完整 JSON 内容，不会通过固定字段结构重新生成卡片，也不会为卡片申请或生成签名。需要签名的卡片请使用对应业务返回的有效内容。
 
 ## 媒体有效期
 
