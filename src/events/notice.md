@@ -30,6 +30,10 @@
 
 `post_type` 为 `friend_notice`，需要 `friend_event` 权限。
 
+### increase
+
+[新增好友](/events/friend_increase)：查看事件字段与身份缓存行为。
+
 ### like
 
 [好友点赞](/events/friend_like)：查看事件字段表。

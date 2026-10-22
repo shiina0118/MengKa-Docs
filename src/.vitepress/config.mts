@@ -136,6 +136,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "获取好友列表", link: "/api/get_friend_list" },
+                { text: "获取好友在线状态", link: "/api/get_friend_status" },
                 { text: "设置好友备注", link: "/api/set_friend_remark" },
                 { text: "删除好友", link: "/api/delete_friend" },
                 { text: "同意群聊邀请", link: "/api/approve_group_invite" },
@@ -160,6 +161,7 @@ export default defineConfig({
               items: [
                 { text: "发送群聊消息", link: "/api/send_group_msg" },
                 { text: "获取群聊合并转发消息", link: "/api/get_group_forward_msg" },
+                { text: "获取群共享历史消息", link: "/api/get_group_share_messages" },
                 { text: "上传群聊合并转发消息", link: "/api/upload_group_forward_msg" },
                 { text: "撤回群聊消息", link: "/api/recall_group_msg" },
               ],
@@ -409,6 +411,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "好友点赞", link: "/events/friend_like" },
+                { text: "新增好友", link: "/events/friend_increase" },
               ],
             },
           ],

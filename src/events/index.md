@@ -25,6 +25,7 @@ WebSocket 连接（正向和反向）支持账号、好友、群聊相关事件�
 | 事件 | `post_type` | `sub_type` | 正向认证权限 |
 | --- | --- | --- | --- |
 | [好友点赞](/events/friend_like) | `friend_notice` | `like` | `friend_event` |
+| [新增好友](/events/friend_increase) | `friend_notice` | `increase` | `friend_event` |
 
 ## 群聊相关
 
