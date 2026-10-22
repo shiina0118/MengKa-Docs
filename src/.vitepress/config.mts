@@ -100,6 +100,7 @@ export default defineConfig({
                 { text: "获取 User-Agent", link: "/api/get_user_agent" },
                 { text: "获取 clientkey", link: "/api/get_client_key" },
                 { text: "获取 PsKey", link: "/api/get_ps_key" },
+                { text: "第三方 SDK 授权", link: "/api/sdk_auth_api" },
                 { text: "获取农场登录 code", link: "/api/get_qq_classic_farm_code" },
               ],
             },
