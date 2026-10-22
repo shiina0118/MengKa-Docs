@@ -33,10 +33,3 @@
 | `name` | string | 设备配置名称 |
 | `brand` | string | 品牌 |
 | `model` | string | 型号 |
-| `android_id` | string | Android ID |
-| `guid` | string | GUID |
-| `qimei36` | string | 36 位 QIMEI，尚未获取时为空字符串 |
-| `qimei16` | string | SDK 的 QIMEI16 字段，服务端可能返回 16 或 36 位，按原值与 QIMEI36 一起保存；尚未获取时为空字符串 |
-| `qimeiUpdatedAt` | number | 最近一次成功获取并保存 QIMEI 的 Unix 毫秒时间戳，尚未获取时为 `0` |
-
-QIMEI 会在登录前和后台自动维护。缺少 `qimei36` 时申请，已有号码在跨天或满 24 小时后携带旧号码对刷新；成功后一起更新两个号码和时间。失败时保留缓存并退避重试，在线账号后续请求会使用更新后的号码。
