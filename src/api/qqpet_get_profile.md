@@ -49,11 +49,13 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_profile' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `profile` | object | 宠物资料 |
-| `field_2` | object | 扩展结果，说明待补充 |
+| `profile` | [PetProfile](#pet-profile) | 宠物资料 |
+| `field_2` | object | 扩展结果，说明待补充；内部结构未整理 |
+
+<!--@include: ../../snippets/qqpet/profile.md-->

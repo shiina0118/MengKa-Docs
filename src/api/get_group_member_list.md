@@ -64,9 +64,15 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_member_list' \
 }
 ```
 
-`group_id` 为查询的群号，`total_count` 为返回成员数量，`members` 为成员数组，无结果时为 `[]`。
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `group_id` | number | 查询的群号 |
+| `members` | [GroupMember[]](#members) | 成员数组，无结果时为 `[]` |
+| `total_count` | number | 返回的成员数量 |
 
-| 成员字段 | 类型 | 说明 |
+### members[]（GroupMember） {#members}
+
+| 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `user_id` | number | 成员 QQ 号 |
 | `nickname` | string | 昵称 |

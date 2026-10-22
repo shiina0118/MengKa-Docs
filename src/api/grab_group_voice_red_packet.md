@@ -67,8 +67,18 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_group_voice_red_packet' \
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_id` | number | 是 | 红包发送者 QQ 号 |
-| `red_packet` | object | 是 | 同一个语音红包消息段的完整 `data`，含 `listid`、`authkey`、`channel`、`pay_flag`、`hb_from` |
+| `red_packet` | [RedPacket](#red-packet) | 是 | 同一个语音红包消息段的完整 `data` |
 | `voice_rate_id` | string | 是 | `upload_red_packet_voice` 匹配成功返回的值 |
+
+### red_packet（RedPacket） {#red-packet}
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `listid` | string | 是 | 红包列表 ID |
+| `authkey` | string | 是 | 红包鉴权串 |
+| `channel` | number | 是 | 红包渠道，语音红包为 `65536`，其他值会被拒绝 |
+| `pay_flag` | number | 否 | 红包支付标记，省略为 `0`，建议保留收到的值 |
+| `hb_from` | number | 否 | 红包来源标记，省略为 `0`，建议保留收到的值 |
 
 本接口拒绝非语音红包，缺少 `voice_rate_id` 时也会报错。不需要 `claim_token`。
 

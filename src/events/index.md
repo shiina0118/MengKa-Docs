@@ -1,32 +1,59 @@
 # 事件概述
 
-WebSocket 连接（正向和反向）支持相同的六类事件，正向 HTTP 不推送事件：
+WebSocket 连接（正向和反向）支持账号、好友、群聊相关事件，正向 HTTP 不推送事件。侧栏按与 API 一致的分类组织，每个具体事件都有独立页面。
 
-| `post_type` | 正向认证权限字段 | 说明 |
+## 账号相关
+
+### 状态类
+
+| 事件 | `post_type` | 正向认证权限 |
 | --- | --- | --- |
-| `group_message` | `group_message` | 群聊消息 |
-| `friend_message` | `friend_message` | 好友消息 |
-| `group_notice` | `group_event` | 入群、退群、禁言、撤回等群聊通知 |
-| `friend_notice` | `friend_event` | 好友点赞等通知 |
-| `bot_online` | `bot_online` | Bot 上线 |
-| `bot_offline` | `bot_offline` | Bot 离线 |
+| [Bot 上线](/events/bot_online) | `bot_online` | `bot_online` |
+| [Bot 离线](/events/bot_offline) | `bot_offline` | `bot_offline` |
+
+## 好友相关
+
+### 消息类
+
+| 事件 | `post_type` | `sub_type` | 正向认证权限 |
+| --- | --- | --- | --- |
+| [好友消息](/events/friend_message) | `friend_message` | — | `friend_message` |
+| [好友消息撤回](/events/friend_recall) | `friend_notice` | `recall` | `friend_event` |
+
+### 通知类
+
+| 事件 | `post_type` | `sub_type` | 正向认证权限 |
+| --- | --- | --- | --- |
+| [好友点赞](/events/friend_like) | `friend_notice` | `like` | `friend_event` |
+
+## 群聊相关
+
+### 消息类
+
+| 事件 | `post_type` | `sub_type` | 正向认证权限 |
+| --- | --- | --- | --- |
+| [群聊消息](/events/group_message) | `group_message` | — | `group_message` |
+| [群聊消息撤回](/events/group_recall) | `group_notice` | `recall` | `group_event` |
+
+### 通知类
+
+| 事件 | `post_type` | `sub_type` | 正向认证权限 |
+| --- | --- | --- | --- |
+| [入群申请](/events/group_apply) | `group_notice` | `apply` | `group_event` |
+| [成员加入](/events/group_increase) | `group_notice` | `increase` | `group_event` |
+| [成员退出](/events/group_decrease) | `group_notice` | `decrease` | `group_event` |
+| [成员禁言](/events/group_mute) | `group_notice` | `mute` | `group_event` |
 
 ## 事件帧
 
 事件以 `type` 为 `event` 的消息推送，事件内容位于 `data`，按 `data.post_type` 分发：
 
-```json
-{
-  "type": "event",
-  "data": {
-    "self_id": 123456789,
-    "protocol_id": 0,
-    "post_type": "group_message",
-    "group_id": 987654321,
-    "alt_message": "你好"
-  }
-}
-```
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | string | 固定为 `event` |
+| `data` | [Event](#账号相关) | 事件内容，包含下方公共字段及各具体事件的字段 |
+
+各事件页面的“事件内容”表格描述 `data` 内的字段。
 
 ::: tip 正向连接
 正向连接只推送认证消息 `permissions` 中声明为 `true` 的事件，连接期间不能修改。反向连接默认接收全部六类事件。

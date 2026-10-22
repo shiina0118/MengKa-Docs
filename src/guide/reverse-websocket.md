@@ -43,6 +43,13 @@ Meng Ka 发起握手时会携带以下请求头：
 }
 ```
 
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | string | 固定为 `ready` |
+| `service` | string | 服务名称 |
+| `node_id` | number | 绑定节点 ID |
+| `mode` | string | 固定为 `reverse` |
+
 收到 `ready` 后即可发送 API 请求。反向连接不需要发送认证消息，默认接收全部六类事件。API 和事件帧格式与正向模式一致，见 [WebSocket API 格式](/guide/protocol)。
 
 Meng Ka 会定期发送 WebSocket Ping 控制帧，插件所用的 WebSocket 库需要正确回复 Pong，否则连接会被判定失效并断开。

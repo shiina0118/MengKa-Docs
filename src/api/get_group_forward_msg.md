@@ -66,10 +66,23 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_forward_msg' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `res_id` | string | 返回的合并转发资源 ID |
-| `messages` | object[] / null | 解析出的消息数组；未取得消息时可能为 `null`，读取时可用 `result.messages ?? []` |
-| `messages[].sender.nickname` | string | 发送者昵称 |
-| `messages[].sender.avatar` | string | 发送者头像地址 |
-| `messages[].time` | number | 消息时间，Unix 秒 |
-| `messages[].message` | Segment[] | 接收消息段数组，见[消息段](/guide/message-segments#接收消息段) |
+| `messages` | [ForwardMessage[]](#messages) / null | 解析出的消息数组；未取得消息时可能为 `null`，读取时可用 `result.messages ?? []` |
+
+### messages[]（ForwardMessage） {#messages}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `sender` | [ForwardSender](#messages-sender) | 发送者 |
+| `time` | number | 消息时间，Unix 秒 |
+| `message` | [Segment[]](#segment) | 接收消息段数组 |
+
+### messages[].sender（ForwardSender） {#messages-sender}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `nickname` | string | 发送者昵称 |
+| `avatar` | string | 发送者头像地址 |
 
 返回的 `sender` 不包含发送者 QQ 号。返回节点与 `upload_group_forward_msg` 的输入格式不同，重新创建转发时需自行提供 `user_id` 等必填参数。
+
+<!--@include: ../../snippets/events/segments.md-->

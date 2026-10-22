@@ -54,10 +54,14 @@ curl --request POST 'http://127.0.0.1:3003/api/confirm_identity_sms' \
 
 ## 返回值
 
-身份验证通过后，会在同一登录会话内自动继续登录，返回结构与 [`login_account`](/api/login_account) 一致：`next` 为 `done` 表示已上线；也可能返回新的验证状态（如 `slider`、`security`），按 `next` 继续处理。
+身份验证通过后，会在同一登录会话内自动继续登录，返回 [LoginResult](#login-result)：`next` 为 `done` 表示已上线；也可能返回新的验证状态（如 `slider`、`security`），按 `next` 继续处理。
 
 短信确认未通过（如短信尚未送达、发送内容不符）时返回 `{ code, message, next: "identity" }`，账号仍处登录挂起，可以用相同参数重试；发送后到腾讯侧确认可能有几秒到几十秒延迟。
 
 短信确认已通过、但后续登录失败时返回 `next: "failed"`，本次登录会话已结束，不能再用本接口重试，需要重新调用 [`login_account`](/api/login_account)。
 
 完整流程见[Bot 登录流程](/guide/login-flow)。
+
+<!--@include: ../../snippets/api/login-result.md-->
+
+<!--@include: ../../snippets/api/security-verify.md-->

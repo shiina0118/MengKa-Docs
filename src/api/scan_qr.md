@@ -83,10 +83,12 @@ curl --request POST 'http://127.0.0.1:3003/api/scan_qr' \
 | `need_sec_check` | boolean | 是否需要安全检查或确认 |
 | `tip` | string | 安全检查提示文字，可能为空 |
 | `need_a1` | boolean | 后续确认登录是否需要 A1 凭据，调用 `auth_qr` 时必须原样传入 |
-| `auto_login` | object | 自动登录开关及提示信息，字段见下表 |
+| `auto_login` | [AutoLogin](#auto-login) | 自动登录开关及提示信息 |
 | `status` | number | 安全检查结果，与业务错误码 `code` 分开处理 |
 
-| `auto_login` 字段 | 类型 | 说明 |
+### auto_login（AutoLogin） {#auto-login}
+
+| 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `show_switch` | boolean | 是否展示自动登录选项；为 `false` 时，调用 `auth_qr` 应省略 `skip_phone_confirm` |
 | `switch_state` | number | 当前开关状态：`0` 关闭，`1` 开启；不是确认请求中的三态操作值 |

@@ -51,7 +51,7 @@ curl --request POST 'http://127.0.0.1:3003/api/query_login_qr' \
 等待扫码：
 
 ```js
-{ code: 0, message: '等待扫码', state: 'waiting_for_scan', url: '...', next: 'qr' }
+{ code: 0, message: '等待扫码', state: 'waiting_for_scan', url: '', next: 'qr' }
 ```
 
 已扫码、等待手机确认：
@@ -73,17 +73,8 @@ curl --request POST 'http://127.0.0.1:3003/api/query_login_qr' \
 { code: 0, message: '登录成功', state: 'confirmed', login_complete: true, self_id: 123456789, next: 'done' }
 ```
 
-| `state` | 说明 |
-| --- | --- |
-| `waiting_for_scan` | 等待扫码 |
-| `waiting_for_confirm` | 已扫码，等待确认 |
-| `confirmed` | 已确认；成功时带 `login_complete: true` |
-| `code_expired` | 二维码已失效，再次调用 `login_account` 获取新二维码 |
-| `canceled` | 已取消扫码 |
-| `invalid` | 二维码无效 |
+以上示例只列出部分字段。返回 [QRLoginResult](#qr-login-result)，`state` 取值见该结构下的表格。
 
 收到 `confirmed`、`code_expired`、`canceled` 或 `invalid` 后应停止轮询。
 
-登录完成前 `next` 为 `qr`，登录成功后为 `done`，完成登录失败时为 `failed`。
-
-`self_id` 是扫码确认的账号 QQ 号，尚未取得时为 `0`。
+<!--@include: ../../snippets/api/qr-login-result.md-->

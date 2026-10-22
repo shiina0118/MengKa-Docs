@@ -74,9 +74,18 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_forward_msg' \
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 目标群聊 ID |
-| `messages` | object[] | 是 | 合并转发节点数组 |
+| `messages` | [ForwardNode[]](#messages) | 是 | 合并转发节点数组 |
 
-节点结构：
+### messages[]（ForwardNode） {#messages}
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `user_id` | number | 是 | 节点显示的发送者 QQ 号 |
+| `nickname` | string | 否 | 节点显示的发送者昵称 |
+| `time` | number | 否 | 消息时间，Unix 秒；省略或为 `0` 时使用当前时间 |
+| `message` | [Segment[]](/guide/message-segments#发送消息段) | 是 | 节点内容，只上传 `text` 消息段 |
+
+节点示例：
 
 ```js
 {
@@ -87,7 +96,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_forward_msg' \
 }
 ```
 
-`time` 使用 Unix 秒。非 `text` 消息段会被忽略。
+非 `text` 消息段会被忽略，没有文本内容的节点也会被忽略。
 
 ## 返回值
 
@@ -95,7 +104,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_forward_msg' \
 | --- | --- | --- |
 | `success` | boolean | 上传成功时为 `true`，调用失败时返回 `ok: false` |
 | `res_id` | string | 合并转发资源 ID |
-| `message` | Segment[] | 包含转发卡片的消息段数组，可原样传给 `send_group_msg` |
+| `message` | [Segment[]](/guide/message-segments#合并转发) | 包含转发卡片的消息段数组，可原样传给 `send_group_msg` |
 | `uploaded_messages` | number | 实际上传的文本节点数量 |
 | `discarded_messages` | number | 因没有文本内容而忽略的节点数量 |
 | `discarded_segments` | number | 被忽略的非 `text` 消息段数量 |

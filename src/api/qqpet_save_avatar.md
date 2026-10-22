@@ -85,58 +85,14 @@ console.log(result.data)
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 是 | 本次操作的参数 |
+| `request` | [Request](#request) | 是 | 本次操作的参数 |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.field_1` | object[] | 是 | 装扮列表，来自 `qqpet_get_user_pet` 的 `response.pet.field_2` |
-| `request.field_2` | object | 是 | 模型信息，来自同次查询的 `response.pet.field_3` |
-
-### 装扮项 {#accessory}
-
-`request.field_1` 中每个对象的成员如下。保留项的业务含义尚未确认，请沿用查询返回值，并保留对象中的其他返回成员。
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `field_1` | string | 保留项，十进制整数字符串 |
-| `field_2` | string | 保留项，十进制整数字符串 |
-| `field_3` | string[] | 保留项，十进制整数字符串数组 |
-| `field_4` | number | 保留整数项 |
-| `field_5` | number | 保留整数项 |
-| `field_7` | string | 保留项，十进制整数字符串 |
-| `field_8` | number[] | 保留整数数组 |
-| `field_9` | boolean | 保留开关项 |
-| `field_10` | object | 保留附加信息；其 `field_1` 为 `string[]` |
-| `field_11` | string[] | 保留项，十进制整数字符串数组 |
-| `field_100` | object[] | 保留附加列表，成员见下表 |
-
-装扮项的 `field_100` 数组元素：
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `field_1` | string | 保留项，十进制整数字符串 |
-| `field_2` | string[] | 保留项，十进制整数字符串数组 |
-| `field_3` | number[] | 保留非负整数数组 |
-| `field_4` | string | 保留项，十进制整数字符串 |
-
-### 模型信息 {#model}
-
-`request.field_2` 的成员如下。各成员请沿用同次查询返回的模型信息。
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `field_1` | string | 保留文本项 |
-| `field_2` | string | 保留项，十进制整数字符串 |
-| `field_3` | string | 保留项，十进制整数字符串 |
-| `field_4` | string | 保留项，十进制整数字符串 |
-| `field_5` | number | 保留整数项 |
-| `field_6` | string | 保留文本项 |
-| `field_7` | number | 保留整数项 |
-| `field_8` | string | 保留项，十进制整数字符串 |
-| `field_9` | string | 保留项，十进制整数字符串 |
-| `field_20` | string | 保留文本项 |
+| `field_1` | [PetAccessory[]](#pet-accessory) | 是 | 装扮列表，来自 `qqpet_get_user_pet` 的 `response.pet.field_2` |
+| `field_2` | [PetModel](#pet-model) | 是 | 模型信息，来自同次查询的 `response.pet.field_3` |
 
 较长的 ID 或序号请使用字符串，避免 JavaScript 数字精度丢失。不要将整个 `pet` 对象直接作为 `request`。
 
@@ -145,4 +101,8 @@ console.log(result.data)
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | object | 本次操作的返回数据，没有已解析的字段；服务端返回的未知内容以 Base64 字符串数组保留在 `_unknown_fields` 中 |
+
+<!--@include: ../../snippets/qqpet/accessory.md-->
+
+<!--@include: ../../snippets/qqpet/model.md-->

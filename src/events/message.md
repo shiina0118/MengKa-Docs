@@ -1,80 +1,25 @@
-# 消息事件
+# 消息结构
+
+消息标识、发送者和消息段的字段表也展示在[群聊消息](/events/group_message)、[好友消息](/events/friend_message)等对应事件页面，点击类型列即可在本页查看嵌套字段。
 
 ## 群聊消息
 
-以事件帧推送，`data.post_type` 为 `group_message`。需要在认证时声明 `group_message` 权限。
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `self_id` | number | Bot QQ 号 |
-| `post_type` | string | 固定为 `group_message` |
-| `group_id` | number | 群聊 ID |
-| `group_name` | string | 群聊名称，可能省略 |
-| `msg` | object | 消息标识 |
-| `sender` | object | 发送者 |
-| `message` | Segment[] | 结构化消息段 |
-| `alt_message` | string | 消息文本摘要 |
-| `source` | string | 消息来源，可能省略 |
+事件为 `group_message`，完整字段见[群聊消息](/events/group_message)。
 
 ## 好友消息
 
-以事件帧推送，`data.post_type` 为 `friend_message`。需要在认证时声明 `friend_message` 权限。
+事件为 `friend_message`，完整字段见[好友消息](/events/friend_message)。
 
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `self_id` | number | Bot QQ 号 |
-| `post_type` | string | 固定为 `friend_message` |
-| `msg` | object | 消息标识 |
-| `sender` | object | 发送者 |
-| `receiver` | object | 接收者 |
-| `message` | Segment[] | 结构化消息段 |
-| `alt_message` | string | 消息文本摘要 |
-| `source` | string | 消息来源，可能省略 |
+<!--@include: ../../snippets/events/msg.md-->
 
-好友发来的群聊邀请会作为 `ark` 消息段出现，处理方式见
-[`approve_group_invite`](/api/approve_group_invite)。
+<!--@include: ../../snippets/events/sender.md-->
 
-## msg
+<!--@include: ../../snippets/events/event-user.md-->
 
-```js
-{
-  uid: 0,
-  seq: 123,
-  random: 456,
-  time: 1710000000,
-}
-```
-
-| 字段 | 说明 |
-| --- | --- |
-| `uid` | 消息 UID |
-| `seq` | 消息序列号 |
-| `random` | 消息随机数 |
-| `time` | Unix 秒时间戳 |
-
-群聊消息的 `seq` 与 `random` 可用于撤回。
-
-## sender
-
-```js
-{
-  user_id: 123456789,
-  nickname: '昵称',
-  card: '群名片',
-  role: 0,
-  title: '头衔',
-  level: 1,
-}
-```
-
-`card`、`role`、`title` 和 `level` 按消息类型与可用数据决定是否出现。
+<!--@include: ../../snippets/events/original.md-->
 
 ## 消息段
 
-消息段统一使用：
+消息段由 `type` 和 `data` 组成，具体字段见下表。
 
-```js
-{ type: 'text', data: { text: '你好' } }
-```
-
-完整类型与字段见[消息段](/guide/message-segments#接收消息段)。
+<!--@include: ../../snippets/events/segments.md-->

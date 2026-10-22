@@ -65,7 +65,14 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_system_notifications' \
 }
 ```
 
-以上为常用字段示例。`notifications` 为空数组时表示没有通知。
+以上为常用字段示例。
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `notifications` | [Notification[]](#notifications) | 群系统通知列表，没有通知时为 `[]` |
+| `total_count` | number | 本次返回的通知数量 |
+
+### notifications[]（Notification） {#notifications}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -76,14 +83,43 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_system_notifications' \
 | `actor_name`, `handler_name` | string | 操作者、处理人名称，可能省略 |
 | `comment` | string | 申请附言，可能省略 |
 | `handled_at` | number | 处理时间，可能省略 |
-| `request_key` | object | 用于后续处理的请求标识，字段映射见下表 |
-| `presentation` | object | 展示信息，结构见下表 |
+| `flags` | number | 通知标记，可能省略 |
+| `request_key` | [RequestKey](#request-key) | 用于后续处理的请求标识，用法见[处理入群申请](#处理入群申请) |
+| `presentation` | [Presentation](#presentation) | 展示信息 |
 
-| 展示字段 | 类型 | 说明 |
+### notifications[].request_key（RequestKey） {#request-key}
+
+| 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `presentation.master`, `presentation.inviter`, `presentation.handler`, `presentation.outed_member` | object | 对应人员，使用 `user_id` 和 `name` 表示 QQ 号与名称 |
-| `presentation.group` | object | 对应群聊，使用 `group_id` 和 `name` 表示群号与群名 |
-| `presentation.nav_title` | string | 通知展示标题 |
+| `request_id` | number | 审批请求 ID |
+| `group_id` | number | 群号 |
+| `type` | number | 请求类型 |
+| `extra` | number | 附加参数，可能省略 |
+
+### notifications[].presentation（Presentation） {#presentation}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `master` | [NotificationPerson](#notification-person) | 通知主体人员 |
+| `inviter` | [NotificationPerson](#notification-person) | 邀请人 |
+| `handler` | [NotificationPerson](#notification-person) | 处理人 |
+| `outed_member` | [NotificationPerson](#notification-person) | 被移出的成员 |
+| `group` | [NotificationGroup](#notification-group) | 对应群聊 |
+| `nav_title` | string | 通知展示标题 |
+
+### 通知人员（NotificationPerson） {#notification-person}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `user_id` | number | QQ 号 |
+| `name` | string | 名称 |
+
+### 通知群聊（NotificationGroup） {#notification-group}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `group_id` | number | 群号 |
+| `name` | string | 群名 |
 
 没有对应信息时，标识为 `0`、名称或标题为空字符串。
 

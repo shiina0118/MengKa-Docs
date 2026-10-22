@@ -75,18 +75,18 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_place_order' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.account` | object | 否 | 本次购买的账号和宠物信息 |
-| `request.currency_type` | number | 否 | 币种，Android页面示例为1001 |
-| `request.goods` | object[] | 否 | 购买的商品列表 |
-| `request.scene` | number | 否 | 购买场景；洗护用品示例为21 |
+| `account` | [Account](#request-account) | 否 | 本次购买的账号和宠物信息 |
+| `currency_type` | number | 否 | 币种，Android页面示例为1001 |
+| `goods` | [Good[]](#request-goods) | 否 | 购买的商品列表 |
+| `scene` | number | 否 | 购买场景；洗护用品示例为21 |
 
-### request.account
+### request.account（Account） {#request-account}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
@@ -94,7 +94,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_place_order' \
 | `currency_type` | number | 否 | 币种，Android页面示例为1001 |
 | `pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
 
-### request.goods[]
+### request.goods[]（Good） {#request-goods}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
@@ -108,19 +108,19 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_place_order' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `result` | number | 操作结果码；请求成功不代表该业务结果一定成功，请检查本字段 |
 | `order_id` | string | 订单 ID |
-| `field_3` | object[] | 扩展数据，说明待补充 |
-| `field_4` | object[] | 扩展数据，说明待补充 |
+| `field_3` | [Field3[]](#response-field-3) | 扩展数据，说明待补充 |
+| `field_4` | [Field4[]](#response-field-4) | 扩展数据，说明待补充 |
 | `field_5` | string | 扩展数据，说明待补充；标准 Base64 字符串 |
 
-### response.field_3[]
+### response.field_3[]（Field3） {#response-field-3}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -130,7 +130,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_place_order' \
 | `field_4` | string | 扩展数据，说明待补充 |
 | `field_5` | number | 扩展数据，说明待补充 |
 
-### response.field_4[]
+### response.field_4[]（Field4） {#response-field-4}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

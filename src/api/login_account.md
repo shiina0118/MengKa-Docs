@@ -53,19 +53,7 @@ curl --request POST 'http://127.0.0.1:3003/api/login_account' \
 { "code": 140022008, "message": "需要滑块验证", "next": "slider", "slider_url": "https://..." }
 ```
 
-结果中的 `next` 表示下一步，取值见[登录结果的 next 字段](/guide/login-flow#next)。按 `next` 分支即可，`code` 用于展示和排查。
-
-验证状态可能额外包含 `slider_url`、`identity_url`、`security_url` 或 `security_verify`。
-
-常见状态：
-
-| `code` | `next` | 含义 |
-| --- | --- | --- |
-| `0` | `done` | 登录成功 |
-| `140022008` | `slider` | 需要滑块验证 |
-| `140022007` | `identity` | 需要身份验证 |
-| `140022010` | `security` | 需要安全验证，查询<a class="security-method-link" href="../api/get_security_verify_methods">安全验证方式</a> |
-| `140022013` | `failed` | 账号或密码错误 |
+返回 [LoginResult](#login-result)。验证状态会额外带上对应的验证地址或 `security_verify`。
 
 ### 扫码登录
 
@@ -73,10 +61,7 @@ curl --request POST 'http://127.0.0.1:3003/api/login_account' \
 { "code": 0, "message": "二维码生成成功", "url": "https://...", "self_id": 0, "next": "qr" }
 ```
 
-| 字段 | 说明 |
-| --- | --- |
-| `url` | 二维码内容，渲染后用手机 QQ 扫描 |
-| `next` | 固定为 `qr`，随后轮询 [`query_login_qr`](/api/query_login_qr) |
+返回 [QRLoginResult](#qr-login-result)。`next` 为 `qr` 时，渲染 `url` 并轮询 [`query_login_qr`](/api/query_login_qr)。
 
 二维码失效时，再次调用本接口会在当前登录会话内换一张新二维码，无需先离线。
 
@@ -85,3 +70,9 @@ curl --request POST 'http://127.0.0.1:3003/api/login_account' \
 这不是密码登录过程中的安全验证二维码。安全验证请用 [`get_security_verify_qr`](/api/get_security_verify_qr)。
 
 完整处理顺序见[Bot 登录流程](/guide/login-flow)。
+
+<!--@include: ../../snippets/api/login-result.md-->
+
+<!--@include: ../../snippets/api/security-verify.md-->
+
+<!--@include: ../../snippets/api/qr-login-result.md-->

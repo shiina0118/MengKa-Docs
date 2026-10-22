@@ -53,15 +53,15 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_equip_career' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
-| `request.career_type` | number | 否 | 职业类型，使用职业树或总览返回的值 |
-| `request.career_level` | number | 否 | 职业级别，使用职业树返回的值 |
+| `pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
+| `career_type` | number | 否 | 职业类型，使用职业树或总览返回的值 |
+| `career_level` | number | 否 | 职业级别，使用职业树返回的值 |
 
 ## 返回值
 

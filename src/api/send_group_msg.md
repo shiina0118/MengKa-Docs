@@ -60,7 +60,7 @@ curl --request POST 'http://127.0.0.1:3003/api/send_group_msg' \
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 目标群聊 ID |
-| `message` | Segment[] | 是 | 消息段数组 |
+| `message` | [Segment[]](/guide/message-segments#发送消息段) | 是 | 消息段数组 |
 
 支持 `text`、`at`、`image`、`voice`、`video` 和 `face` 等群聊消息段，详见[消息段](/guide/message-segments)。
 
@@ -74,6 +74,7 @@ curl --request POST 'http://127.0.0.1:3003/api/send_group_msg' \
   msg_seq: 123,
   msg_random: 456,
   client_seq: 789,
+  msg_time: 1700000000,
 }
 ```
 

@@ -64,10 +64,15 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_red_packet_voice' \
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `sender_id` | number | 是 | 红包发送者 QQ 号 |
-| `red_packet` | object | 是 | 收到的语音红包消息段 `data`，保留完整对象供后续领取使用 |
-| `red_packet.listid` | string | 是 | 红包列表 ID |
-| `red_packet.title` | string | 是 | 需要朗读的口令 |
+| `red_packet` | [RedPacket](#red-packet) | 是 | 收到的语音红包消息段 `data`，保留完整对象供后续领取使用 |
 | `file_path` | string | 是 | 后端可访问的本地路径、`file://`、HTTP(S) 地址，或 `base64://` / Base64 data URL |
+
+### red_packet（RedPacket） {#red-packet}
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `listid` | string | 是 | 红包列表 ID |
+| `title` | string | 是 | 需要朗读的口令 |
 
 录音应与口令一致。支持 MP3、WAV 和 QQ Silk 文件。
 

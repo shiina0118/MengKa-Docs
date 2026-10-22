@@ -72,16 +72,21 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_id` | number | 是 | 红包发送人 QQ 号 |
-| `red_packet` | object | 是 | 收到的 `red_packet` 消息段 `data` |
-| `red_packet.title` | string | 视类型 | 普通红包可省略；文字口令红包必填，作为口令原文 |
-| `red_packet.listid` | string | 是 | 红包列表 ID |
-| `red_packet.authkey` | string | 是 | 红包鉴权串 |
-| `red_packet.channel` | number | 视类型 | 取自收到的消息段；`6`、`32` 为文字口令红包，`65536` 为语音红包，不要丢弃或改写 |
-| `red_packet.pay_flag` | number | 否 | 红包支付标记，省略为 `0`，建议保留收到的值 |
-| `red_packet.hb_from` | number | 否 | 红包来源标记，省略为 `0`，建议保留收到的值 |
-| `red_packet.msg_random` | number | 视类型 | 文字口令红包必填：Bot 发送口令消息后返回的 `msg_random` |
-| `red_packet.client_seq` | number | 视类型 | 文字口令红包必填：同一次发送返回的 `client_seq` |
+| `red_packet` | [RedPacket](#red-packet) | 是 | 收到的 `red_packet` 消息段 `data` |
 | `claim_token` | string | 视类型 | 普通红包领取前必需；可传 `get_red_packet_info` 返回的同名字段，省略时由后端自动查询获取；文字口令红包不使用该参数 |
+
+### red_packet（RedPacket） {#red-packet}
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `title` | string | 视类型 | 普通红包可省略；文字口令红包必填，作为口令原文 |
+| `listid` | string | 是 | 红包列表 ID |
+| `authkey` | string | 是 | 红包鉴权串 |
+| `channel` | number | 视类型 | 取自收到的消息段；`6`、`32` 为文字口令红包，`65536` 为语音红包，不要丢弃或改写 |
+| `pay_flag` | number | 否 | 红包支付标记，省略为 `0`，建议保留收到的值 |
+| `hb_from` | number | 否 | 红包来源标记，省略为 `0`，建议保留收到的值 |
+| `msg_random` | number | 视类型 | 文字口令红包必填：Bot 发送口令消息后返回的 `msg_random` |
+| `client_seq` | number | 视类型 | 文字口令红包必填：同一次发送返回的 `client_seq` |
 
 ## 文字口令红包
 

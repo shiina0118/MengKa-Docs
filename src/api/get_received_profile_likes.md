@@ -67,13 +67,18 @@ curl --request POST 'http://127.0.0.1:3003/api/get_received_profile_likes' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `likes` | object[] | 本页记录，无记录时为 `[]` |
-| `likes[].user_id` | number | 给当前 Bot 点赞的用户的 QQ 号 |
-| `likes[].nickname` | string | 该用户的昵称 |
-| `likes[].time` | number | 点赞记录时间，Unix 秒 |
-| `likes[].like_count` | number | 该用户对当前 Bot 的点赞次数 |
-| `likes[].available_like_count` | number | 当前 Bot 仍可对该用户点赞的次数 |
+| `likes` | [ProfileLike[]](#likes) | 本页记录，无记录时为 `[]` |
 | `next_mid` | string | 下一页游标；`"-1"` 表示没有下一页，不能作为请求参数继续传入 |
+
+### likes[]（ProfileLike） {#likes}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `user_id` | number | 给当前 Bot 点赞的用户的 QQ 号 |
+| `nickname` | string | 该用户的昵称 |
+| `time` | number | 点赞记录时间，Unix 秒 |
+| `like_count` | number | 该用户对当前 Bot 的点赞次数 |
+| `available_like_count` | number | 当前 Bot 仍可对该用户点赞的次数 |
 
 调用失败时返回 `ok: false`。列表只查询当前 Bot 的记录，不接受另一个用户作为查询主体。
 

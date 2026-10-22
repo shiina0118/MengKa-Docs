@@ -52,15 +52,15 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_bath_catalog' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `items` | object[] | 条目列表 |
+| `items` | [Item[]](#response-items) | 条目列表 |
 
-### response.items[]
+### response.items[]（Item） {#response-items}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -77,10 +77,10 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_bath_catalog' \
 | `max_count` | number | 最大购买数量 |
 | `field_12` | number | 扩展数据，说明待补充 |
 | `field_13` | string | 扩展数据，说明待补充 |
-| `field_14` | object | 扩展数据，说明待补充 |
+| `field_14` | [Field14](#response-items-field-14) | 扩展数据，说明待补充 |
 | `field_15` | string | 扩展数据，说明待补充 |
 
-### response.items[].field_14
+### response.items[].field_14（Field14） {#response-items-field-14}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

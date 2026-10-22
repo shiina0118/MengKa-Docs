@@ -26,6 +26,7 @@ Content-Type: application/json
 | `POST /api/get_bot_info` | 获取 Bot 信息 |
 | `POST /api/send_group_msg` | 发送群消息 |
 | `POST /api/send_friend_msg` | 发送好友消息 |
+| `POST /api/recall_friend_msg` | 撤回好友消息 |
 | `POST /api/get_group_list` | 获取群列表 |
 | `POST /api/upload_group_image` | 上传群图片 |
 | `POST /api/login_account` | 登录账号 |

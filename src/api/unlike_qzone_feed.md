@@ -60,8 +60,10 @@ console.log(result.data)
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `feed` | object | 是 | `get_qzone_friend_feeds` 返回的完整动态对象 |
+| `feed` | [QzoneFeed](#qzone-feed) | 是 | `get_qzone_friend_feeds` 返回的完整动态对象 |
 
 ## 返回值
 
 WebSocket 请求带 `id` 时，成功返回 `data` 为 `null` 的 `action_result`；省略 `id` 时不会收到任何回复。HTTP 会等待后端处理并返回 `{ "ok": true, "data": null }`，失败时返回 `ok: false` 和 `error`。
+
+<!--@include: ../../snippets/qzone/feed.md-->

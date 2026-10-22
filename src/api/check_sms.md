@@ -64,7 +64,7 @@ curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
 
 ## 返回值
 
-**校验通过**：自动继续登录，返回结构与 [`login_account`](/api/login_account) 一致。
+**校验通过**：自动继续登录，返回 [LoginResult](#login-result)。
 
 **校验未通过**：返回验证结果，`result.prompt` 是失败原因，`next` 为 `security`。登录会话保留，可以用同一个 `sign` 重试。
 
@@ -86,3 +86,7 @@ curl --request POST 'http://127.0.0.1:3003/api/check_sms' \
 :::
 
 完整流程见[Bot 登录流程](/guide/login-flow)。
+
+<!--@include: ../../snippets/api/login-result.md-->
+
+<!--@include: ../../snippets/api/security-verify.md-->

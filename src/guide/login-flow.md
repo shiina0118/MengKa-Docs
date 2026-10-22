@@ -23,7 +23,7 @@
 
 注意区分两层结果：外层 `ok: false` 表示请求本身无效（参数错误、账号状态不对等）；`ok: true` 只表示请求被处理，登录是否成功要看 `next`。
 
-账号上线时还会推送 [`bot_online`](/events/system#bot-online) 事件，无论通过哪种方式登录。
+账号上线时还会推送 [`bot_online`](/events/bot_online) 事件，无论通过哪种方式登录。
 
 ## 登录前检查
 

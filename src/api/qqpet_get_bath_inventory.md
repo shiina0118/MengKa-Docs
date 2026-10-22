@@ -50,21 +50,21 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_bath_inventory' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `inventory` | object | 库存信息 |
-
-### response.inventory
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `items` | object[] | 条目列表 |
+| `inventory` | [Inventory](#response-inventory) | 库存信息 |
 
-### response.inventory.items[]
+### response.inventory（Inventory） {#response-inventory}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `items` | [Item[]](#response-inventory-items) | 条目列表 |
+
+### response.inventory.items[]（Item） {#response-inventory-items}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

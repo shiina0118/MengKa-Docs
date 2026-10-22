@@ -50,4 +50,8 @@ curl --request POST 'http://127.0.0.1:3003/api/submit_slider' \
 
 ## 返回值
 
-返回结构与 [`login_account`](/api/login_account) 一致。若返回另一种验证状态，继续按新的 `next` 处理。结果中的 `next` 表示下一步，取值见[登录结果的 next 字段](/guide/login-flow#next)。
+返回 [LoginResult](#login-result)。若返回另一种验证状态，继续按新的 `next` 处理。
+
+<!--@include: ../../snippets/api/login-result.md-->
+
+<!--@include: ../../snippets/api/security-verify.md-->

@@ -53,27 +53,27 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_do_after_story_info' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.story_id` | string | 否 | 故事 ID |
-| `request.field_2` | number | 否 | 页面场景；首页流程为1000，动态活动和PK为6000 |
-| `request.pet_id` | string | 否 | 宠物 ID |
-| `request.field_4` | number | 否 | 结算来源，按当前活动场景填写 |
-| `request.outdoor_version` | number | 否 | 户外功能版本；动态活动与PK使用2 |
+| `story_id` | string | 否 | 故事 ID |
+| `field_2` | number | 否 | 页面场景；首页流程为1000，动态活动和PK为6000 |
+| `pet_id` | string | 否 | 宠物 ID |
+| `field_4` | number | 否 | 结算来源，按当前活动场景填写 |
+| `outdoor_version` | number | 否 | 户外功能版本；动态活动与PK使用2 |
 
 ## 返回值
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object | 扩展结果，说明待补充 |
+| `field_1` | object | 扩展结果，说明待补充；内部结构未整理 |

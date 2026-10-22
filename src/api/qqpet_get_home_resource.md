@@ -49,14 +49,14 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_home_resource' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `field_1` | string | 扩展结果，说明待补充 |
-| `field_2` | object | 扩展结果，说明待补充 |
-| `field_3` | object | 扩展结果，说明待补充 |
-| `field_4` | object | 扩展结果，说明待补充 |
-| `field_5` | object | 扩展结果，说明待补充 |
+| `field_2` | object | 扩展结果，说明待补充；内部结构未整理 |
+| `field_3` | object | 扩展结果，说明待补充；内部结构未整理 |
+| `field_4` | object | 扩展结果，说明待补充；内部结构未整理 |
+| `field_5` | object | 扩展结果，说明待补充；内部结构未整理 |

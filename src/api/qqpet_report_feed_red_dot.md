@@ -57,15 +57,15 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_feed_red_dot' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.red_dots` | object[] | 否 | 红点信息列表 |
+| `red_dots` | [RedDot[]](#request-red-dots) | 否 | 红点信息列表 |
 
-### request.red_dots[]
+### request.red_dots[]（RedDot） {#request-red-dots}
 
 | 参数 | 类型 | 说明 |
 | --- | --- | --- |
@@ -77,4 +77,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_feed_red_dot' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | object | 本次操作的返回数据，没有已解析的字段；服务端返回的未知内容以 Base64 字符串数组保留在 `_unknown_fields` 中 |

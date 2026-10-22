@@ -34,14 +34,14 @@ ws://HOST:PORT/
 }
 ```
 
-| 字段 | 必填 | 说明 |
-| --- | --- | --- |
-| `type` | 是 | 固定为 `auth` |
-| `token` | 是 | 服务令牌 |
-| `name` | 是 | 插件名称，显示在连接列表中 |
-| `version` | 是 | 插件版本 |
-| `author` | 是 | 插件作者 |
-| `permissions` | 否 | 需要接收的事件，见下表；省略的事件不会推送 |
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `type` | string | 是 | 固定为 `auth` |
+| `token` | string | 是 | 服务令牌 |
+| `name` | string | 是 | 插件名称，显示在连接列表中 |
+| `version` | string | 是 | 插件版本 |
+| `author` | string | 是 | 插件作者 |
+| `permissions` | [Permissions](#permissions) | 否 | 需要接收的事件；省略的事件不会推送 |
 
 认证成功：
 
@@ -57,16 +57,16 @@ ws://HOST:PORT/
 
 超时未发送认证消息、消息格式不正确或缺少插件信息时同样会认证失败。
 
-## 事件权限
+## 事件权限（Permissions） {#permissions}
 
-| 权限字段 | 推送的 `post_type` |
-| --- | --- |
-| `group_message` | `group_message` |
-| `friend_message` | `friend_message` |
-| `group_event` | `group_notice` |
-| `friend_event` | `friend_notice` |
-| `bot_offline` | `bot_offline` |
-| `bot_online` | `bot_online` |
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `group_message` | boolean | 为 `true` 时推送 `group_message` 事件 |
+| `friend_message` | boolean | 为 `true` 时推送 `friend_message` 事件 |
+| `group_event` | boolean | 为 `true` 时推送 `group_notice` 事件 |
+| `friend_event` | boolean | 为 `true` 时推送 `friend_notice` 事件 |
+| `bot_offline` | boolean | 为 `true` 时推送 `bot_offline` 事件 |
+| `bot_online` | boolean | 为 `true` 时推送 `bot_online` 事件 |
 
 权限在认证时确定，连接期间不能修改。需要新增事件类型时，断开并重新连接。
 

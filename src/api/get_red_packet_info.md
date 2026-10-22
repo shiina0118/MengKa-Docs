@@ -67,13 +67,18 @@ curl --request POST 'http://127.0.0.1:3003/api/get_red_packet_info' \
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_id` | number | 是 | 红包发送人 QQ 号 |
-| `red_packet` | object | 是 | 收到的 `red_packet` 消息段 `data` |
-| `red_packet.title` | string | 否 | 红包标题 |
-| `red_packet.listid` | string | 是 | 红包列表 ID |
-| `red_packet.authkey` | string | 是 | 红包鉴权串 |
-| `red_packet.channel` | number | 否 | 红包渠道，缺省为 `0` |
-| `red_packet.pay_flag` | number | 否 | 红包支付标记，省略为 `0`，建议保留收到的值 |
-| `red_packet.hb_from` | number | 否 | 红包来源标记，省略为 `0`，建议保留收到的值 |
+| `red_packet` | [RedPacket](#red-packet) | 是 | 收到的 `red_packet` 消息段 `data` |
+
+### red_packet（RedPacket） {#red-packet}
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `title` | string | 否 | 红包标题 |
+| `listid` | string | 是 | 红包列表 ID |
+| `authkey` | string | 是 | 红包鉴权串 |
+| `channel` | number | 否 | 红包渠道，缺省为 `0` |
+| `pay_flag` | number | 否 | 红包支付标记，省略为 `0`，建议保留收到的值 |
+| `hb_from` | number | 否 | 红包来源标记，省略为 `0`，建议保留收到的值 |
 
 ## 返回值
 

@@ -89,14 +89,24 @@ curl --request POST 'http://127.0.0.1:3003/api/get_sms' \
 }
 ```
 
-| 字段 | 说明 |
-| --- | --- |
-| `result.state` | `1` 为成功，其他值为失败，失败时 `result.prompt` 是原因 |
-| `sign` | 新的 sign，提交时必须用这个，不能沿用请求时传入的那个 |
-| `sms` | 仅 `verify_type` 为 `3`：需要用户发送的短信内容 |
-| `send_to` | 仅 `verify_type` 为 `3`：短信的接收号码 |
-| `masked_phone` | 打码后的密保手机号，用于提示用户 |
-| `next` | 固定为 `security`，表示仍处于安全验证 |
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `result` | [SMSResult](#result) | 请求结果 |
+| `sign` | string | 新的 sign，提交时必须用这个，不能沿用请求时传入的那个 |
+| `sms` | string | 仅 `verify_type` 为 `3`：需要用户发送的短信内容 |
+| `send_to` | string | 仅 `verify_type` 为 `3`：短信的接收号码 |
+| `masked_phone` | string | 打码后的密保手机号，用于提示用户 |
+| `country_code` | string | 密保手机号的国家或地区代码 |
+| `next` | string | 固定为 `security`，表示仍处于安全验证 |
+
+除 `next` 外，其余字段原样转发服务端返回的对象，上表只列出常用字段。
+
+### result（SMSResult） {#result}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `state` | number | `1` 为成功，其他值为失败 |
+| `prompt` | string | 失败原因，失败时出现 |
 
 `verify_type` 为 `3` 时，需要引导用户**用 `masked_phone` 对应的密保手机**把 `sms` 的内容原样发送到 `send_to`，发送后再调用 [`check_sms`](/api/check_sms) 回查。
 

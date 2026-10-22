@@ -59,35 +59,35 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_do_care' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
-| `request.expect_biscuit_cost` | number | 否 | 预期食物消耗量，从照料配置计算 |
-| `request.expect_exp_gain` | number | 否 | 预期经验增量，从照料配置计算 |
-| `request.show_card` | boolean | 否 | 是否返回展示卡片所需的数据 |
-| `request.version` | number | 否 | 操作版本；照料配置与执行示例为4，补给信息示例为2 |
-| `request.expect_soap_cost` | number | 否 | 预期洗护用品消耗量，从照料配置计算 |
-| `request.field_7` | boolean | 否 | 扩展数据，说明待补充 |
+| `pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
+| `expect_biscuit_cost` | number | 否 | 预期食物消耗量，从照料配置计算 |
+| `expect_exp_gain` | number | 否 | 预期经验增量，从照料配置计算 |
+| `show_card` | boolean | 否 | 是否返回展示卡片所需的数据 |
+| `version` | number | 否 | 操作版本；照料配置与执行示例为4，补给信息示例为2 |
+| `expect_soap_cost` | number | 否 | 预期洗护用品消耗量，从照料配置计算 |
+| `field_7` | boolean | 否 | 扩展数据，说明待补充 |
 
 ## 返回值
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `result` | number | 操作结果码；请求成功不代表该业务结果一定成功，请检查本字段 |
-| `care_info` | object | 本次照料结果 |
+| `care_info` | [CareInfo](#response-care-info) | 本次照料结果 |
 
-### response.care_info
+### response.care_info（CareInfo） {#response-care-info}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

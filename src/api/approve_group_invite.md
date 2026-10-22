@@ -63,7 +63,7 @@ curl --request POST 'http://127.0.0.1:3003/api/approve_group_invite' \
     nickname: '示例好友',
   },
   msg: {
-    uid: 72057594000012345,
+    uid: '72057594000012345',
     seq: 28417,
     random: 763219845,
     time: 1765432100,

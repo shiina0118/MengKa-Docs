@@ -49,36 +49,36 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_medal_detail' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
-| `request.medal_id` | string | 否 | 勋章图鉴返回的勋章 ID，使用十进制字符串 |
+| `pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
+| `medal_id` | string | 否 | 勋章图鉴返回的勋章 ID，使用十进制字符串 |
 
 ## 返回值
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `medal` | object | 本次操作的medal数据 |
+| `medal` | [Medal](#response-medal) | 本次操作的medal数据 |
 | `badge_subtitle` | string | 勋章副标题 |
 | `field_3` | string | 扩展数据，说明待补充 |
 | `web_jump_url` | string | 详情链接 |
 
-### response.medal
+### response.medal（Medal） {#response-medal}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `info` | object | 详细信息 |
+| `info` | [Info](#response-medal-info) | 详细信息 |
 | `is_owned` | boolean | 是否已获得 |
 | `obtain_time` | string | 获得时间；十进制整数字符串 |
 | `is_equipped` | boolean | 是否正在佩戴 |
@@ -86,9 +86,9 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_medal_detail' \
 | `require_count` | string | 所需进度；十进制整数字符串 |
 | `obtain_rate_text` | string | 获得比例说明 |
 | `field_8` | number | 扩展数据，说明待补充 |
-| `field_9` | object | 扩展数据，说明待补充 |
+| `field_9` | [Field9](#response-medal-field-9) | 扩展数据，说明待补充 |
 
-### response.medal.info
+### response.medal.info（Info） {#response-medal-info}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -102,9 +102,9 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_medal_detail' \
 | `toast_text` | string | 提示文字 |
 | `description_detail` | string | 详细说明 |
 
-### response.medal.field_9
+### response.medal.field_9（Field9） {#response-medal-field-9}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `field_1` | number | 扩展数据，说明待补充 |
-| `field_2` | object[] | 扩展数据，说明待补充 |
+| `field_2` | object[] | 扩展数据，说明待补充；内部结构未整理 |

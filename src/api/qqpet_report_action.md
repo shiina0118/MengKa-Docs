@@ -55,17 +55,17 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_action' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.action_id` | string | 否 | 行为 ID |
-| `request.action_scene` | string | 否 | 行为场景 |
-| `request.bubble_source` | string | 否 | 气泡来源 |
-| `request.timestamp_ms` | string | 否 | 时间，Unix 毫秒 |
-| `request.bubble_id` | string | 否 | 气泡 ID |
+| `action_id` | string | 否 | 行为 ID |
+| `action_scene` | string | 否 | 行为场景 |
+| `bubble_source` | string | 否 | 气泡来源 |
+| `timestamp_ms` | string | 否 | 时间，Unix 毫秒 |
+| `bubble_id` | string | 否 | 气泡 ID |
 
 较长的 ID 或序号请使用字符串，避免 JavaScript 数字精度丢失。
 
@@ -74,9 +74,9 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_action' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据 |
+| `response` | [Response](#response) | 本次操作的返回数据 |
 
-### response
+### response（Response） {#response}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

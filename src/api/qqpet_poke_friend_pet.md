@@ -51,14 +51,14 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_poke_friend_pet' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.friend_uin` | string | 否 | 好友 QQ 号，使用十进制字符串 |
-| `request.pat_type` | number | 否 | 提醒类型，使用当前场景返回的值 |
+| `friend_uin` | string | 否 | 好友 QQ 号，使用十进制字符串 |
+| `pat_type` | number | 否 | 提醒类型，使用当前场景返回的值 |
 
 ## 返回值
 

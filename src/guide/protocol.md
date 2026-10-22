@@ -16,12 +16,12 @@
 }
 ```
 
-| 字段 | 说明 |
-| --- | --- |
-| `type` | 固定为 `action` |
-| `id` | 请求标识；需要响应时必须提供，省略时 Meng Ka 不回复 |
-| `action` | API 名称 |
-| `params` | API 参数对象 |
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | string | 固定为 `action` |
+| `id` | string | 请求标识；需要响应时必须提供，省略时 Meng Ka 不回复 |
+| `action` | string | API 名称 |
+| `params` | object | API 参数对象，字段见各 API 页面的“参数” |
 
 ## 请求大小限制
 
@@ -55,6 +55,14 @@ Base64 音频必须连同请求字段一起计算；3 MiB 的原始音频编码�
 }
 ```
 
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | string | 固定为 `action_result` |
+| `id` | string | 对应请求的 `id` |
+| `ok` | boolean | 是否成功 |
+| `data` | any | 成功时出现，API 返回值，结构见各 API 页面的“返回值” |
+| `error` | string | 失败时出现，错误信息 |
+
 插件使用 `id` 关联请求与响应，同一连接上尚未完成的请求应使用不同的 `id`。插件应自行设置等待超时：建议默认 30 秒，媒体、红包、头像和批量任务等 API 适当延长。不需要结果时可以省略 `id`，Meng Ka 仍会执行请求，但不会回复，执行失败也无法得知。
 
 同一连接上的 action 会并发执行，当前每连接最多同时运行 16 个；响应顺序不保证与请求顺序一致，必须按 `id` 匹配结果。
@@ -66,12 +74,27 @@ Base64 音频必须连同请求字段一起计算；3 MiB 的原始音频编码�
   "type": "event",
   "data": {
     "self_id": 123456789,
+    "protocol_id": 0,
     "post_type": "group_message"
   }
 }
 ```
 
-`data.post_type` 决定事件类型。事件结构见[事件参考](/events/)。
+上例只列出所有事件共有的字段，各事件的其他字段见[事件参考](/events/)。
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | string | 固定为 `event` |
+| `data` | [EventData](#event-data) | 事件内容，结构由 `data.post_type` 决定 |
+
+### data（EventData） {#event-data}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `self_id` | number | 接收事件的 Bot QQ 号 |
+| `protocol_id` | number | 接收事件的账号协议 ID，允许为 `0`；与 `self_id` 一起定位账号实例 |
+| `post_type` | string | 事件大类，取值见[事件概述](/events/#公共字段) |
+| …… | | 其他字段随事件类型而定 |
 
 ## 心跳
 

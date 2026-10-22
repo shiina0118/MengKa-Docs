@@ -9,12 +9,12 @@
 | `self_id` | number | 在线 Bot QQ 号 |
 | `protocol_id` | number | 账号的协议 ID，与 `self_id` 共同定位实例 |
 | `group_id` | number | 目标群聊 ID |
-| `message` | Segment[] | 消息段数组 |
+| `message` | [Segment[]](#发送消息段) | 消息段数组 |
 
 成功返回：
 
 ```json
-{ "success": true, "msg_seq": 123, "msg_random": 456 }
+{ "success": true, "msg_seq": 123, "msg_random": 456, "client_seq": 789, "msg_time": 1700000000 }
 ```
 
 `msg_seq` 与 `msg_random` 可用于 [`recall_group_msg`](/api/recall_group_msg)。
@@ -22,6 +22,8 @@
 ## send_friend_msg
 
 [`send_friend_msg`](/api/send_friend_msg) 以 `user_id` 代替 `group_id`，其余参数相同。好友消息当前支持 `text` 和 `image` 段。成功返回结构与群聊消息一致。
+
+好友消息可通过 [`recall_friend_msg`](/api/recall_friend_msg) 撤回。将同一次发送结果的 `msg_seq`、`msg_random`、`client_seq`、`msg_time` 原样传入，`msg_time` 单位为 Unix 秒。
 
 ## 发送消息段
 
@@ -144,20 +146,12 @@ QQ 原生表情：
 
 ## 接收消息段
 
-消息事件的 `message` 数组可能包含：
-
-| 类型 | 常用数据字段 |
-| --- | --- |
-| `text` | `text` |
-| `image` | `file_id`, `url`, `width`, `height` |
-| `voice` | `file_id`, `url`, `duration` |
-| `video` | `file_id`, `url`, `name`, `size`, `width`, `height`, `duration` |
-| `mention` | `user_id`, `display` |
-| `mention_all` | 空对象 |
-| `reply` | `message_id`, `user_id`, `text`, `time` |
-| `recall` | 操作者、消息标识和可选原消息 |
-| `ark` | Ark 卡片字段 |
-| `face` | `kind`, `type`, `face_id`, `text` 等 |
-| `red_packet` | `title`, `listid`, `authkey`, `channel`, `pay_flag`, `hb_from` |
+消息事件的 `message` 是 [Segment[]](#segment)，每个元素都有 `type` 和 `data`。点击类型列可在本页查看各消息段的嵌套字段。
 
 发送段与接收段的类型并非完全对称。例如发送群 @ 使用 `at` 和 `user_id`，接收时使用 `mention` 和 `user_id`。
+
+### 引用消息段
+
+引用段的 `type` 为 `reply`，完整字段见本页的 [ReplyData](#segment-reply)。其中 `message_id`、`msg_seq`、`nt_msg_seq` 属于被引用消息，当前消息的标识位于事件外层的 `msg`。
+
+<!--@include: ../../snippets/events/segments.md-->

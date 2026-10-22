@@ -53,15 +53,15 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_guide' \
 | --- | --- | --- | --- |
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
-| `request` | object | 否 | 本次操作的参数，默认 `{}` |
+| `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
 
-### request
+### request（Request） {#request}
 
 | 参数 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `request.guide_id` | number | 否 | 页面引导返回的引导 ID |
-| `request.pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
-| `request.outdoor_version` | number | 否 | 户外功能版本；当前调用示例为2 |
+| `guide_id` | number | 否 | 页面引导返回的引导 ID |
+| `pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
+| `outdoor_version` | number | 否 | 户外功能版本；当前调用示例为2 |
 
 ## 返回值
 
