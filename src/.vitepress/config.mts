@@ -289,6 +289,14 @@ export default defineConfig({
               ],
             },
             {
+              text: "福袋",
+              collapsed: true,
+              items: [
+                { text: "查询宠物福袋详情", link: "/api/qqpet_get_coin_bag_detail" },
+                { text: "领取宠物福袋金币", link: "/api/qqpet_snatch_coin_bag" },
+              ],
+            },
+            {
               text: "装扮与套装",
               collapsed: true,
               items: [
