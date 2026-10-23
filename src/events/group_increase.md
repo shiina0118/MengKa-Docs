@@ -15,10 +15,33 @@
 | `group_id` | number | 群聊 ID |
 | `group_name` | string | 群聊名称，可能省略 |
 | `user_id` | number | 加入成员的 QQ 号 |
-| `nickname` | string | 加入成员的昵称 |
+| `nickname` | string | 加入成员的真实网名，未知时为 `""` |
+| `card` | string | 加入成员在当前群的名片，为空时省略 |
 | `invitor_id` | number | 邀请者 QQ 号，无可用数据时省略 |
-| `invitor_nickname` | string | 邀请者昵称，无可用数据时省略 |
+| `invitor_nickname` | string | 邀请者真实网名，无可用数据时省略 |
+| `invitor_card` | string | 邀请者在当前群的名片，为空时省略 |
 | `handler_id` | number | 处理人 QQ 号，无可用数据时省略 |
-| `handler_nickname` | string | 处理人昵称，无可用数据时省略 |
+| `handler_nickname` | string | 处理人真实网名，无可用数据时省略 |
+| `handler_card` | string | 处理人在当前群的名片，为空时省略 |
 | `request_id` | number | 对应请求 ID |
 | `request_type` | number | 对应请求类型 |
+
+## 名称示例
+
+事件 `data` 中的部分字段：
+
+```json
+{
+  "user_id": 234567890,
+  "nickname": "小明",
+  "card": "技术组小明",
+  "invitor_id": 345678901,
+  "invitor_nickname": "小李",
+  "invitor_card": "邀请人小李",
+  "handler_id": 456789012,
+  "handler_nickname": "小张",
+  "handler_card": "管理员小张"
+}
+```
+
+每个角色均使用自己的名片优先展示，其次使用网名；名片为空时，相应的 `*_card` 或 `card` 字段省略。

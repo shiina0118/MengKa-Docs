@@ -31,7 +31,7 @@
 | `operator_role` | number | 操作者群角色，为 `0` 时省略 |
 | `operator_title` | string | 操作者群头衔，为空时省略 |
 
-原消息使用两分钟缓存；缓存未命中或过期时，`body.original.message` 返回文本消息段“消息已过期”。
+原消息使用十分钟缓存；缓存未命中或过期时，`body.original` 可能省略。撤回事件仍会推送。
 
 主动撤回群消息使用 [`recall_group_msg`](/api/recall_group_msg)。
 

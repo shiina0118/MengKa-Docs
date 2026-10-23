@@ -59,7 +59,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_share_messages' \
       "sender": {
         "user_id": 234567890,
         "nickname": "小明",
-        "card": "小明"
+        "card": "技术组小明"
       },
       "message": [
         { "type": "text", "data": { "text": "大家好" } }
@@ -86,7 +86,9 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_share_messages' \
 | `message` | [Segment[]](#segment) | 消息段，与实时群消息使用相同解析方式；无可识别消息段时为 `[]` |
 | `alt_message` | string | 文本摘要，无摘要时为 `""` |
 
-发送者显示名优先取历史消息携带的群名片，其次使用本地昵称缓存，最后回退到 QQ 号或 UID。不会逐条请求群成员资料；缺少 QQ 号且本地无对应缓存时，`sender.user_id` 为 `0`。
+`sender.nickname` 只返回共享记录中的真实网名，未知时为 `""`。`sender.card` 使用历史消息明确携带的群名片；消息未提供名片字段时，读取当前 Bot、当前群的名片记录。名片为空时省略，不使用网名补齐。客户端展示时可依次取 `card`、`nickname`、`user_id`。
+
+不会逐条请求群成员资料；缺少 QQ 号且本地无对应缓存时，`sender.user_id` 为 `0`。
 
 文字、图片、语音、视频、表情、回复和 ARK 等复用现有消息段。媒体 URL 会尽可能补齐，获取失败时仍保留消息段，URL 字段可能省略。
 

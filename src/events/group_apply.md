@@ -15,12 +15,30 @@
 | `group_id` | number | 目标群 ID |
 | `group_name` | string | 目标群名称，可能省略 |
 | `user_id` | number | 申请者 QQ 号 |
-| `nickname` | string | 申请者昵称 |
+| `nickname` | string | 申请者真实网名，未知时为 `""` |
+| `card` | string | 申请者在当前群的名片，无可用数据时省略 |
 | `comment` | string | 申请附言，可能省略 |
 | `request_id` | number | 请求 ID |
 | `request_type` | number | 请求类型 |
 | `request_extra` | number | 附加请求标识，为 `0` 时省略 |
 | `invitor_id` | number | 邀请者 QQ 号，邀请入群且有可用数据时出现 |
-| `invitor_nickname` | string | 邀请者昵称，邀请入群且有可用数据时出现 |
+| `invitor_nickname` | string | 邀请者真实网名，邀请入群且有可用数据时出现 |
+| `invitor_card` | string | 邀请者在当前群的名片，邀请入群且有可用数据时出现 |
 
 `request_*` 字段可直接用于 [`approve_group_apply`](/api/approve_group_apply) 或 [`reject_group_apply`](/api/reject_group_apply)。
+
+## 名称示例
+
+以下为事件 `data` 中的部分字段。申请者尚无可用名称时，`nickname` 仍保留为空字符串；邀请者的网名和群名片分别推送：
+
+```json
+{
+  "user_id": 234567890,
+  "nickname": "",
+  "invitor_id": 345678901,
+  "invitor_nickname": "小李",
+  "invitor_card": "管理员小李"
+}
+```
+
+展示邀请者时优先使用 `invitor_card`，其次使用 `invitor_nickname`。

@@ -19,9 +19,12 @@
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `user_id` | number | 好友 QQ 号，未知时为 `0` |
-| `nickname` | string | 推送昵称，缺省时依次使用缓存昵称、QQ 号或 UID |
+| `nickname` | string | 好友真实网名，来自推送或共享网名记录；未知时为 `""` |
+| `remark` | string | 当前 Bot 为该好友设置的备注；为空时省略 |
 
 `operator` 表示新增的好友，不用于判断由谁发起申请。
+
+展示时优先使用 `remark`，其次使用 `nickname`；两者均不可用时，客户端可显示 QQ 号或 `user_uid`。`nickname` 本身不会填入备注、QQ 号或 UID。
 
 ## 示例
 
@@ -37,7 +40,8 @@
     "user_uid": "u_example_friend",
     "operator": {
       "user_id": 234567890,
-      "nickname": "新朋友"
+      "nickname": "新朋友",
+      "remark": "小王"
     }
   }
 }

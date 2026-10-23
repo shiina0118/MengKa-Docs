@@ -32,7 +32,7 @@
 | `traceless` | boolean | 无痕撤回时为 `true`，否则省略 |
 | `original` | [OriginalMessage](#original) | 原消息 |
 
-与群消息使用相同的两分钟原消息缓存。缓存未命中或已经过期时，撤回事件仍会推送，`body.original.message` 包含一个 `text` 消息段，其 `data.text` 为“消息已过期”。
+与群消息使用相同的十分钟原消息缓存。缓存未命中或已经过期时，撤回事件仍会推送，`body.original.message` 包含一个 `text` 消息段，其 `data.text` 为“消息已过期”。
 
 此事件不会通过服务器补查被撤回的原文。
 

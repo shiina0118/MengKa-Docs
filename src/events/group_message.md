@@ -21,6 +21,20 @@
 
 点击类型列可查看本页对应的嵌套字段表。
 
+## 名称示例
+
+事件 `data.sender` 的示例：
+
+```json
+{
+  "user_id": 234567890,
+  "nickname": "小明",
+  "card": "技术组小明"
+}
+```
+
+客户端可显示“技术组小明”。没有群名片时省略 `card`，展示使用“小明”。群消息不会把好友备注放入 `nickname` 或 `card`。
+
 <!--@include: ../../snippets/events/msg.md-->
 
 <!--@include: ../../snippets/events/sender.md-->

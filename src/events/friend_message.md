@@ -23,6 +23,19 @@
 
 点击类型列可查看本页对应的嵌套字段表。
 
+## 名称示例
+
+事件 `data` 中的发送者和接收者字段：
+
+```json
+{
+  "sender": { "user_id": 234567890, "nickname": "小明", "remark": "项目同事" },
+  "receiver": { "user_id": 123456789, "nickname": "我的账号" }
+}
+```
+
+收到这条消息时可显示“项目同事”。如果该备注被清空，后续事件省略 `remark`，展示改用“小明”；`nickname` 始终保留真实网名。自己发送的消息中，对方信息位于 `receiver`，同样按此规则展示。
+
 <!--@include: ../../snippets/events/msg.md-->
 
 <!--@include: ../../snippets/events/sender.md-->
