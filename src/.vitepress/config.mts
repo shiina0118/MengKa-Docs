@@ -348,7 +348,7 @@ export default defineConfig({
                 { text: "获取宠物互动消息摘要", link: "/api/qqpet_get_interaction_messages" },
                 { text: "删除宠物互动记录", link: "/api/qqpet_delete_interaction_record" },
                 { text: "获取宠物互动历史", link: "/api/qqpet_get_interaction_history" },
-                { text: "踩一踩好友宠物", link: "/api/qqpet_poke_friend_pet" },
+                { text: "提醒好友关心宠物", link: "/api/qqpet_poke_friend_pet" },
               ],
             },
             {
