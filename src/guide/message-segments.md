@@ -23,6 +23,8 @@
 
 [`send_friend_msg`](/api/send_friend_msg) 以 `user_id` 代替 `group_id`，其余参数相同。好友消息支持 `text`、`image` 和 `ark` 段。成功返回结构与群聊消息一致。
 
+收到的好友语音、视频段只有 `file_id`，下载地址分别通过 [`get_friend_voice_url`](/api/get_friend_voice_url) 和 [`get_friend_video_url`](/api/get_friend_video_url) 按需获取，视频接口同时返回封面 URL。当前不支持把这两类段传给 `send_friend_msg` 发送。
+
 好友消息可通过 [`recall_friend_msg`](/api/recall_friend_msg) 撤回。将同一次发送结果的 `msg_seq`、`msg_random`、`client_seq`、`msg_time` 原样传入，`msg_time` 单位为 Unix 秒。
 
 ## 发送消息段
@@ -127,6 +129,8 @@ QQ 原生表情：
 | [`upload_group_video`](/api/upload_group_video) | `group_id` | 输入必须为支持的 MP4 格式，无需额外提供封面；返回的 `video` 段须作为唯一消息段单独发送 |
 | [`get_group_voice_url`](/api/get_group_voice_url) | `file_id` | 按需查询群语音下载 URL |
 | [`get_group_video_url`](/api/get_group_video_url) | `file_id` | 按需查询群视频及封面下载 URL |
+| [`get_friend_voice_url`](/api/get_friend_voice_url) | `file_id` | 按需查询好友语音下载 URL |
+| [`get_friend_video_url`](/api/get_friend_video_url) | `file_id` | 按需查询好友视频及封面下载 URL |
 
 ## 合并转发
 

@@ -23,11 +23,21 @@
 
 点击类型列可查看本页对应的嵌套字段表。
 
-好友消息中的图片段包含 `file_id` 和 `url`；收到的语音、视频段只包含 `file_id`。例如语音消息的 `message` 为：
+好友消息中的图片段包含 `file_id` 和 `url`；收到的语音、视频段只包含 `file_id`。收到好友语音、视频时，后端缓存元数据，不立即查询下载地址。需要地址时分别调用 [`get_friend_voice_url`](/api/get_friend_voice_url) 或 [`get_friend_video_url`](/api/get_friend_video_url)，视频接口同时返回视频和封面的 URL。
+
+例如语音消息的 `message` 为：
 
 ```json
 [{ "type": "voice", "data": { "file_id": "VOICE_FILE_ID" } }]
 ```
+
+视频消息的 `message` 为：
+
+```json
+[{ "type": "video", "data": { "file_id": "VIDEO_FILE_ID" } }]
+```
+
+查询下载地址只需传入 `self_id`、`protocol_id` 和 `file_id`，发送者信息由后端从缓存读取。当前 `send_friend_msg` 尚不支持发送语音、视频段。
 
 ## 名称示例
 

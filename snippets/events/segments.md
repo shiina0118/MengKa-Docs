@@ -43,7 +43,7 @@
 | --- | --- | --- |
 | `file_id` | string | 语音的短期发送标识 |
 
-群语音的下载地址按需调用 [`get_group_voice_url`](/api/get_group_voice_url) 获取，不出现在消息段中。
+语音下载地址不出现在消息段中。群语音按需调用 [`get_group_voice_url`](/api/get_group_voice_url)，好友语音调用 [`get_friend_voice_url`](/api/get_friend_voice_url)。好友语音目前仅支持接收和查询下载地址。
 
 ### 视频 VideoData {#segment-video}
 
@@ -51,7 +51,7 @@
 | --- | --- | --- |
 | `file_id` | string | 视频的短期发送标识 |
 
-群视频和封面的下载地址按需调用 [`get_group_video_url`](/api/get_group_video_url) 获取，不出现在消息段中。
+视频和封面的下载地址不出现在消息段中。群视频按需调用 [`get_group_video_url`](/api/get_group_video_url)，好友视频调用 [`get_friend_video_url`](/api/get_friend_video_url)。好友视频目前仅支持接收和查询下载地址。
 
 图片、语音、视频的发送元数据由后端缓存。图片段包含 `file_id` 和 `url`；语音、视频段只包含 `file_id`。发送时保留原来的 `type`、`file_id` 即可；图片 `url` 不参与发送。
 

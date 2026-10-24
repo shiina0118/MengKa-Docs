@@ -130,6 +130,8 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "上传好友图片", link: "/api/upload_friend_image" },
+                { text: "获取好友语音 URL", link: "/api/get_friend_voice_url" },
+                { text: "获取好友视频和封面 URL", link: "/api/get_friend_video_url" },
               ],
             },
             {
