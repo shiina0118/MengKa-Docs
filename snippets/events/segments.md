@@ -53,7 +53,7 @@
 
 视频和封面的下载地址不出现在消息段中。群视频按需调用 [`get_group_video_url`](/api/get_group_video_url)，好友视频调用 [`get_friend_video_url`](/api/get_friend_video_url)。好友视频目前仅支持接收和查询下载地址。
 
-图片、语音、视频的发送元数据由后端缓存。图片段包含 `file_id` 和 `url`；语音、视频段只包含 `file_id`。发送时保留原来的 `type`、`file_id` 即可；图片 `url` 不参与发送。
+图片段包含 `file_id` 和 `url`；语音、视频段只包含 `file_id`。对于支持发送的消息段，保留原来的 `type`、`file_id` 即可复用发送；图片 `url` 无需传入。
 
 ### 提及 MentionData {#segment-mention}
 
