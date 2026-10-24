@@ -61,12 +61,11 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
   type: 'voice',
   data: {
     file_id: 'FILE_ID',
-    duration: 5,
   },
 }
 ```
 
-返回段只能发送到上传时指定的群。请在上传成功后 **2 分钟内**发送；超过期限或 Meng Ka 重启后需重新上传。见[媒体有效期](/guide/message-segments#媒体有效期)。
+返回段只能发送到上传时指定的群。需要下载地址时，另行调用 [`get_group_voice_url`](/api/get_group_voice_url)；发送不需要先获取 URL。媒体元数据在本地缓存 5 分钟，见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## 发送
 
@@ -85,8 +84,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_voice' \
       {
         "type": "voice",
         "data": {
-          "file_id": "FILE_ID",
-          "duration": 5
+          "file_id": "FILE_ID"
         }
       }
     ]

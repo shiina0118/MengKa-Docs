@@ -174,6 +174,8 @@ export default defineConfig({
                 { text: "上传群聊图片", link: "/api/upload_group_image" },
                 { text: "上传群聊语音", link: "/api/upload_group_voice" },
                 { text: "上传群聊视频", link: "/api/upload_group_video" },
+                { text: "获取群聊语音 URL", link: "/api/get_group_voice_url" },
+                { text: "获取群聊视频和封面 URL", link: "/api/get_group_video_url" },
               ],
             },
             {

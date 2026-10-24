@@ -85,4 +85,6 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_forward_msg' \
 
 返回的 `sender` 不包含发送者 QQ 号。返回节点与 `upload_group_forward_msg` 的输入格式不同，重新创建转发时需自行提供 `user_id` 等必填参数。
 
+合并转发中的图片段包含 `file_id` 和 `url`，图片地址暂不可用时 `url` 为空字符串；语音、视频段只包含 `file_id`。拉取合并转发不会立即查询群语音或群视频 URL；需要地址时分别调用 [`get_group_voice_url`](/api/get_group_voice_url) 或 [`get_group_video_url`](/api/get_group_video_url)。
+
 <!--@include: ../../snippets/events/segments.md-->

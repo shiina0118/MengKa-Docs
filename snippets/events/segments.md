@@ -14,7 +14,7 @@
 | `text` | [TextData](#segment-text) | 文本 |
 | `image` | [ImageData](#segment-image) | 图片 |
 | `voice` | [VoiceData](#segment-voice) | 语音 |
-| `video` | [VideoData](#segment-video) | 视频及封面 |
+| `video` | [VideoData](#segment-video) | 视频 |
 | `mention` | [MentionData](#segment-mention) | 群聊中 @ 某人 |
 | `mention_all` | [MentionAllData](#segment-mention-all) | 群聊中 @ 全体成员 |
 | `reply` | [ReplyData](#segment-reply) | 引用消息摘要及标识 |
@@ -35,47 +35,25 @@
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `file_id` | string | 图片的短期发送标识，使用期限见[媒体有效期](/guide/message-segments#媒体有效期) |
-| `url` | string | 图片下载地址，有值时出现 |
-| `width` | number | 图片宽度，非零时出现 |
-| `height` | number | 图片高度，非零时出现 |
+| `url` | string | 图片下载地址；暂不可用时为空字符串 |
 
 ### 语音 VoiceData {#segment-voice}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `file_id` | string | 语音的短期发送标识 |
-| `url` | string | 语音下载地址，有值时出现 |
-| `duration` | number | 协议提供的语音时长，非零时出现 |
-| `waveform` | [VoiceWaveform](#segment-voice-waveform) | 语音波形，有可用数据时出现 |
 
-#### 语音波形 VoiceWaveform {#segment-voice-waveform}
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `size` | number | 波形大小 |
-| `amplitudes` | number[] | 波形振幅数组 |
+群语音的下载地址按需调用 [`get_group_voice_url`](/api/get_group_voice_url) 获取，不出现在消息段中。
 
 ### 视频 VideoData {#segment-video}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `file_id` | string | 视频的短期发送标识 |
-| `url` | string | 视频下载地址，有值时出现 |
-| `name` | string | 视频文件名，有值时出现 |
-| `md5` | string | 视频 MD5，有值时出现 |
-| `sha1` | string | 视频 SHA1，有值时出现 |
-| `size` | number | 视频文件大小，非零时出现 |
-| `width` | number | 视频宽度，非零时出现 |
-| `height` | number | 视频高度，非零时出现 |
-| `duration` | number | 协议提供的视频时长，非零时出现 |
-| `thumb_file_id` | string | 封面文件标识，有值时出现 |
-| `thumb_url` | string | 封面下载地址，有值时出现 |
-| `thumb_name` | string | 封面文件名，有值时出现 |
-| `thumb_md5` | string | 封面 MD5，有值时出现 |
-| `thumb_sha1` | string | 封面 SHA1，有值时出现 |
-| `thumb_size` | number | 封面文件大小，非零时出现 |
-| `thumb_width` | number | 封面宽度，非零时出现 |
-| `thumb_height` | number | 封面高度，非零时出现 |
+
+群视频和封面的下载地址按需调用 [`get_group_video_url`](/api/get_group_video_url) 获取，不出现在消息段中。
+
+图片、语音、视频的发送元数据由后端缓存。图片段包含 `file_id` 和 `url`；语音、视频段只包含 `file_id`。发送时保留原来的 `type`、`file_id` 即可；图片 `url` 不参与发送。
 
 ### 提及 MentionData {#segment-mention}
 

@@ -21,6 +21,20 @@
 
 点击类型列可查看本页对应的嵌套字段表。
 
+图片段的 `data` 包含 `file_id` 和 `url`；语音、视频段的 `data` 只包含 `file_id`。收到群语音、群视频时不会立即查询下载地址，需要地址时分别调用 [`get_group_voice_url`](/api/get_group_voice_url) 或 [`get_group_video_url`](/api/get_group_video_url)。
+
+例如，群语音事件中的 `message` 为：
+
+```json
+[{ "type": "voice", "data": { "file_id": "VOICE_FILE_ID" } }]
+```
+
+群视频事件中的 `message` 为：
+
+```json
+[{ "type": "video", "data": { "file_id": "VIDEO_FILE_ID" } }]
+```
+
 ## 名称示例
 
 事件 `data.sender` 的示例：

@@ -23,6 +23,12 @@
 
 点击类型列可查看本页对应的嵌套字段表。
 
+好友消息中的图片段包含 `file_id` 和 `url`；收到的语音、视频段只包含 `file_id`。例如语音消息的 `message` 为：
+
+```json
+[{ "type": "voice", "data": { "file_id": "VOICE_FILE_ID" } }]
+```
+
 ## 名称示例
 
 事件 `data` 中的发送者和接收者字段：

@@ -51,10 +51,10 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_friend_image' \
 ## 返回值
 
 ```js
-{ type: 'image', data: { file_id: 'FILE_ID' } }
+{ type: 'image', data: { file_id: 'FILE_ID', url: 'https://...' } }
 ```
 
-请在上传成功后 **2 分钟内**发送。超过期限或 Meng Ka 重启后需重新上传，`file_id` 不适合作为永久标识保存。见[媒体有效期](/guide/message-segments#媒体有效期)。
+`url` 暂不可用时为空字符串；发送只需要 `file_id`。媒体元数据在本地缓存 5 分钟，见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## 发送
 

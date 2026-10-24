@@ -59,7 +59,7 @@
 { "type": "voice", "data": { "file_id": "FILE_ID" } }
 ```
 
-语音段应使用 `upload_group_voice` 的返回值，且只能发送到上传时指定的群。
+语音段可使用收到的群语音消息段，或 [`upload_group_voice`](/api/upload_group_voice) 的返回值。上传的语音只能发送到上传时指定的群。需要下载 URL 时调用 [`get_group_voice_url`](/api/get_group_voice_url)。
 
 ### video
 
@@ -67,7 +67,7 @@
 { "type": "video", "data": { "file_id": "FILE_ID" } }
 ```
 
-视频段应使用 `upload_group_video` 的返回值，并作为一条独立消息发送。
+视频段可使用收到的群视频消息段，或 [`upload_group_video`](/api/upload_group_video) 的返回值，并作为一条独立消息发送。需要视频和封面 URL 时调用 [`get_group_video_url`](/api/get_group_video_url)。
 
 ### face
 
@@ -97,7 +97,7 @@ QQ 原生表情：
 
 ## 媒体有效期
 
-图片、语音、视频的 `file_id` 是短期发送标识。请在上传成功或收到图片后的 **2 分钟内**使用；超过期限或 Meng Ka 重启后，旧标识可能无法发送，需要重新上传。不要将 `file_id` 当作永久资源地址保存。
+图片、语音、视频的 `file_id` 是短期发送标识。后端把发送所需的媒体元数据保存在磁盘，缓存有效期为 **5 分钟**，重启不会清除未过期的记录。缓存过期或 QQ 侧资源失效后，旧标识可能无法发送，需要重新获取或上传。不要将 `file_id` 当作永久资源地址保存。
 
 上传后尽快发送。语音和视频应发送到上传时指定的群；好友图片使用好友图片上传接口。
 
@@ -125,6 +125,8 @@ QQ 原生表情：
 | [`upload_friend_image`](/api/upload_friend_image) | `user_id` | 返回值作为好友消息的 `image` 段 |
 | [`upload_group_voice`](/api/upload_group_voice) | `group_id` | 输入支持 MP3、WAV 和 QQ Silk 文件，返回 `voice` 消息段 |
 | [`upload_group_video`](/api/upload_group_video) | `group_id` | 输入必须为支持的 MP4 格式，无需额外提供封面；返回的 `video` 段须作为唯一消息段单独发送 |
+| [`get_group_voice_url`](/api/get_group_voice_url) | `file_id` | 按需查询群语音下载 URL |
+| [`get_group_video_url`](/api/get_group_video_url) | `file_id` | 按需查询群视频及封面下载 URL |
 
 ## 合并转发
 
