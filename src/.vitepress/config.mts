@@ -79,6 +79,8 @@ export default defineConfig({
                 { text: "检查登录缓存", link: "/api/check_cache" },
                 { text: "缓存登录", link: "/api/cache_login" },
                 { text: "提交滑块验证", link: "/api/submit_slider" },
+                { text: "注册滑块页面", link: "/api/register_captcha" },
+                { text: "查询滑块结果", link: "/api/captcha_heartbeat" },
                 { text: "提交身份验证", link: "/api/submit_identity_captcha" },
                 { text: "身份验证·验证手机号", link: "/api/submit_identity_phone" },
                 { text: "身份验证·确认短信", link: "/api/confirm_identity_sms" },

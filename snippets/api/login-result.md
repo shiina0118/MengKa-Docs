@@ -7,7 +7,7 @@
 | `code` | number | 结果码，`0` 表示登录成功，常见取值见下表；用于展示和排查 |
 | `message` | string | 结果说明 |
 | `next` | string | 下一步，取值见[登录结果的 next 字段](/guide/login-flow#next)；按 `next` 分支即可 |
-| `slider_url` | string | 滑块验证地址，需要滑块验证且有值时出现 |
+| `slider_url` | string | 滑块验证原始地址，需要滑块验证时出现；可传给 `register_captcha` 获取验证页面 |
 | `identity_url` | string | 身份验证地址，需要身份验证且有值时出现 |
 | `security_url` | string | 安全验证地址，需要安全验证且有值时出现 |
 | `security_verify` | [SecurityVerify](#security-verify) | 可用的安全验证方式，需要安全验证且查询成功时出现 |

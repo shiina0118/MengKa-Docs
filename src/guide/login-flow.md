@@ -69,6 +69,13 @@
 
 ## 滑块验证
 
+`slider_url` 是原始验证地址。若使用萌卡提供的验证页面：
+
+1. 调用 [`register_captcha`](/api/register_captcha)，传入 `self_id`、`protocol_id` 和 `slider_url`。
+2. 展示返回的 `captcha_url`，让用户完成验证。
+3. 每隔 1～2 秒调用 [`captcha_heartbeat`](/api/captcha_heartbeat)，传入返回的 `uuid`。
+4. 状态为 `ready` 时，用返回的 `ticket`、`randstr` 提交；状态为 `expired` 时停止查询，重新获取验证页面。
+
 调用 [`submit_slider`](/api/submit_slider)：
 
 ```json

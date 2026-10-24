@@ -15,6 +15,34 @@
 
 连接失败或断开后，Meng Ka 会按重连间隔再次连接。
 
+## 滑块页面地址配置
+
+通过反向 WS 调用 [`register_captcha`](/api/register_captcha) 时，需要在运行 **萌卡服务端** 的环境中设置 `MENGKA_PUBLIC_URL`，然后重启服务。例如：
+
+```bash
+MENGKA_PUBLIC_URL=https://bot.example.com ./mengka
+```
+
+Windows PowerShell：
+
+```powershell
+$env:MENGKA_PUBLIC_URL = 'https://bot.example.com'
+.\mengka.exe
+```
+
+使用 systemd 时，在萌卡服务的配置中加入：
+
+```ini
+[Service]
+Environment="MENGKA_PUBLIC_URL=https://bot.example.com"
+```
+
+修改后执行 `systemctl daemon-reload`，再重启对应服务。
+
+地址须使用 `http://` 或 `https://`，可以包含端口，不带路径、查询参数或账号密码。它应指向用户浏览器能访问的萌卡 HTTP 服务；如果经过域名反代，需要转发 `/openapi/captcha/` 下的 GET、POST 请求。这不是插件的 WS 监听地址。
+
+未配置或地址格式无效时，`register_captcha` 返回 `ok: false` 并提示设置 `MENGKA_PUBLIC_URL`。其他登录接口和心跳查询不受影响。
+
 ## 连接认证
 
 Meng Ka 发起握手时会携带以下请求头：

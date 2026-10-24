@@ -55,6 +55,8 @@ curl --request POST 'http://127.0.0.1:3003/api/login_account' \
 
 返回 [LoginResult](#login-result)。验证状态会额外带上对应的验证地址或 `security_verify`。
 
+`next` 为 `slider` 时，可以使用原有方式完成滑块，也可以将 `slider_url` 传给 [`register_captcha`](/api/register_captcha)，打开返回的验证页面，通过 [`captcha_heartbeat`](/api/captcha_heartbeat) 获取结果后调用 [`submit_slider`](/api/submit_slider)。
+
 ### 扫码登录
 
 ```json
