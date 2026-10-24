@@ -54,7 +54,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_info' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 请求成功时为 true；有额外业务结果的接口还需检查相应字段 |
-| `error_code` | number | OIDB 返回码，成功时为 0 |
+| `error_code` | number | 请求结果码，成功时为 0 |
 | `error_message` | string | 失败说明，空字符串时省略 |
 | `info` | object | 可选，精灵信息 |
 | `benefit_entry_summary` | object | 可选，权益入口摘要 |
@@ -62,7 +62,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_info' \
 | `appearance_summary` | object | 可选，外观摘要 |
 | `item_summary` | object | 可选，道具摘要 |
 
-服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏时，返回 `ok: false`。
+服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 
 ## info
@@ -143,5 +143,3 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_info' \
 | `latest_event_at` | number | 最新事件时间原值 |
 
 首次查询可省略两个获取时间参数。接口会请求外观和道具摘要；不存在的可选对象会省略。孵化操作见 [`qmate_hatch`](/api/qmate_hatch)，互动上报见 [`qmate_report_incubation_combo`](/api/qmate_report_incubation_combo)。
-
-对应 SSO：`OidbSvcTrpcTcp.0x99d2_0`。

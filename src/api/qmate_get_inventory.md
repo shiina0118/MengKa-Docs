@@ -57,14 +57,14 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_inventory' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 请求成功时为 true；有额外业务结果的接口还需检查相应字段 |
-| `error_code` | number | OIDB 返回码，成功时为 0 |
+| `error_code` | number | 请求结果码，成功时为 0 |
 | `error_message` | string | 失败说明，空字符串时省略 |
 | `page` | object | 可选，本页背包内容 |
 | `avatar_info` | object | 可选，当前外观；结构见[精灵信息](/api/qmate_get_info#外观信息-avatar) |
 | `benefit_sync_status` | number | 权益同步状态原值 |
 | `avatar_items` | object[] | 外观物品，结构与 page.items 相同 |
 
-服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏时，返回 `ok: false`。
+服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 
 ## page
@@ -113,5 +113,3 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_inventory' \
 | `preview_url` | string | 预览地址 |
 
 当 `page.has_next` 为 `true` 时，保持同一个 `user_id`、`category` 和 `sub_category`，将 `page.cookie` 传给下一次请求。使用物品见 [`qmate_use_item`](/api/qmate_use_item)。
-
-对应 SSO：`OidbSvcTrpcTcp.0x9cf9_0`。

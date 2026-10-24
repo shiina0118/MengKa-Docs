@@ -55,7 +55,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_confirm_invite' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 服务端确认发起邀请成功时为 `true` |
-| `error_code` | number | OIDB 返回码，成功时为 `0` |
+| `error_code` | number | 请求结果码，成功时为 `0` |
 | `error_message` | string | 失败说明，空字符串时省略 |
 
 成功响应：
@@ -70,7 +70,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_confirm_invite' \
 }
 ```
 
-服务端拒绝时，外层为 `ok: true`，`data.success` 为 `false`，具体原因见 `error_code` 和 `error_message`。参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏时，返回 `ok: false`。
+服务端拒绝时，外层为 `ok: true`，`data.success` 为 `false`，具体原因见 `error_code` 和 `error_message`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 ## 调用顺序
 
@@ -80,5 +80,3 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_confirm_invite' \
 4. 本接口成功后等待好友接受；若接受方也是 Bot，可由接受方调用 [`qmate_accept_invite`](/api/qmate_accept_invite)，将 `user_id` 设为邀请方 QQ 号。
 
 本接口不会发送卡片，也不会代替好友接受邀请。后端不保存前两步的发送状态，调用方负责确保卡片发送成功后再确认；请求只需要好友 QQ 号和精灵类型，不需要传入 `msg_seq`、ARK 内容或签名。
-
-对应 SSO：`OidbSvcTrpcTcp.0x9a2c_0`。

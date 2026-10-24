@@ -145,6 +145,6 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_coin_bag_detail' \
 3. 使用福袋 ID 调用本接口查看详情；已领取、已收走或过期时不要再次领取。
 4. 调用 [qqpet_snatch_coin_bag](./qqpet_snatch_coin_bag.md) 领取，以服务端返回结果为准。
 
-## 协议与验证
+## 使用说明
 
-使用 `OidbSvcTrpcTcp.0x9d70_0`，仅支持 OIDB 路由。字段和命令来自 ADB 提取的 `pet_home/11800` 原版模块，并已通过原版编码器样本校验。尚未验证在线服务端领取结果。
+领取结果尚未经过在线验证。

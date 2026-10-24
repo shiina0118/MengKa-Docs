@@ -52,7 +52,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_tasks' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 请求成功时为 true；有额外业务结果的接口还需检查相应字段 |
-| `error_code` | number | OIDB 返回码，成功时为 0 |
+| `error_code` | number | 请求结果码，成功时为 0 |
 | `error_message` | string | 失败说明，空字符串时省略 |
 | `today_group` | object | 可选，今日任务组 |
 | `surprise_group` | object | 可选，惊喜任务组 |
@@ -65,7 +65,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_tasks' \
 | `has_new_task` | boolean | 是否有新任务 |
 | `show_mark_entry` | boolean | 是否显示标记入口 |
 
-服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏时，返回 `ok: false`。
+服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 
 ## 任务组
@@ -109,5 +109,3 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_tasks' \
 | `is_low_version` | boolean | 是否处于低版本状态 |
 
 需要上报动作时，使用同一任务的 `task_id` 和 `action.action_id` 调用 [`qmate_report_task_action`](/api/qmate_report_task_action)。任务可领取后通过 [`qmate_claim_task_reward`](/api/qmate_claim_task_reward) 领取奖励，再重新查询状态。
-
-对应 SSO：`OidbSvcTrpcTcp.0x99f9_0`。

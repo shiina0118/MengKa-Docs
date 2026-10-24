@@ -54,8 +54,13 @@ const response = await fetch('http://127.0.0.1:3003/api/get_group_list', {
   body: JSON.stringify({ self_id: 123456789, protocol_id: 0 }),
 })
 const result = await response.json()
-if (!response.ok || !result.ok) throw new Error(result.error)
-console.log(result.data)
+if (result.status === 'restricted') {
+  // 本次操作受限，插件在此处理 result.error。
+} else if (!response.ok || !result.ok) {
+  throw new Error(result.error)
+} else {
+  // 使用 result.data 继续业务处理。
+}
 ```
 
 成功响应的 `data` 为后端业务结果，API 页“调用”区域可切换到 HTTP 查看对应请求示例：
@@ -74,7 +79,7 @@ HTTP 响应的 `data` 与 WebSocket `action_result` 中的 `data` 一致。HTTP 
 
 | HTTP 状态码 | 含义 |
 | --- | --- |
-| 200 | 调用成功，业务结果见 `data` |
+| 200 | 请求已处理；`ok: true` 时业务结果见 `data`，`status: "restricted"` 时本次操作受限 |
 | 400 | JSON 格式、参数校验、节点校验或 action 执行失败 |
 | 401 | 令牌缺失或错误 |
 | 404 | 路由或 action 不存在 |
@@ -85,3 +90,5 @@ HTTP 响应的 `data` 与 WebSocket `action_result` 中的 `data` 一致。HTTP 
 | 500 | 响应编码失败 |
 
 HTTP 服务不建立插件会话，不推送事件；需要接收消息和通知时使用 WebSocket 服务。媒体参数、节点限制及业务字段与现有 API 一致。连接中断或超时不代表业务操作已撤销，发送消息等操作应先确认结果再重试。
+
+账号当前部分功能使用受限时，响应为 `ok: false`、`status: "restricted"`，并包含 `error: "账号当前部分功能使用受限"`。HTTP 状态码仍为 `200`；详细格式见 [账号功能受限](/guide/protocol#账号功能受限)。

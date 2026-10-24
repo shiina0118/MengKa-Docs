@@ -56,14 +56,12 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_report_incubation_combo' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 请求成功时为 true；有额外业务结果的接口还需检查相应字段 |
-| `error_code` | number | OIDB 返回码，成功时为 0 |
+| `error_code` | number | 请求结果码，成功时为 0 |
 | `error_message` | string | 失败说明，空字符串时省略 |
 | `capped` | boolean | 是否达到服务端限制 |
 | `progress_days` | number | 服务端返回的孵化进度天数，浮点数 |
 
-服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏时，返回 `ok: false`。
+服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 
 先通过 [`qmate_get_info`](/api/qmate_get_info) 查询孵化状态。进度和上限由服务端决定，不保证每次上报都增加进度。自动生成 `client_seq` 仅用于补齐原库请求参数，不承诺重试幂等。
-
-对应 SSO：`OidbSvcTrpcTcp.0x9b8d_0`。

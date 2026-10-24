@@ -80,11 +80,11 @@ curl --request POST 'http://127.0.0.1:3003/api/join_group' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 已入群或申请已提交、等待审核时为 `true`；其余状态为 `false` |
-| `error_code` | number | OIDB 外层错误码；`0` 不代表已经入群，还需检查 `result` 和 `status` |
+| `error_code` | number | 请求错误码；`0` 不代表已经入群，还需检查 `result` 和 `status` |
 | `error_message` | string | 错误或验证说明，空字符串时省略 |
 | `group_id` | number | 本次申请的群号 |
 | `group_option` | number | 本次请求传入的入群方式 |
-| `result` | number | 服务端业务结果码，见[业务结果码](#result)；OIDB 外层失败时省略 |
+| `result` | number | 服务端业务结果码，见[业务结果码](#result)；请求失败时省略 |
 | `status` | string | 本次申请状态，见[申请状态](#status) |
 | `verify_info` | [GroupJoinVerifyInfo](#verify-info) | 额外验证信息，服务端未返回时省略；也可能返回 `type: 0`、`url: ""` |
 | `join_prompt` | string | 服务端入群提示原文，空字符串时省略 |
@@ -100,7 +100,7 @@ curl --request POST 'http://127.0.0.1:3003/api/join_group' \
 | `verification_required` | `false` | 需要额外安全验证，查看 `verify_info` |
 | `blocked` | `false` | 被安全策略拦截，查看 `join_prompt`、`security_trans_info` 等返回信息 |
 | `rejected` | `false` | 服务端拒绝申请，例如群满员；查看 `result` 和 `error_message` |
-| `failed` | `false` | OIDB 外层返回错误，查看 `error_code` 和 `error_message` |
+| `failed` | `false` | 请求失败，查看 `error_code` 和 `error_message` |
 
 ### 业务结果码 {#result}
 

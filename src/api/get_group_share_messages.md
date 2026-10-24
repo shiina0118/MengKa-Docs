@@ -92,7 +92,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_share_messages' \
 
 文字、图片、语音、视频、表情、回复和 ARK 等复用现有消息段。图片会尝试补齐下载 URL，图片段始终包含 `file_id` 和 `url`，地址暂不可用时 `url` 为空字符串。语音、视频段只包含 `file_id`，拉取历史消息时不查询其 URL。需要群语音或群视频及封面的地址时，分别调用 [`get_group_voice_url`](/api/get_group_voice_url) 或 [`get_group_video_url`](/api/get_group_video_url)。
 
-部分消息拉取失败时，仍返回成功响应，已获取记录在 `messages` 中，失败序号在 `failed_seqs` 中。SSO 整体失败、响应解析失败或请求超时，沿用统一的 `ok: false`、`error` 响应。
+部分消息拉取失败时，仍返回成功响应，已获取记录在 `messages` 中，失败序号在 `failed_seqs` 中。整体请求失败、响应解析失败或请求超时，沿用统一的 `ok: false`、`error` 响应。
 
 本接口不提供分页游标，也不接受消息序号范围。历史记录仅通过 API 返回，不触发 `group_message` 事件、不增加接收消息计数。重复调用可能返回相同记录，可按群号和 `msg.seq` 去重。
 

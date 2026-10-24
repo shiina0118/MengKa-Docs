@@ -56,12 +56,12 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_invite_ark' \
 | --- | --- | --- |
 | `success` | boolean | 成功取得有效 ARK JSON 时为 `true` |
 | `ark` | string | 完整 ARK JSON 字符串，保留服务端返回的签名和额外字段；失败时省略 |
-| `error_code` | number | OIDB 返回码，成功时为 `0` |
+| `error_code` | number | 请求结果码，成功时为 `0` |
 | `error_message` | string | 失败说明，空字符串时省略 |
 
 服务端拒绝请求时，外层为 `ok: true`，但 `data.success` 为 `false`，具体原因见 `error_code` 和 `error_message`。
 
-参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏或缺少有效卡片时，返回 `ok: false`，`error` 包含原因。
+参数无效、Bot 未在线、请求失败、响应损坏或缺少有效卡片时，返回 `ok: false`，`error` 包含原因。
 
 ## 发送卡片
 
@@ -81,5 +81,3 @@ if (result.ok && result.data.success) {
 ```
 
 本接口只获取邀请卡片，不会自动发送。卡片发送成功后，使用相同的 `self_id`、`protocol_id`、`user_id` 和 `qmate_type` 调用 [`qmate_confirm_invite`](/api/qmate_confirm_invite) 确认发起邀请，再等待好友接受。发送失败时不要调用确认接口。接受方可使用 [`qmate_accept_invite`](/api/qmate_accept_invite)，获取或发送卡片不等于完成合养。
-
-对应 SSO：`OidbSvcTrpcTcp.0x9a2b_0`。

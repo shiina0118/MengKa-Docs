@@ -53,7 +53,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_share_link' \
 | --- | --- | --- |
 | `success` | boolean | 成功取得非空链接时为 `true` |
 | `url` | string | 服务端返回的群分享链接，失败时省略 |
-| `error_code` | number | OIDB 外层错误码，成功时为 `0` |
+| `error_code` | number | 请求错误码，成功时为 `0` |
 | `business_code` | number | 服务端业务错误码，成功时为 `0`；外层失败时未读取业务结果，此字段也为 `0` |
 | `error_message` | string | 失败说明，空字符串时省略 |
 
@@ -68,8 +68,8 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_share_link' \
 }
 ```
 
-服务端返回 OIDB 或业务错误时，外层为 `ok: true`，但 `data.success` 为 `false`，具体原因见错误码和 `error_message`。
+服务端拒绝请求或业务处理失败时，外层为 `ok: true`，但 `data.success` 为 `false`，具体原因见错误码和 `error_message`。
 
-参数无效、Bot 未在线、网络请求失败、SSO 错误或响应无法解析（包括缺少链接）时，返回 `ok: false`，`error` 包含原因。
+参数无效、Bot 未在线、请求失败或响应无法解析（包括缺少链接）时，返回 `ok: false`，`error` 包含原因。
 
 接口仅获取分享链接，不会申请入群。链接内容、有效性及分享权限由 QQ 服务端决定。

@@ -52,11 +52,11 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_adoption_info' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `success` | boolean | 请求成功时为 true；有额外业务结果的接口还需检查相应字段 |
-| `error_code` | number | OIDB 返回码，成功时为 0 |
+| `error_code` | number | 请求结果码，成功时为 0 |
 | `error_message` | string | 失败说明，空字符串时省略 |
 | `adoptions` | object[] | 合养记录列表；无记录时为空数组 |
 
-服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、网络或 SSO 请求失败、响应损坏时，返回 `ok: false`。
+服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 
 ## adoptions 条目
@@ -68,5 +68,3 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_adoption_info' \
 | `status` | number | 合养状态原值；1 表示邀请待处理 |
 
 当 `status == 1` 时，`inviter_uin == user_id` 表示对方邀请了当前 Bot，可调用 [`qmate_accept_invite`](/api/qmate_accept_invite)；`inviter_uin == self_id` 表示当前 Bot 已发起邀请，等待对方接受。其他状态保留服务端原值。
-
-对应 SSO：`OidbSvcTrpcTcp.0x99d8_0`。
