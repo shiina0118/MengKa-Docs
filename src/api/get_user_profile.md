@@ -2,7 +2,7 @@
 
 获取用户的 QQ 资料。省略 `user_id` 时查询当前 Bot。
 
-当前按账号绑定协议的 `platform` 分支：Android 执行，PC 暂时跳过，不发送对应业务请求。PC 返回的数据为 `{ self_id, protocol_id, skipped: true, reason: "PC 平台暂时跳过此功能" }`，调用方应先检查 `skipped`。
+支持 Android 和 Linux（PC）账号。调用方式相同；Linux 可获取的资料字段较少，无法获取的字段会省略，不再返回 `skipped`。
 
 ## 调用
 
@@ -88,7 +88,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
 | `user_id` | number | 目标 QQ 号 |
 | `nickname`, `remark` | string | 昵称、备注 |
 | `age`, `level` | number | 年龄、QQ 等级 |
-| `sex` | number | 性别标识，未取得时为 `0` |
+| `sex` | number | 性别标识：`0` 为男、`1` 为女，其他值表示未知；Android 未取得时可能为 `0`，Linux 未取得时省略 |
 | `sign` | string | 个性签名 |
 | `contact_name` | string | 联系人名称 |
 | `email`, `mobile`, `personal` | string | 邮箱、手机号、个人介绍，取决于可见权限，可能为空字符串 |
@@ -100,6 +100,31 @@ curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
 | `photo_count` | number | 照片数量 |
 | `status_text` | string | 状态文案 |
 
-返回字段以上表为准，统一使用下划线命名。可见信息取决于目标账号和实际返回，缺失的信息可能为空字符串或 `0`，不应据此推断账号的真实资料。调用失败时返回 `ok: false`。
+返回字段以上表为准，统一使用下划线命名。可见信息取决于目标账号和可见权限。Android 保持原有返回方式，缺失的信息可能为空字符串或 `0`，不应据此推断账号的真实资料。调用失败时返回 `ok: false`。
+
+### Linux 字段支持
+
+Linux 返回 `user_id`，并按实际获取结果返回以下可选字段：
+
+- `nickname`、`remark`、`sex`、`age`、`level`、`sign`
+- `country`、`province`、`city`、`email`、`mobile`
+- `like_count`
+
+Linux 暂时无法获取以下字段，因此响应中不包含它们：
+
+- `group_name`、`group_nick`、`contact_name`、`status_text`、`personal`
+- `photo_count`、`sent_like_count`、`available_like_count`、`like_limit_notice`
+
+受支持的可选字段也可能因目标用户或可见权限而缺失。请通过字段是否存在判断是否取得资料，不要把省略的字段当作 `0` 或空字符串。若实际取得的值就是 `0` 或空字符串，该字段仍会返回。例如：
+
+```js
+{
+  user_id: 234567890,
+  nickname: '示例用户',
+  remark: '',
+  level: 42,
+  like_count: 0,
+}
+```
 
 点赞该用户使用 [`like_user_profile`](/api/like_user_profile)；查询当前 Bot 的点赞记录使用 [`get_sent_profile_likes`](/api/get_sent_profile_likes) 和 [`get_received_profile_likes`](/api/get_received_profile_likes)。
