@@ -6,8 +6,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 查询当前 Bot（省略 `user_id`）：
 
@@ -38,22 +36,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/get_user_profile' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "user_id": 234567890
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

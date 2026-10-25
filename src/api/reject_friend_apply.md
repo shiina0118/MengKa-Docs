@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -28,18 +26,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/reject_friend_apply' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{"self_id":123456789,"protocol_id":0,"user_id":234567890,"request_id":"9007199254740993","msg_type":1,"request_type":1,"source_id":0,"sub_source_id":0,"group_msg_type":0,"action_info":"CAM=","blacklist":false}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

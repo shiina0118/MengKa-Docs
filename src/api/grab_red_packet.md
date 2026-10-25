@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -35,34 +33,6 @@
 
 如已调用 [`get_red_packet_info`](/api/get_red_packet_info)，请将返回的 `claim_token` 原样放入 `params.claim_token`，无需再次获取凭据。文字口令红包不使用该参数。
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "red_packet": {
-    "listid": "LISTID_FROM_RED_PACKET",
-    "authkey": "AUTHKEY_FROM_RED_PACKET",
-    "title": "恭喜发财",
-    "channel": 1,
-    "pay_flag": 0,
-    "hb_from": 0
-  },
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "group_id": 987654321,
-  "sender_id": 234567890,
-  "claim_token": "CLAIM_TOKEN_FROM_GET_RED_PACKET_INFO"
-}'
-```
-
-`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。 `claim_token` 来自 `get_red_packet_info`；省略时由本接口自动获取。
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

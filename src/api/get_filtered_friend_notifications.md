@@ -6,8 +6,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -18,18 +16,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/get_filtered_friend_notifications' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{"self_id":123456789,"protocol_id":0,"page_size":50}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 
@@ -96,28 +82,21 @@ curl --request POST 'http://127.0.0.1:3003/api/get_filtered_friend_notifications
 
 当 `has_more` 为 `true` 时，保持 `self_id`、`protocol_id` 和 `page_size` 不变，将最近一页响应的 `cookie` 原样传入下一次请求。无需重新编码该字符串。
 
-```js
-const account = { self_id: 123456789, protocol_id: 0, page_size: 50 }
-
-async function getPage(params) {
-  const response = await fetch('http://127.0.0.1:3003/api/get_filtered_friend_notifications', {
-    method: 'POST',
-    headers: { Authorization: 'Bearer TOKEN', 'Content-Type': 'application/json' },
-    body: JSON.stringify(params),
-  })
-  const result = await response.json()
-  if (!response.ok || !result.ok) throw new Error(result.error)
-  return result.data
-}
-
-const firstPage = await getPage(account)
-if (firstPage.has_more) {
-  const secondPage = await getPage({ ...account, cookie: firstPage.cookie })
-  console.log(secondPage.notifications)
+```json
+{
+  "type": "action",
+  "id": "filtered-friends-2",
+  "action": "get_filtered_friend_notifications",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "page_size": 50,
+    "cookie": "AP8B"
+  }
 }
 ```
 
-WebSocket 使用相同的分页参数。不要根据本页条数推断是否结束；空页也可能带有后续页游标，请以 `has_more` 为准。重新查询第一页时，省略 `cookie` 或传 `""`。
+上例 `cookie` 仅为演示，须替换成最近一页实际返回的值。不要根据本页条数推断是否结束；空页也可能带有后续页游标，请以 `has_more` 为准。重新查询第一页时，省略 `cookie` 或传 `""`。
 
 ## 处理申请
 

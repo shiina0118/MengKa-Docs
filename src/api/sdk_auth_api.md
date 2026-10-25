@@ -6,8 +6,6 @@
 
 示例中的 `client_id` 需替换为目标第三方应用的 AppID。签名、权限和其他应用参数按该应用的接入要求填写。
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -23,23 +21,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/sdk_auth_api' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "client_id": 1234567890,
-  "response_type": "token"
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

@@ -1,6 +1,6 @@
 # 快速开始
 
-Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还可以接收事件。插件可以使用任意语言实现，只需按本文档收发 JSON 消息。
+Meng Ka 通过 WebSocket 调用插件 API 并接收事件。插件可以使用任意语言实现，只需按本文档收发 JSON 消息。
 
 ## 选择连接模式
 
@@ -8,23 +8,22 @@ Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还�
 | --- | --- | --- |
 | [正向 WebSocket](/guide/forward-websocket) | 插件连接 Meng Ka | 插件与 Meng Ka 在同一设备或插件能访问 Meng Ka 端口 |
 | [反向 WebSocket](/guide/reverse-websocket) | Meng Ka 连接插件 | 插件有稳定地址，或希望由 Meng Ka 负责断线重连 |
-| [正向 HTTP](/guide/forward-http) | 插件向 Meng Ka 发起 HTTP 请求 | 只需调用 API，通过请求头携带令牌 |
 
-三种模式使用相同的 API 参数和业务结果；WebSocket 支持事件推送，HTTP 使用独立端口的 `POST /api/{action}` 路由。
+两种模式使用相同的 API 请求、响应和事件格式。
 
 ## 配置插件服务
 
-在 Meng Ka 管理后台创建插件服务。三种模式都需要填写：
+在 Meng Ka 管理后台创建插件服务。两种模式都需要填写：
 
 | 字段 | 说明 |
 | --- | --- |
 | 名称 | 插件服务的唯一名称 |
-| 模式 | 正向 WS、反向 WS 或正向 HTTP |
+| 模式 | 正向 WS 或反向 WS |
 | 节点 | 插件可访问的 Bot 所属节点 |
 | 服务令牌 | 插件与 Meng Ka 之间使用的共享令牌 |
 | 启用状态 | 启用后启动监听或连接任务 |
 
-正向 WS 和正向 HTTP 需要各自独立的监听端口；反向 WS 需要 WebSocket 地址和重连间隔。
+正向 WS 需要独立的监听端口；反向 WS 需要 WebSocket 地址和重连间隔。
 
 ::: tip 节点范围
 插件只能接收绑定节点的事件，也只能操作该节点下的 Bot。`self_id` 指向其他节点时，API 会失败。带 `self_id` 的 API 必须同时传入非负整数 `protocol_id`（允许为 `0`）。
@@ -74,7 +73,8 @@ Meng Ka 支持通过 WebSocket 或正向 HTTP 调用插件 API。WebSocket 还�
 1. 插件启动一个 WebSocket 服务端，例如监听 `ws://0.0.0.0:3002/`。
 2. 在管理后台填写插件的 WebSocket 地址，例如 `ws://127.0.0.1:3002/`。
 3. Meng Ka 连接时在请求头中携带服务令牌，插件校验通过后接受连接。
-4. 收到 Meng Ka 发送的 `ready` 帧后即可发送 API 请求。
+4. 收到 Meng Ka 发送的 `ready` 帧后，在 10 秒内发送 `plugin_info`，上报插件名称、版本、作者和事件权限。
+5. 收到 `plugin_info_ok` 后即可发送 API 请求。
 
 完整说明见[反向 WebSocket](/guide/reverse-websocket)。
 

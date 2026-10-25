@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -30,32 +28,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/qqpet_set_c2c_pet_info' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "request": {
-    "field_1": {
-      "action_type": 1,
-      "position": {
-        "position_type": 0,
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "field_2": "123456789"
-  }
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

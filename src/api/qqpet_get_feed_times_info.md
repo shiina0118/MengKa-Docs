@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -19,21 +17,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_feed_times_info' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

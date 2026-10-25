@@ -6,8 +6,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -22,18 +20,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/register_captcha' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{"self_id":123456789,"protocol_id":0,"slider_url":"登录结果中的 slider_url"}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

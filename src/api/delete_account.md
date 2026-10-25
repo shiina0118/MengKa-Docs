@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -19,21 +17,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/delete_account' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 
@@ -50,4 +33,4 @@ curl --request POST 'http://127.0.0.1:3003/api/delete_account' \
 { "type": "action_result", "id": "1", "ok": true, "data": null }
 ```
 
-HTTP 成功返回 `{ "ok": true, "data": null }`。失败时 `action_result` 为 `ok: false`，`error` 为错误原因；HTTP 返回 `{ "ok": false, "error": "错误原因" }`。
+失败时 `action_result` 为 `ok: false`，`error` 为错误原因。

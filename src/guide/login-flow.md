@@ -2,7 +2,7 @@
 
 登录 API 只能操作插件绑定节点下的账号。带 `self_id` 的接口必须同时传入 `protocol_id`。
 
-本页只列出各步骤请求的 `action` 和 `params`，请求帧的完整格式见 [WebSocket API 格式](/guide/protocol)，HTTP 调用见[正向 HTTP](/guide/forward-http)。示例中的 `self_id` 是要登录的 Bot QQ 号，`protocol_id` 是该账号的协议 ID，可取自 [`get_protocol_list`](/api/get_protocol_list) 返回的 `id`，也可取自 [`get_bot_list`](/api/get_bot_list) 返回项的 `protocol.id`。
+本页只列出各步骤请求的 `action` 和 `params`，请求帧的完整格式见 [WebSocket API 格式](/guide/protocol)。示例中的 `self_id` 是要登录的 Bot QQ 号，`protocol_id` 是该账号的协议 ID，可取自 [`get_protocol_list`](/api/get_protocol_list) 返回的 `id`，也可取自 [`get_bot_list`](/api/get_bot_list) 返回项的 `protocol.id`。
 
 同一 QQ 可同时存在手机、平板等不同协议账号，查找时要用 `self_id` + `protocol_id`。
 

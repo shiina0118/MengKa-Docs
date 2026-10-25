@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -20,18 +18,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/get_group_share_messages' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{"self_id":123456789,"protocol_id":0,"group_id":1058655525}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

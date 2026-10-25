@@ -6,8 +6,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -21,21 +19,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/get_qq_classic_farm_code' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 
@@ -52,12 +35,6 @@ curl --request POST 'http://127.0.0.1:3003/api/get_qq_classic_farm_code' \
 
 ```json
 { "code": "FARM_LOGIN_CODE" }
-```
-
-HTTP 返回：
-
-```json
-{"ok":true,"data":{"code":"FARM_LOGIN_CODE"}}
 ```
 
 每次调用都向 QQ 请求新的 code。code 是临时登录凭据，应及时使用，避免写入日志或公开。

@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -29,33 +27,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/upload_red_packet_voice' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "red_packet": {
-    "listid": "LISTID_FROM_RED_PACKET",
-    "authkey": "AUTHKEY_FROM_RED_PACKET",
-    "title": "你好",
-    "channel": 65536,
-    "pay_flag": 0,
-    "hb_from": 0
-  },
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "sender_id": 234567890,
-  "file_path": "file:///D:/audio/example.mp3"
-}'
-```
-
-`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

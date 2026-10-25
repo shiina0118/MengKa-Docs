@@ -67,7 +67,8 @@ Meng Ka 发起握手时会携带以下请求头：
   "type": "ready",
   "service": "service-name",
   "node_id": 1,
-  "mode": "reverse"
+  "mode": "reverse",
+  "requires_plugin_info": true
 }
 ```
 
@@ -77,7 +78,45 @@ Meng Ka 发起握手时会携带以下请求头：
 | `service` | string | 服务名称 |
 | `node_id` | number | 绑定节点 ID |
 | `mode` | string | 固定为 `reverse` |
+| `requires_plugin_info` | boolean | 为 `true`，表示需要先上报插件信息 |
 
-收到 `ready` 后即可发送 API 请求。反向连接不需要发送认证消息，默认接收全部六类事件。API 和事件帧格式与正向模式一致，见 [WebSocket API 格式](/guide/protocol)。
+## 上报插件信息
+
+收到 `ready` 后，插件必须在 10 秒内主动发送以下文本消息。名称、版本和作者用于管理后台的连接列表，不能用服务名称代替插件名称：
+
+```json
+{
+  "type": "plugin_info",
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "author": "developer",
+  "permissions": {
+    "group_message": true,
+    "friend_message": true,
+    "group_event": true,
+    "friend_event": true,
+    "bot_offline": true,
+    "bot_online": true
+  }
+}
+```
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `type` | string | 是 | 固定为 `plugin_info` |
+| `name` | string | 是 | 插件名称，不能是空白字符串 |
+| `version` | string | 是 | 插件版本，不能是空白字符串 |
+| `author` | string | 是 | 插件作者，不能是空白字符串 |
+| `permissions` | object | 否 | 事件订阅，字段见[事件权限](/guide/forward-websocket#permissions)；省略整个对象时接收全部六类事件，提供对象时未设置的项为 `false` |
+
+服务端确认后返回：
+
+```json
+{ "type": "plugin_info_ok" }
+```
+
+收到 `plugin_info_ok` 后才能发送 API 请求，并开始接收已订阅的事件。超时、信息缺失或先发送其他消息都会关闭连接并进入重连；旧插件需补充该上报步骤。插件信息和权限在本次连接期间保持不变，修改后需重新连接并上报。
+
+反向连接不需要再发送 `auth` 或令牌消息，令牌已在 WebSocket 握手时校验。API 和事件帧格式与正向模式一致，见 [WebSocket API 格式](/guide/protocol)。
 
 Meng Ka 会定期发送 WebSocket Ping 控制帧，插件所用的 WebSocket 库需要正确回复 Pong，否则连接会被判定失效并断开。

@@ -5,7 +5,7 @@ title: 开发文档
 hero:
   name: Meng Ka
   text: 插件开发文档
-  tagline: 通过 HTTP 或 WebSocket 接入，开发账号管理、消息处理与 QQ 业务插件。
+  tagline: 通过 WebSocket 接入，开发账号管理、消息处理与 QQ 业务插件。
   image:
     src: /logo.png
     alt: Meng Ka 形象
@@ -21,8 +21,8 @@ hero:
       link: /events/
 
 features:
-  - title: HTTP 与 WebSocket
-    details: 支持正向 HTTP、正向 WebSocket 和反向 WebSocket，按部署环境选择接入方式。
+  - title: WebSocket 接入
+    details: 支持正向和反向 WebSocket，按部署环境选择接入方式。
     link: /guide/
     linkText: 选择接入方式
   - title: 账号与登录
@@ -42,7 +42,7 @@ features:
     link: /api/qqpet_get_profile
     linkText: 浏览业务接口
   - title: 事件订阅
-    details: 通过 WebSocket 接收群聊与好友消息、通知和 Bot 离线事件。HTTP 仅支持 API 调用。
+    details: 通过 WebSocket 接收群聊与好友消息、通知和 Bot 离线事件。
     link: /events/
     linkText: 查看事件类型
 ---

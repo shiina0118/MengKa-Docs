@@ -8,8 +8,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -25,23 +23,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/submit_identity_phone' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "mobile": "13800000000",
-  "area_code": "+86"
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

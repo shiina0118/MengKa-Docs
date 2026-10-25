@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -24,26 +22,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/reject_group_apply' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "group_id": 987654321,
-  "request_id": 123456,
-  "request_type": 1,
-  "reason": "暂不接受入群申请",
-  "request_extra": 0
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

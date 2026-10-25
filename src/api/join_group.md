@@ -6,8 +6,6 @@
 
 以下示例假设查询返回 `group_option: 5`，验证问题要求填写 B站 UID，答案填写在 `apply_msg` 中。
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -24,24 +22,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/join_group' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "group_id": 987654321,
-  "group_option": 5,
-  "apply_msg": "123456"
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

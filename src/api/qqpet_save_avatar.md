@@ -6,8 +6,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 1. 查询当前宠物：
 
@@ -46,38 +44,6 @@
 
 `field_2` 不是数组或 `field_3` 缺失时，说明宠物装扮或模型信息不完整，不应继续保存。
 
-</template>
-<template #http>
-
-```js
-const baseURL = 'http://127.0.0.1:3003'
-const headers = {
-  Authorization: 'Bearer TOKEN',
-  'Content-Type': 'application/json',
-}
-const account = { self_id: 123456789, protocol_id: 0 }
-
-const petResponse = await fetch(baseURL + '/api/qqpet_get_user_pet', {
-  method: 'POST', headers,
-  body: JSON.stringify({ ...account, request: { pet_id: 'example-pet-id' } }),
-})
-const lookup = await petResponse.json()
-if (!petResponse.ok || !lookup.ok) throw new Error(lookup.error || '查询宠物失败')
-const pet = lookup.data.response.pet
-if (!pet || !Array.isArray(pet.field_2) || !pet.field_3) {
-  throw new Error('宠物装扮或模型信息不完整')
-}
-const request = { field_1: pet.field_2, field_2: pet.field_3 }
-const response = await fetch(baseURL + '/api/qqpet_save_avatar', {
-  method: 'POST', headers, body: JSON.stringify({ ...account, request }),
-})
-const result = await response.json()
-if (!response.ok || !result.ok) throw new Error(result.error || '保存头像失败')
-console.log(result.data)
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

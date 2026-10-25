@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -19,21 +17,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/get_qzone_friend_feeds' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 
@@ -75,36 +58,22 @@ curl --request POST 'http://127.0.0.1:3003/api/get_qzone_friend_feeds' \
 
 首包请求保持上面的调用方式。收到成功响应后，将三个分页字段一起传回同一个账号实例：
 
-```js
-async function getPage(params) {
-  const response = await fetch('http://127.0.0.1:3003/api/get_qzone_friend_feeds', {
-    method: 'POST',
-    headers: {
-      Authorization: 'Bearer TOKEN',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params),
-  })
-  const result = await response.json()
-  if (!response.ok || !result.ok) throw new Error(result.error)
-  return result.data
-}
-
-const account = { self_id: 123456789, protocol_id: 0 }
-const firstPage = await getPage(account)
-
-if (firstPage.has_more) {
-  const secondPage = await getPage({
-    ...account,
-    attach_info: firstPage.attach_info,
-    refresh_id: firstPage.refresh_id,
-    last_feed_union_id: firstPage.last_feed_union_id,
-  })
-  console.log(secondPage.feeds)
+```json
+{
+  "type": "action",
+  "id": "qzone-page-2",
+  "action": "get_qzone_friend_feeds",
+  "params": {
+    "self_id": 123456789,
+    "protocol_id": 0,
+    "attach_info": "NEXT_PAGE_CURSOR",
+    "refresh_id": "123456789_1710000000000",
+    "last_feed_union_id": "CgRGRUVE"
+  }
 }
 ```
 
-WebSocket 使用相同的分页参数。查询更后面的页时，继续使用最近一页返回的三个字段；这是游标分页，不支持直接指定页码。重新获取最新一页时，省略分页参数，开始新的会话。
+示例中的三个分页字段仅为演示，须替换成最近一页实际返回的值。查询更后面的页时，继续使用最近一页返回的三个字段；这是游标分页，不支持直接指定页码。重新获取最新一页时，省略分页参数，开始新的会话。
 
 服务端拒绝请求或响应格式无效时返回 `ok: false` 和 `error`，不会将失败当作空列表。服务端返回的错误码和原因会包含在 `error` 中。
 

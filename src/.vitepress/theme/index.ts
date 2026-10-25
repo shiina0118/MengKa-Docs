@@ -1,7 +1,6 @@
 import DefaultTheme from "vitepress/theme";
 import { defineComponent, h } from "vue";
 import { useData } from "vitepress";
-import ApiCallTabs from "./components/ApiCallTabs.vue";
 import ApiPageName from "./components/ApiPageName.vue";
 import BrandNotFound from "./components/BrandNotFound.vue";
 import "./custom.css";
@@ -19,7 +18,4 @@ export default {
       });
     },
   }),
-  enhanceApp({ app }) {
-    app.component("ApiCallTabs", ApiCallTabs);
-  },
 };

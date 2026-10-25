@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -21,23 +19,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/add_account' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "password": "YOUR_ACCOUNT_PASSWORD",
-  "device_profile_id": 1
-}'
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 
@@ -61,4 +42,4 @@ curl --request POST 'http://127.0.0.1:3003/api/add_account' \
 | `node_id` | number | 所属节点 ID |
 | `status` | number | 账号状态 |
 
-失败时 `action_result` 为 `ok: false`，`error` 为错误原因；HTTP 返回 `{ "ok": false, "error": "错误原因" }`。
+失败时 `action_result` 为 `ok: false`，`error` 为错误原因。

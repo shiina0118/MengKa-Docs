@@ -6,8 +6,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 1. 查询已有套装。`field_2` 使用 `qqpet_get_user_pet` 返回的 `response.pet.field_1`，保持字符串形式：
 
@@ -48,39 +46,6 @@
 
 `data.response.field_1` 为空时表示当前没有可保存的套装。
 
-</template>
-<template #http>
-
-```js
-const baseURL = 'http://127.0.0.1:3003'
-const headers = {
-  Authorization: 'Bearer TOKEN',
-  'Content-Type': 'application/json',
-}
-const account = { self_id: 123456789, protocol_id: 0 }
-
-// 使用 qqpet_get_user_pet 返回的 response.pet.field_1，保持字符串形式。
-const petResourceId = '123'
-const context = { client_version: '9.3.70', field_2: petResourceId }
-const listResponse = await fetch(baseURL + '/api/qqpet_get_my_suits', {
-  method: 'POST', headers,
-  body: JSON.stringify({ ...account, request: context }),
-})
-const list = await listResponse.json()
-if (!listResponse.ok || !list.ok) throw new Error(list.error || '查询套装失败')
-const suit = list.data.response.field_1?.[0]
-if (!suit) throw new Error('当前没有可保存的套装')
-const request = { field_1: context.client_version, field_2: context.field_2, suit }
-const response = await fetch(baseURL + '/api/qqpet_save_one_suit', {
-  method: 'POST', headers, body: JSON.stringify({ ...account, request }),
-})
-const result = await response.json()
-if (!response.ok || !result.ok) throw new Error(result.error || '保存套装失败')
-console.log(result.data)
-```
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 

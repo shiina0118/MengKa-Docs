@@ -4,8 +4,6 @@
 
 ## 调用
 
-<ApiCallTabs>
-<template #websocket>
 
 ```json
 {
@@ -30,34 +28,6 @@
 }
 ```
 
-</template>
-<template #http>
-
-```bash
-curl --request POST 'http://127.0.0.1:3003/api/grab_group_voice_red_packet' \
-  --header 'Authorization: Bearer TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "red_packet": {
-    "listid": "LISTID_FROM_RED_PACKET",
-    "authkey": "AUTHKEY_FROM_RED_PACKET",
-    "title": "你好",
-    "channel": 65536,
-    "pay_flag": 0,
-    "hb_from": 0
-  },
-  "self_id": 123456789,
-  "protocol_id": 0,
-  "group_id": 987654321,
-  "sender_id": 234567890,
-  "voice_rate_id": "VOICE_RATE_ID_FROM_MATCH_RESULT"
-}'
-```
-
-`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。 `voice_rate_id` 必须来自同一个语音红包的匹配成功结果，并在领取前完成群语音发送。
-
-</template>
-</ApiCallTabs>
 
 ## 参数
 
