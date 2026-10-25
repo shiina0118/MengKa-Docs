@@ -95,4 +95,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_pk_power' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object[] | 扩展数据，说明待补充；内部结构未整理 |
+| `field_1` | object[] | 扩展数据，含义暂未明确 |

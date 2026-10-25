@@ -116,4 +116,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_medal_gallery' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `field_1` | number | 扩展数据，说明待补充 |
-| `field_2` | object[] | 扩展数据，说明待补充；内部结构未整理 |
+| `field_2` | object[] | 扩展数据，含义暂未明确 |

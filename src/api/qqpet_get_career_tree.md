@@ -108,6 +108,6 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_career_tree' \
 | `field_4` | boolean | 扩展数据，说明待补充 |
 | `field_5` | boolean | 扩展数据，说明待补充 |
 | `field_6` | boolean | 扩展数据，说明待补充 |
-| `field_7` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_7` | object | 扩展数据，含义暂未明确 |
 | `field_8` | boolean | 扩展数据，说明待补充 |
 | `field_9` | string | 扩展数据，说明待补充 |

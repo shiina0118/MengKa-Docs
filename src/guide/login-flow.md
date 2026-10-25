@@ -187,7 +187,7 @@
 { "self_id": 123456789, "protocol_id": 0, "k": "QR_K", "need_a1": false }
 ```
 
-`skip_phone_confirm` 不传表示使用默认自动登录设置，传 `true` 开启、传 `false` 关闭。后端不缓存扫码状态。
+`skip_phone_confirm` 不传表示使用默认自动登录设置，传 `true` 开启、传 `false` 关闭。调用方需保存本次扫码结果，确认时传入同一 `k` 和返回的 `need_a1`。
 
 [`scan_qr`](/api/scan_qr) 只完成扫码，[`auth_qr`](/api/auth_qr) 才确认登录。确认 Linux 码后继续 [`query_login_qr`](/api/query_login_qr)。这两条不能代替 `login_account` 发起扫码登录。
 

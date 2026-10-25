@@ -155,4 +155,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_start_story' \
 | `field_4` | number | 扩展数据，说明待补充 |
 | `field_5` | string | 扩展数据，说明待补充 |
 | `field_6` | string | 扩展数据，说明待补充 |
-| `field_7` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_7` | object | 扩展数据，含义暂未明确 |

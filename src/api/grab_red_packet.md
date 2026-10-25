@@ -31,9 +31,9 @@
 
 `self_id`、`protocol_id`、`group_id` 取自群消息事件，`sender_id` 为事件中的 `sender.user_id`，`red_packet` 为消息中 `red_packet` 消息段的完整 `data`。
 
-以上示例用于普通红包。普通红包领取前必须取得 `claim_token`；省略 `claim_token` 时，后端会先查询详情取得 token，再发送领取请求。查询失败或未取得有效 token 时会报错，不会继续领取。
+以上示例用于普通红包。普通红包支持传入 `claim_token`，也可省略，由本接口自动获取。凭据获取失败时会返回错误，红包不会被领取。
 
-如已调用 [`get_red_packet_info`](/api/get_red_packet_info)，请将返回的 `claim_token` 原样放入 `params.claim_token`，后端就会使用该 token，跳过自动查询。文字口令红包不使用该参数。
+如已调用 [`get_red_packet_info`](/api/get_red_packet_info)，请将返回的 `claim_token` 原样放入 `params.claim_token`，无需再次获取凭据。文字口令红包不使用该参数。
 
 </template>
 <template #http>
@@ -59,7 +59,7 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
 }'
 ```
 
-`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。 `claim_token` 来自 `get_red_packet_info`；省略时后端会自动预查询。
+`red_packet` 使用收到的红包消息段完整 `data`；上面的标识和凭据为占位值。 `claim_token` 来自 `get_red_packet_info`；省略时由本接口自动获取。
 
 </template>
 </ApiCallTabs>
@@ -73,7 +73,7 @@ curl --request POST 'http://127.0.0.1:3003/api/grab_red_packet' \
 | `group_id` | number | 是 | 红包所在群号 |
 | `sender_id` | number | 是 | 红包发送人 QQ 号 |
 | `red_packet` | [RedPacket](#red-packet) | 是 | 收到的 `red_packet` 消息段 `data` |
-| `claim_token` | string | 视类型 | 普通红包领取前必需；可传 `get_red_packet_info` 返回的同名字段，省略时由后端自动查询获取；文字口令红包不使用该参数 |
+| `claim_token` | string | 视类型 | 普通红包领取凭据；可原样传入 `get_red_packet_info` 返回的同名字段，省略时由本接口自动获取；文字口令红包不使用该参数 |
 
 ### red_packet（RedPacket） {#red-packet}
 

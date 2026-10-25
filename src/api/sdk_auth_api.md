@@ -63,7 +63,7 @@ curl --request POST 'http://127.0.0.1:3003/api/sdk_auth_api' \
 | `url_encoded_data` | string | 否 | `support_110537=1&login_type=0` | URL 编码格式的附加请求参数 |
 | `auth_type` | number | 否 | `0` | 授权方式标志，只支持 `0` 或 `1` |
 
-QQ 协议版本和 Android 系统版本由后端从目标账号配置中读取，无需传入。可选字符串字段传空字符串时，使用表中默认值；没有默认值的字段不发送。
+可选字符串字段传空字符串时，使用表中默认值；没有默认值的字段不发送。
 
 ## 返回值
 

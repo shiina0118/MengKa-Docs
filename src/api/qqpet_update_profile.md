@@ -78,6 +78,6 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_update_profile' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
-| `response` | object | 本次操作的返回数据，没有已解析的字段；服务端返回的未知内容以 Base64 字符串数组保留在 `_unknown_fields` 中 |
+| `response` | object | 本次操作的返回数据；`_unknown_fields` 为 Base64 字符串数组，内容含义暂未明确 |
 
 <!--@include: ../../snippets/qqpet/profile.md-->

@@ -141,6 +141,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "获取好友列表", link: "/api/get_friend_list" },
+                { text: "同意好友申请", link: "/api/approve_friend_apply" },
                 { text: "获取好友在线状态", link: "/api/get_friend_status" },
                 { text: "设置好友备注", link: "/api/set_friend_remark" },
                 { text: "删除好友", link: "/api/delete_friend" },
@@ -426,6 +427,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "好友点赞", link: "/events/friend_like" },
+                { text: "好友申请", link: "/events/friend_apply" },
                 { text: "新增好友", link: "/events/friend_increase" },
               ],
             },

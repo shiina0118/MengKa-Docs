@@ -62,10 +62,10 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_report_event' \
 | `field_1` | string | 否 | 扩展参数，说明待补充 |
 | `field_2` | string | 否 | 扩展参数，说明待补充 |
 | `field_3` | [Field3](#request-field-3) | 否 | 扩展参数，说明待补充 |
-| `field_4` | object | 否 | 扩展参数，说明待补充；内部结构未整理 |
-| `field_5` | object | 否 | 扩展参数，说明待补充；内部结构未整理 |
+| `field_4` | object | 否 | 扩展参数，含义暂未明确 |
+| `field_5` | object | 否 | 扩展参数，含义暂未明确 |
 | `field_6` | [Field6[]](#request-field-6) | 否 | 扩展参数，说明待补充 |
-| `field_90` | object | 否 | 扩展参数，说明待补充；内部结构未整理 |
+| `field_90` | object | 否 | 扩展参数，含义暂未明确 |
 | `field_99` | number | 否 | 扩展参数，说明待补充 |
 
 ### request.field_6[]（Field6） {#request-field-6}

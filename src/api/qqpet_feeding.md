@@ -62,7 +62,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_feeding' \
 | `avatar_url` | string | 否 | 头像地址 |
 | `pet_id` | string | 否 | 宠物 ID |
 | `field_5` | number | 否 | 旧版食物种类；使用食物库存中的 `food_id` 可指定具体食物 |
-| `field_10` | object | 否 | 扩展参数，说明待补充；内部结构未整理 |
+| `field_10` | object | 否 | 扩展参数，含义暂未明确 |
 | `field_99` | number | 否 | 扩展参数，说明待补充 |
 | `food_id` | string | 否 | 食物目录返回的食物 ID |
 
@@ -78,5 +78,5 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_feeding' \
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `field_1` | number | 扩展结果，说明待补充 |
-| `field_2` | object | 扩展结果，说明待补充；内部结构未整理 |
+| `field_2` | object | 扩展结果，含义暂未明确 |
 | `field_3` | string | 扩展结果，说明待补充 |

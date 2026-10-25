@@ -75,7 +75,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_use_item' \
 
 `success` 表示请求是否成功，具体操作结果需结合 `result` 判断。调用后可重新查询背包及精灵信息确认最终状态。
 
-## 原库处理的业务错误码
+## 业务错误码
 
 以下为 `data.error_code`，出现时 `data.success` 为 `false`。
 

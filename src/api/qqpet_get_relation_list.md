@@ -133,12 +133,12 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_relation_list' \
 | `field_9` | string | 扩展数据，说明待补充 |
 | `field_10` | number | 扩展数据，说明待补充 |
 | `field_11` | string | 扩展数据，说明待补充 |
-| `field_12` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_13` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_14` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_12` | object | 扩展数据，含义暂未明确 |
+| `field_13` | object | 扩展数据，含义暂未明确 |
+| `field_14` | object | 扩展数据，含义暂未明确 |
 | `field_15` | string | 扩展数据，说明待补充；十进制整数字符串 |
-| `field_16` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_17` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_16` | object | 扩展数据，含义暂未明确 |
+| `field_17` | object | 扩展数据，含义暂未明确 |
 | `field_18` | string | 扩展数据，说明待补充 |
 | `field_50` | boolean | 扩展数据，说明待补充 |
 
@@ -155,10 +155,10 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_relation_list' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_2` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_3` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_4` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_1` | object | 扩展数据，含义暂未明确 |
+| `field_2` | object | 扩展数据，含义暂未明确 |
+| `field_3` | object | 扩展数据，含义暂未明确 |
+| `field_4` | object | 扩展数据，含义暂未明确 |
 
 ### response.items[].field_10（Field10） {#response-items-field-10}
 
@@ -170,7 +170,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_relation_list' \
 | `field_4` | string | 扩展数据，说明待补充 |
 | `field_5` | string | 扩展数据，说明待补充；十进制整数字符串 |
 | `field_6` | number | 扩展数据，说明待补充 |
-| `field_7` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_7` | object | 扩展数据，含义暂未明确 |
 | `field_8` | number | 扩展数据，说明待补充 |
 | `field_9` | boolean | 扩展数据，说明待补充 |
 | `field_10` | boolean | 扩展数据，说明待补充 |
@@ -179,7 +179,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_relation_list' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object[] | 扩展数据，说明待补充；内部结构未整理 |
+| `field_1` | object[] | 扩展数据，含义暂未明确 |
 
 ### response.items[].field_13（Field13） {#response-items-field-13}
 
@@ -192,8 +192,8 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_relation_list' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_2` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_1` | object | 扩展数据，含义暂未明确 |
+| `field_2` | object | 扩展数据，含义暂未明确 |
 | `field_3` | number | 扩展数据，说明待补充 |
 | `field_4` | number | 扩展数据，说明待补充 |
 

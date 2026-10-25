@@ -46,7 +46,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_inventory' \
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号协议 ID，与 self_id 共同定位实例；允许为 0 |
 | `user_id` | number | 是 | 另一位合养用户的 QQ 号，必须大于 0，不接受 UID |
-| `category` | number | 是 | 背包分类，非负 int32；原库背包页使用 1，道具面板使用 3 |
+| `category` | number | 是 | 背包分类，非负 int32；`1` 用于背包，`3` 用于道具 |
 | `sub_category` | number | 否 | 子分类，非负 int32，默认 0 |
 | `cookie` | string | 否 | 分页游标，首页省略；后续原样传回 page.cookie |
 

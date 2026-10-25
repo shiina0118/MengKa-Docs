@@ -62,7 +62,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_feed_times_info' \
 | --- | --- | --- |
 | `field_1` | number | 扩展结果，说明待补充 |
 | `field_2` | number | 扩展结果，说明待补充 |
-| `food_info` | object | 食物状态和商品配置；内部结构未整理 |
+| `food_info` | object | 食物状态和商品配置；嵌套字段含义暂未明确 |
 | `food_inventory` | [FoodInventory[]](#response-food-inventory) | 食物库存列表 |
 
 ### response.food_inventory[]（FoodInventory） {#response-food-inventory}

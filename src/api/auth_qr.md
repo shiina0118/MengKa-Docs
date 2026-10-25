@@ -53,7 +53,7 @@ curl --request POST 'http://127.0.0.1:3003/api/auth_qr' \
 | `need_a1` | boolean | 是 | 原样传入本次 `scan_qr` 返回的 `need_a1`；允许为 `false`，不允许省略或为 `null` |
 | `skip_phone_confirm` | boolean | 否 | 自动登录设置：`true` 开启，`false` 关闭；不传则使用服务端默认设置 |
 
-`need_a1=true` 时，后端从当前账号凭据中读取 A1 和 NoPicSig；A1 缺失会报错，NoPicSig 允许为空。`need_a1=false` 时不携带这两项凭据。调用方无需提供凭据内容。
+`need_a1` 应使用本次扫码返回的值，不要自行推断。调用方无需提供额外账号凭据；所需登录凭据不可用时，接口会返回错误。
 
 ### 与扫码联动
 
@@ -61,7 +61,7 @@ curl --request POST 'http://127.0.0.1:3003/api/auth_qr' \
 2. 展示 `tips`、`tip` 等安全提示。根据 `auto_login.show_switch` 决定是否展示自动登录选项，`auto_login.switch_state` 表示当前开关状态。
 3. 用户确认后，用同一账号实例、同一 `k` 和扫码返回的 `need_a1` 调用 `auth_qr`。展示了自动登录选项时可传入用户选择的 `skip_phone_confirm`；未展示时省略该参数。
 
-后端不缓存扫码状态，由调用方传递本次扫码参数。`need_sec_check` 是扫码返回的提示信息，无需传入确认接口。
+调用方需保存本次扫码结果，并在确认时传入对应参数。`need_sec_check` 是扫码返回的提示信息，无需传入确认接口。
 
 ### 参数变更
 

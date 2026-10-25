@@ -30,9 +30,13 @@
 
 `post_type` 为 `friend_notice`，需要 `friend_event` 权限。
 
+### apply
+
+[好友申请](/events/friend_apply)：查看申请详情、去重行为与事件字段。
+
 ### increase
 
-[新增好友](/events/friend_increase)：查看事件字段与身份缓存行为。
+[新增好友](/events/friend_increase)：查看事件字段及好友身份信息的使用方式。
 
 ### like
 

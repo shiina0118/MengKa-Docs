@@ -65,7 +65,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_group_video' \
 
 返回段可直接传给 `send_group_msg`，并应发送到上传时指定的群聊。视频必须作为唯一消息段单独发送。
 
-需要视频和封面的下载地址时，另行调用 [`get_group_video_url`](/api/get_group_video_url)；发送不需要先获取 URL。媒体元数据在本地缓存 5 分钟，见[媒体有效期](/guide/message-segments#媒体有效期)。
+需要视频和封面的下载地址时，另行调用 [`get_group_video_url`](/api/get_group_video_url)；发送不需要先获取 URL。`file_id` 有效期为 5 分钟，见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## 发送
 

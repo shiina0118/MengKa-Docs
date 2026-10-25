@@ -79,4 +79,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_confirm_invite' \
 3. 确认发送响应的 `ok` 和 `data.success` 都为 `true`，再调用本接口。Bot、协议、好友和精灵类型应与前两步一致。
 4. 本接口成功后等待好友接受；若接受方也是 Bot，可由接受方调用 [`qmate_accept_invite`](/api/qmate_accept_invite)，将 `user_id` 设为邀请方 QQ 号。
 
-本接口不会发送卡片，也不会代替好友接受邀请。后端不保存前两步的发送状态，调用方负责确保卡片发送成功后再确认；请求只需要好友 QQ 号和精灵类型，不需要传入 `msg_seq`、ARK 内容或签名。
+本接口不会发送卡片，也不会代替好友接受邀请。调用方应确保卡片发送成功后再确认；请求只需要好友 QQ 号和精灵类型，不需要传入 `msg_seq`、ARK 内容或签名。

@@ -97,7 +97,7 @@ curl --request POST 'http://127.0.0.1:3003/api/scan_qr' \
 
 `code`、`message`、`tips_color`、`tips`、`need_sec_check`、`need_a1`、`auto_login` 和 `status` 始终返回。目标信息可能包含 `app_name`、`location`，也可能包含 `device_os`、`device_name`，应按实际返回字段展示。本接口只完成扫码；确认登录用 [`auth_qr`](/api/auth_qr)。
 
-调用方保存本次响应，展示提示并让用户确认后，将 `need_a1` 连同原 `k` 传给 `auth_qr`。后端不缓存扫码状态。
+调用方保存本次响应，展示提示并让用户确认后，将 `need_a1` 连同原 `k` 传给 `auth_qr`。
 
 ### 返回字段变更
 

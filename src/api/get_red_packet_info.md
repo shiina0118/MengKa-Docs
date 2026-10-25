@@ -2,7 +2,7 @@
 
 查询群消息中 `red_packet` 消息段对应的 QQ 红包详细信息。
 
-本接口用于查看红包详情，并取得普通红包领取所需的 `claim_token`。调用 [`grab_red_packet`](/api/grab_red_packet) 时未传 token，后端会自动执行预查询；文字口令和语音红包按领取接口中的对应流程处理。
+本接口用于查看红包详情，并取得普通红包领取所需的 `claim_token`。调用 [`grab_red_packet`](/api/grab_red_packet) 时可省略该凭据，由领取接口自动获取；文字口令和语音红包按领取接口中的对应流程处理。
 
 ## 调用
 
@@ -106,6 +106,6 @@ curl --request POST 'http://127.0.0.1:3003/api/get_red_packet_info' \
 
 `sender_id`、`state`、`channel`、金额和数量字段为数字，`send_listid` 为字符串。`send_object` 仅在返回了可解析的详情时出现。
 
-`claim_token` 是普通红包领取所需的凭据，请原样作为 `grab_red_packet` 的 `claim_token` 参数传入。省略时后端会自动预查询，只有取得有效 token 后才会发送领取请求；获取失败会报错。文字口令红包不使用该参数。查询详情不代表已领取红包。
+`claim_token` 是普通红包领取所需的凭据，请原样作为 `grab_red_packet` 的 `claim_token` 参数传入。调用方可省略该参数，由领取接口自动获取；获取失败时会返回错误，红包不会被领取。文字口令红包不使用该参数。查询详情不代表已领取红包。
 
-其余红包 API 同样把收到的数据放在 `red_packet` 中；普通红包的 `claim_token` 放在 `params` 顶层，省略时由后端自动预查询获取。
+其余红包 API 同样把收到的数据放在 `red_packet` 中；普通红包的 `claim_token` 放在 `params` 顶层，省略时由领取接口自动获取。

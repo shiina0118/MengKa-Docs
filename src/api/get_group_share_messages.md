@@ -88,7 +88,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_group_share_messages' \
 
 `sender.nickname` 只返回共享记录中的真实网名，未知时为 `""`。`sender.card` 使用历史消息明确携带的群名片；消息未提供名片字段时，读取当前 Bot、当前群的名片记录。名片为空时省略，不使用网名补齐。客户端展示时可依次取 `card`、`nickname`、`user_id`。
 
-不会逐条请求群成员资料；缺少 QQ 号且本地无对应缓存时，`sender.user_id` 为 `0`。
+无法取得发送者 QQ 号时，`sender.user_id` 为 `0`。
 
 文字、图片、语音、视频、表情、回复和 ARK 等复用现有消息段。图片会尝试补齐下载 URL，图片段始终包含 `file_id` 和 `url`，地址暂不可用时 `url` 为空字符串。语音、视频段只包含 `file_id`，拉取历史消息时不查询其 URL。需要群语音或群视频及封面的地址时，分别调用 [`get_group_voice_url`](/api/get_group_voice_url) 或 [`get_group_video_url`](/api/get_group_video_url)。
 

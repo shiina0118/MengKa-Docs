@@ -46,7 +46,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_get_invite_ark' \
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `user_id` | number | 是 | 目标好友 QQ 号，必须大于 `0`，不接受 UID |
-| `qmate_type` | number | 否 | 精灵类型，默认 `1`（原库合养页面的初始值）；取值为 `1` 至 `2147483647` 的整数，具体类型是否可用由服务端决定 |
+| `qmate_type` | number | 否 | 精灵类型，默认 `1`；取值为 `1` 至 `2147483647` 的整数，具体类型是否可用由服务端决定 |
 
 ## 返回值
 

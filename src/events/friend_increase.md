@@ -10,7 +10,7 @@
 | `protocol_id` | number | 接收账号的协议 ID，允许为 `0` |
 | `post_type` | string | 固定为 `friend_notice` |
 | `sub_type` | string | 固定为 `increase` |
-| `user_id` | number | 新增好友的 QQ 号，无法从推送或已有缓存取得时省略 |
+| `user_id` | number | 新增好友的 QQ 号，未知时省略 |
 | `user_uid` | string | 新增好友的 UID，无法取得时省略 |
 | `operator` | object | 新增好友信息，见下表 |
 
@@ -19,7 +19,7 @@
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `user_id` | number | 好友 QQ 号，未知时为 `0` |
-| `nickname` | string | 好友真实网名，来自推送或共享网名记录；未知时为 `""` |
+| `nickname` | string | 好友真实网名；未知时为 `""` |
 | `remark` | string | 当前 Bot 为该好友设置的备注；为空时省略 |
 
 `operator` 表示新增的好友，不用于判断由谁发起申请。

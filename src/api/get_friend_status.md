@@ -41,7 +41,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_friend_status' \
 | `protocol_id` | number | 是 | 与 `self_id` 共同定位实例，允许为 `0` |
 | `user_id` | number | 是 | 好友 QQ 号（UIN），必须大于 `0`；不传 UID |
 
-如果缺少该 QQ 号的 UID 缓存，接口明确返回错误，不额外查询好友列表。可先调用 [`get_friend_list`](/api/get_friend_list) 建立映射，再查询状态。
+查询前可先调用 [`get_friend_list`](/api/get_friend_list) 获取好友列表。目标好友身份信息不可用时，状态查询会返回错误；此时可刷新好友列表后再查询。
 
 ## 返回值
 
@@ -108,7 +108,7 @@ curl --request POST 'http://127.0.0.1:3003/api/get_friend_status' \
 
 ### extra
 
-插件按 `extra.type` 分支读取 `extra.data`，无需解析 PB：
+插件按 `extra.type` 分支读取 `extra.data`：
 
 | `ext_status` | `extra.type` | `extra.data` 内容 |
 | --- | --- | --- |

@@ -54,7 +54,7 @@ curl --request POST 'http://127.0.0.1:3003/api/upload_friend_image' \
 { type: 'image', data: { file_id: 'FILE_ID', url: 'https://...' } }
 ```
 
-`url` 暂不可用时为空字符串；发送只需要 `file_id`。媒体元数据在本地缓存 5 分钟，见[媒体有效期](/guide/message-segments#媒体有效期)。
+`url` 暂不可用时为空字符串；发送只需要 `file_id`。`file_id` 有效期为 5 分钟，见[媒体有效期](/guide/message-segments#媒体有效期)。
 
 ## 发送
 

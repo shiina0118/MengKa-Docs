@@ -85,7 +85,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_c2c_pet_info' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object | 扩展结果，说明待补充；内部结构未整理 |
-| `field_2` | object | 扩展结果，说明待补充；内部结构未整理 |
+| `field_1` | object | 扩展结果，含义暂未明确 |
+| `field_2` | object | 扩展结果，含义暂未明确 |
 | `field_3` | string | 扩展结果，说明待补充 |
 | `field_4` | number | 扩展结果，说明待补充 |

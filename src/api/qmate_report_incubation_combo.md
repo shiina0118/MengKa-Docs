@@ -47,7 +47,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_report_incubation_combo' \
 | `protocol_id` | number | 是 | 目标账号协议 ID，与 self_id 共同定位实例；允许为 0 |
 | `user_id` | number | 是 | 另一位合养用户的 QQ 号，必须大于 0，不接受 UID |
 | `delta` | number | 是 | 本次连击增量，正 int32 整数 |
-| `client_seq` | string | 否 | 本次上报序列；为空或省略时自动生成 毫秒时间戳_随机数，格式与原库一致 |
+| `client_seq` | string | 否 | 本次上报序列标识；为空或省略时自动生成 |
 
 ## 返回值
 
@@ -64,4 +64,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qmate_report_incubation_combo' \
 服务端拒绝请求时，外层为 `ok: true`，`data.success` 为 `false`。参数无效、Bot 未在线、请求失败、响应损坏时，返回 `ok: false`。
 
 
-先通过 [`qmate_get_info`](/api/qmate_get_info) 查询孵化状态。进度和上限由服务端决定，不保证每次上报都增加进度。自动生成 `client_seq` 仅用于补齐原库请求参数，不承诺重试幂等。
+先通过 [`qmate_get_info`](/api/qmate_get_info) 查询孵化状态。进度和上限由服务端决定，不保证每次上报都增加进度。`client_seq` 不保证重复调用只执行一次；结果不确定时，应先查询状态再决定是否重试。

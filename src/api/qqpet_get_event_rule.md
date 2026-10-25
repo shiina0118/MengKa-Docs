@@ -62,7 +62,7 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_event_rule' \
 | `field_1` | string | 否 | 扩展参数，说明待补充 |
 | `field_2` | string | 否 | 扩展参数，说明待补充 |
 | `field_3` | [Field3](#request-field-3) | 否 | 扩展参数，说明待补充 |
-| `field_4` | object | 否 | 扩展参数，说明待补充；内部结构未整理 |
+| `field_4` | object | 否 | 扩展参数，含义暂未明确 |
 | `field_99` | number | 否 | 扩展参数，说明待补充 |
 
 ### request.field_3（Field3） {#request-field-3}
@@ -82,4 +82,4 @@ curl --request POST 'http://127.0.0.1:3003/api/qqpet_get_event_rule' \
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | object | 扩展结果，说明待补充；内部结构未整理 |
+| `field_1` | object | 扩展结果，含义暂未明确 |

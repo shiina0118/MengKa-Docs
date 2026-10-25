@@ -8,8 +8,8 @@
 | `field_2` | [PetAccessory[]](#pet-accessory) | 当前装扮列表 |
 | `field_3` | [PetModel](#pet-model) | 当前模型信息 |
 | `profile` | [PetProfile](#pet-profile) | 宠物资料 |
-| `field_5` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_6` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_7` | object | 扩展数据，说明待补充；内部结构未整理 |
-| `field_100` | object | 扩展数据，说明待补充；内部结构未整理 |
+| `field_5` | object | 扩展数据，含义暂未明确 |
+| `field_6` | object | 扩展数据，含义暂未明确 |
+| `field_7` | object | 扩展数据，含义暂未明确 |
+| `field_100` | object | 扩展数据，含义暂未明确 |
 | `field_101` | string | 扩展数据，说明待补充 |

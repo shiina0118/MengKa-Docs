@@ -25,6 +25,7 @@ WebSocket 连接（正向和反向）支持账号、好友、群聊相关事件�
 | 事件 | `post_type` | `sub_type` | 正向认证权限 |
 | --- | --- | --- | --- |
 | [好友点赞](/events/friend_like) | `friend_notice` | `like` | `friend_event` |
+| [好友申请](/events/friend_apply) | `friend_notice` | `apply` | `friend_event` |
 | [新增好友](/events/friend_increase) | `friend_notice` | `increase` | `friend_event` |
 
 ## 群聊相关
@@ -95,7 +96,7 @@ const friendName = user.remark || user.nickname || String(user.user_id)
 const groupMemberName = user.card || user.nickname || String(user.user_id)
 ```
 
-旧版插件若直接把 `nickname` 当作展示名称，需要调整为上述取值顺序。后端不会再把备注、群名片、QQ 号或 UID 填进 `nickname`，也不会用网名补齐空的 `card`。当身份只提供 UID 时，可使用事件中的 UID 展示。
+旧版插件若直接把 `nickname` 当作展示名称，需要调整为上述取值顺序。`nickname` 只表示真实网名，未知时为空；`card` 只表示群名片，没有群名片时为空。当身份只提供 UID 时，可使用事件中的 UID 展示。
 
 ## 处理建议
 
