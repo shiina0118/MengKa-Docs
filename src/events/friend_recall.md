@@ -32,7 +32,7 @@
 | `traceless` | boolean | 无痕撤回时为 `true`，否则省略 |
 | `original` | [OriginalMessage](#original) | 原消息 |
 
-原消息内容最多可保留十分钟。原文不可用或已过期时，撤回事件仍会推送，`body.original.message` 包含一个 `text` 消息段，其 `data.text` 为“消息已过期”。
+原消息内容保留 5 分钟。原文不可用或已过期时，撤回事件仍会推送，`body.original.message` 包含一个 `text` 消息段，其 `data.text` 为“消息已过期”。
 
 如需长期保留原文，请在收到消息事件时自行保存。
 

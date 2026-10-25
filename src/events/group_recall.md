@@ -31,7 +31,7 @@
 | `operator_role` | number | 操作者群角色，为 `0` 时省略 |
 | `operator_title` | string | 操作者群头衔，为空时省略 |
 
-原消息内容最多可保留十分钟；原文不可用或已过期时，`body.original` 可能省略，撤回事件仍会推送。如需长期保留原文，请在收到消息事件时自行保存。
+原消息内容保留 5 分钟。原文不可用或已过期时，撤回事件仍会推送，`body.original.message` 包含一个 `text` 消息段，其 `data.text` 为“消息已过期”。如需长期保留原文，请在收到消息事件时自行保存。
 
 主动撤回群消息使用 [`recall_group_msg`](/api/recall_group_msg)。
 

@@ -65,14 +65,14 @@
 
 收到事件后，请保存处理申请所需的上下文：`user_id`、`request_id`、`msg_type`、`request_type`、`source_id`、`sub_source_id`、`group_msg_type`，以及所选动作的完整 `action_info`。示例中的动作类型和 Base64 仅作演示，应使用实际事件提供的值。
 
-普通申请中，`actions[0]` 为同意动作，`actions[1]` 为拒绝动作。调用同意接口前应检查 `actions[0]` 是否存在，将其 `action_info` 原样作为请求参数传入，不要用数组索引或动作类型自行构造凭据。请求的 `request_type` 使用事件同名字段，不能使用字符串 `sub_type: "apply"` 或 `request_sub_type` 代替。
+普通申请中，`actions[0]` 为同意动作，`actions[1]` 为拒绝动作。调用处理接口前应检查对应动作是否存在，将其 `action_info` 原样作为请求参数传入；即使原值为空字符串，也不能省略或传 `null`。不要用数组索引或动作类型自行构造凭据。请求的 `request_type` 使用事件同名字段，不能使用字符串 `sub_type: "apply"` 或 `request_sub_type` 代替。
 
 本事件表示普通好友申请仍可处理。已读申请也可能仍待处理；已同意或已拒绝的申请不会作为待处理申请上报。成为好友后由 [新增好友](/events/friend_increase) 事件通知。
 
 事件可能包含较早的待处理申请，请通过 `request_time` 判断申请时间，不要将收到事件的时间视为申请时间。
 
-事件可能延迟到达，未收到事件不代表没有待处理申请。
+事件可能延迟到达，未收到事件不代表没有待处理申请。可通过 [查询好友申请](/api/get_friend_system_notifications) 获取当前记录，并依据 `pending` 和所需动作是否存在决定是否发起处理。
 
 账号实例重建或服务重启后，同一申请可能再次上报。插件需要跨重启去重时，应保存 `self_id + protocol_id + user_id + request_id`。请保持 `request_id` 为字符串，不要转成 JavaScript `Number`。
 
-同意申请使用 [approve_friend_apply](/api/approve_friend_apply)，将上述上下文和 `actions[0].action_info` 传回。拒绝申请的插件 API 尚未提供。
+同意申请使用 [approve_friend_apply](/api/approve_friend_apply)，将上述上下文和 `actions[0].action_info` 传回；拒绝申请使用 [reject_friend_apply](/api/reject_friend_apply)，传入 `actions[1].action_info`。
