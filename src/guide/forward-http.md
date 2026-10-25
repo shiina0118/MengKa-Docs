@@ -91,4 +91,4 @@ HTTP 响应的 `data` 与 WebSocket `action_result` 中的 `data` 一致。HTTP 
 
 HTTP 服务不建立插件会话，不推送事件；需要接收消息和通知时使用 WebSocket 服务。媒体参数、节点限制及业务字段与现有 API 一致。连接中断或超时不代表业务操作已撤销，发送消息等操作应先确认结果再重试。
 
-账号当前部分功能使用受限时，响应为 `ok: false`、`status: "restricted"`，并包含 `error: "账号当前部分功能使用受限"`。HTTP 状态码仍为 `200`；详细格式见 [账号功能受限](/guide/protocol#账号功能受限)。
+账号当前部分功能使用受限时，响应为 `ok: false`、`status: "restricted"`，并包含 `error: "账号当前部分功能使用受限"` 和整数 `errCode`（本次请求的原始限制码）。HTTP 状态码仍为 `200`；详细格式见 [账号功能受限](/guide/protocol#账号功能受限)。
