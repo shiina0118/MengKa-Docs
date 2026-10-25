@@ -38,6 +38,10 @@
 
 [新增好友](/events/friend_increase)：查看事件字段及好友身份信息的使用方式。
 
+### decrease
+
+[好友关系移除](/events/friend_decrease)：查看被移除好友的信息及事件含义。
+
 ### like
 
 [好友点赞](/events/friend_like)：查看事件字段表。

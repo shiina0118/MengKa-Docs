@@ -431,6 +431,7 @@ export default defineConfig({
                 { text: "好友点赞", link: "/events/friend_like" },
                 { text: "好友申请", link: "/events/friend_apply" },
                 { text: "新增好友", link: "/events/friend_increase" },
+                { text: "好友关系移除", link: "/events/friend_decrease" },
               ],
             },
           ],
