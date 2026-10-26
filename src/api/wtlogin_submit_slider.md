@@ -31,8 +31,4 @@
 
 ## 返回值
 
-返回 [LoginResult](#login-result)。`next` 为 `done` 表示已上线；返回新的验证要求时，按新的 `next` 继续。短信分支使用 `wtlogin_get_sms` / `wtlogin_check_sms`，身份验证使用共用的三个身份验证接口。
-
-<!--@include: ../../snippets/api/login-result.md-->
-
-<!--@include: ../../snippets/api/security-verify.md-->
+返回 [WT 登录结果](/api/wtlogin_login_account#wtlogin-result)。`next` 为 `done` 表示已上线；返回新的验证要求时，按新的 `next` 继续。短信分支使用 [`wtlogin_get_sms`](/api/wtlogin_get_sms) / [`wtlogin_check_sms`](/api/wtlogin_check_sms)，身份验证使用 `submit_identity_captcha`、`submit_identity_phone`、`confirm_identity_sms`。

@@ -1,8 +1,8 @@
-# check_sms
+# ntlogin_check_sms
 
 提交 NT 账号（`nt: 1`）的短信安全验证，并继续登录。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应使用 [`wtlogin_check_sms`](/api/wtlogin_check_sms)。
 
-`verify_type` 需要与 [`get_sms`](/api/get_sms) 时一致：
+`verify_type` 需要与 [`ntlogin_get_sms`](/api/ntlogin_get_sms) 时一致：
 
 | `verify_type` | 名称 | 提交内容 |
 | --- | --- | --- |
@@ -16,7 +16,7 @@
 {
   "type": "action",
   "id": "1",
-  "action": "check_sms",
+  "action": "ntlogin_check_sms",
   "params": {
     "self_id": 123456789,
     "protocol_id": 0,
@@ -35,14 +35,14 @@
 | `self_id` | number | 是 | 正在登录的 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `verify_type` | number | 是 | 短信验证类型，`4` 接收短信，`3` 发送短信 |
-| `sign` | string | 是 | `get_sms` **新返回**的 sign |
+| `sign` | string | 是 | `ntlogin_get_sms` **新返回**的 sign |
 | `code` | string | 视类型 | `verify_type` 为 `4` 时必填；为 `3` 时不需要传 |
 
 `verify_type` 必填，且只接受 `3` 或 `4`，缺失或取值不合法会直接报错。
 
 ## 返回值
 
-**校验通过**：自动继续登录，返回 [LoginResult](#login-result)。
+**校验通过**：自动继续登录，返回 [NT 登录结果](/api/ntlogin_login_account#login-result)。
 
 **校验未通过**：返回验证结果，`result.prompt` 是失败原因，`next` 为 `security`。登录会话保留，可以用同一个 `sign` 重试。
 
@@ -64,7 +64,3 @@
 :::
 
 完整流程见[Bot 登录流程](/guide/login-flow)。
-
-<!--@include: ../../snippets/api/login-result.md-->
-
-<!--@include: ../../snippets/api/security-verify.md-->

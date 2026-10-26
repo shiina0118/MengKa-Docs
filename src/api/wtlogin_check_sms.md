@@ -25,10 +25,6 @@
 
 ## 返回值
 
-返回 [LoginResult](#login-result)。`next` 为 `done` 表示已上线；若仍为 `security`，展示 `message`，按提示处理后继续提交。返回其他验证要求时，按新的 `next` 处理。
+返回 [WT 登录结果](/api/wtlogin_login_account#wtlogin-result)。`next` 为 `done` 表示已上线；若仍为 `security`，展示 `message`，按提示处理后继续提交。返回其他验证要求时，按新的 `next` 处理。
 
 `next` 为 `failed` 时，当前登录已结束，不能沿用原会话提交验证码，应根据 `message` 处理后重新发起 WT 登录。
-
-<!--@include: ../../snippets/api/login-result.md-->
-
-<!--@include: ../../snippets/api/security-verify.md-->

@@ -41,4 +41,4 @@
 { "status": "expired" }
 ```
 
-`ready` 时停止查询，使用 [`submit_slider`](/api/submit_slider) 提交结果，按其返回值继续处理登录。`expired` 时停止查询，重新获取验证页面。查询其他插件服务的会话会返回错误。
+`ready` 时停止查询，使用 [`ntlogin_submit_slider`](/api/ntlogin_submit_slider) 提交结果，按其返回值继续处理登录。`expired` 时停止查询，重新获取验证页面。查询其他插件服务的会话会返回错误。

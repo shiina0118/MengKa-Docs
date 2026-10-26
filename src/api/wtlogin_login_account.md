@@ -24,18 +24,20 @@
 
 ## 返回值
 
-返回 [LoginResult](#login-result)，按 `next` 处理：
+返回 [WT 登录结果](#wtlogin-result)，按 `next` 处理：
+
+```json
+{ "code": 0, "message": "登录成功", "next": "done", "login_method": "wtlogin", "wtlogin_code": 0, "verification_supported": true }
+```
 
 | `next` | 后续操作 |
 | --- | --- |
 | `done` | 已上线，可以调用 Bot 业务接口 |
 | `slider` | 完成 `slider_url` 的验证后调用 [`wtlogin_submit_slider`](/api/wtlogin_submit_slider) |
-| `security` | 调用 [`wtlogin_get_sms`](/api/wtlogin_get_sms) 下发短信，再用 [`wtlogin_check_sms`](/api/wtlogin_check_sms) 提交验证码 |
-| `identity` | 依次调用 `submit_identity_captcha`、`submit_identity_phone`、`confirm_identity_sms`，见[身份验证流程](/guide/login-flow#插件通道身份验证) |
+| `security` | 等待 WT 短信验证：调用 [`wtlogin_get_sms`](/api/wtlogin_get_sms) 下发短信，再用 [`wtlogin_check_sms`](/api/wtlogin_check_sms) 提交验证码；无需 `sign`、`verify_type` 或扫码安全验证 |
+| `identity` | 依次调用 [`submit_identity_captcha`](/api/submit_identity_captcha)、[`submit_identity_phone`](/api/submit_identity_phone)、[`confirm_identity_sms`](/api/confirm_identity_sms) |
 | `failed` | 根据 `message` 处理后重新发起登录 |
 
 WT 响应中的 `login_method` 为 `wtlogin`，`wtlogin_code` 是此次登录的原始结果码。插件按公开的 `next` 决定下一步即可。
 
-<!--@include: ../../snippets/api/login-result.md-->
-
-<!--@include: ../../snippets/api/security-verify.md-->
+<!--@include: ../../snippets/api/wtlogin-result.md-->

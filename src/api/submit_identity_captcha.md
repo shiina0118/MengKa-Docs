@@ -1,10 +1,10 @@
 # submit_identity_captcha
 
-提交身份验证所需的腾讯验证结果，开始身份验证流程。
+提交身份验证所需的腾讯验证结果，开始身份验证流程。NT 和 WT 账号共用本接口。
 
 ## 前置条件
 
-[`login_account`](/api/login_account) 返回 `140022007`（需要身份验证）且带 `identity_url`，账号处于登录挂起状态。
+[`ntlogin_login_account`](/api/ntlogin_login_account) 或 [`wtlogin_login_account`](/api/wtlogin_login_account) 返回 `next: "identity"` 且带 `identity_url`，账号处于登录挂起状态。
 
 先引导用户完成腾讯验证码页面，取得 `ticket` 与 `randstr`，再将这两个值传给本接口。插件需自行提供验证码页面的交互入口。
 

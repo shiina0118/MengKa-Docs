@@ -1,4 +1,4 @@
-# submit_slider
+# ntlogin_submit_slider
 
 提交 NT 账号（`nt: 1`）的滑块验证结果。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应使用 [`wtlogin_submit_slider`](/api/wtlogin_submit_slider)。
 
@@ -9,7 +9,7 @@
 {
   "type": "action",
   "id": "1",
-  "action": "submit_slider",
+  "action": "ntlogin_submit_slider",
   "params": {
     "self_id": 123456789,
     "protocol_id": 0,
@@ -31,8 +31,4 @@
 
 ## 返回值
 
-返回 [LoginResult](#login-result)。若返回另一种验证状态，继续按新的 `next` 处理。
-
-<!--@include: ../../snippets/api/login-result.md-->
-
-<!--@include: ../../snippets/api/security-verify.md-->
+返回 [NT 登录结果](/api/ntlogin_login_account#login-result)。若返回另一种验证状态，继续按新的 `next` 处理。

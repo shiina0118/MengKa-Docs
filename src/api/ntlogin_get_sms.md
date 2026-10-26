@@ -1,15 +1,15 @@
-# get_sms
+# ntlogin_get_sms
 
 请求 NT 账号（`nt: 1`）的短信安全验证。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应使用 [`wtlogin_get_sms`](/api/wtlogin_get_sms)。
 
-短信验证有两种类型，由 `verify_type` 指定，两者共用 `get_sms` / `check_sms`：
+短信验证有两种类型，由 `verify_type` 指定，两者共用 `ntlogin_get_sms` / `ntlogin_check_sms`：
 
 | `verify_type` | 名称 | 说明 |
 | --- | --- | --- |
 | `4` | 接收短信 | 服务端向密保手机下发验证码，用户把收到的验证码交回 |
 | `3` | 发送短信 | 用户用密保手机把指定内容发送到指定号码，服务端回查是否收到 |
 
-可用类型由 [`get_security_verify_methods`](/api/get_security_verify_methods) 的 `methods.verify_list` 决定，不要写死。
+可用类型由 [`ntlogin_get_security_verify_methods`](/api/ntlogin_get_security_verify_methods) 的 `methods.verify_list` 决定，不要写死。
 
 ## 调用
 
@@ -18,7 +18,7 @@
 {
   "type": "action",
   "id": "1",
-  "action": "get_sms",
+  "action": "ntlogin_get_sms",
   "params": {
     "self_id": 123456789,
     "protocol_id": 0,
@@ -36,7 +36,7 @@
 | `self_id` | number | 是 | 正在登录的 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `verify_type` | number | 是 | 短信验证类型，`4` 接收短信，`3` 发送短信 |
-| `sign` | string | 是 | `security_verify.methods.sms_phone.sign` |
+| `sign` | string | 是 | [`ntlogin_get_security_verify_methods`](/api/ntlogin_get_security_verify_methods) 返回的 `methods.sms_phone.sign` |
 
 `verify_type` 必填，且只接受 `3` 或 `4`，缺失或取值不合法会直接报错。
 
@@ -87,6 +87,6 @@
 | `state` | number | `1` 为成功，其他值为失败 |
 | `prompt` | string | 失败原因，失败时出现 |
 
-`verify_type` 为 `3` 时，需要引导用户**用 `masked_phone` 对应的密保手机**把 `sms` 的内容原样发送到 `send_to`，发送后再调用 [`check_sms`](/api/check_sms) 回查。
+`verify_type` 为 `3` 时，需要引导用户**用 `masked_phone` 对应的密保手机**把 `sms` 的内容原样发送到 `send_to`，发送后再调用 [`ntlogin_check_sms`](/api/ntlogin_check_sms) 回查。
 
 完整流程见[Bot 登录流程](/guide/login-flow)。

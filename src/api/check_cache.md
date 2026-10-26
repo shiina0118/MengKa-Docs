@@ -1,6 +1,6 @@
 # check_cache
 
-检查账号是否具备可用于尝试缓存登录的本地数据。
+检查账号是否具备可用于尝试缓存登录的本地数据。NT 和 WT 账号共用本接口，不需要指定登录模式。
 
 ## 调用
 
@@ -31,4 +31,4 @@
 { "has_cache": true }
 ```
 
-`has_cache` 只表示本地是否存有登录缓存。缓存能否继续使用只有服务端知道，必须通过 [`cache_login`](/api/cache_login) 的登录结果判断。`has_cache` 为 `false` 时直接调用 [`login_account`](/api/login_account)。
+`has_cache` 只表示本地是否存有登录缓存。缓存能否继续使用只有服务端知道，必须通过 [`cache_login`](/api/cache_login) 的登录结果判断。`has_cache` 为 `false` 时，按账号模式调用 [`ntlogin_login_account`](/api/ntlogin_login_account) 或 [`wtlogin_login_account`](/api/wtlogin_login_account) 进行密码登录；Linux 账号也可调用 [`get_login_qr`](/api/get_login_qr) 进行扫码登录。
