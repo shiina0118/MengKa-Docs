@@ -358,6 +358,7 @@ export default defineConfig({
                 { text: "获取其他宠物状态", link: "/api/qqpet_get_other_pet_status_info" },
                 { text: "获取宠物故事状态", link: "/api/qqpet_get_pet_story_status" },
                 { text: "发起宠物活动或PK", link: "/api/qqpet_start_story" },
+                { text: "鼓励宠物", link: "/api/qqpet_encourage_pet" },
                 { text: "获取宠物活动详情", link: "/api/qqpet_get_story_info" },
                 { text: "获取宠物活动过程", link: "/api/qqpet_get_story_process" },
                 { text: "获取宠物活动选项", link: "/api/qqpet_get_activity_options" },
