@@ -202,7 +202,7 @@ export default defineConfig({
               items: [
                 { text: "发送群聊消息", link: "/api/send_group_msg" },
                 { text: "获取群聊合并转发消息", link: "/api/get_group_forward_msg" },
-                { text: "获取群共享历史消息", link: "/api/get_group_share_messages" },
+                { text: "获取群历史消息", link: "/api/get_group_history_messages" },
                 { text: "上传群聊合并转发消息", link: "/api/upload_group_forward_msg" },
                 { text: "撤回群聊消息", link: "/api/recall_group_msg" },
               ],
