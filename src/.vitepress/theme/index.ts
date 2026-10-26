@@ -9,10 +9,14 @@ export default {
   extends: DefaultTheme,
   Layout: defineComponent({
     setup() {
-      const { page } = useData();
+      const { page, frontmatter } = useData();
       return () => h(DefaultTheme.Layout, {
-        class: { "brand-not-found": page.value.isNotFound },
+        class: {
+          "brand-not-found": page.value.isNotFound,
+          "brand-home": frontmatter.value.layout === "home",
+        },
       }, {
+        "home-hero-info-before": () => h("p", { class: "home-eyebrow" }, "插件开发文档"),
         "not-found": () => h(BrandNotFound),
         "doc-before": () => h(ApiPageName),
       });
