@@ -39,7 +39,7 @@
 
 短信确认未通过（如短信尚未送达、发送内容不符）时返回 `{ code, message, next: "identity" }`，账号仍处登录挂起，可以用相同参数重试；发送后到腾讯侧确认可能有几秒到几十秒延迟。
 
-短信确认已通过、但后续登录失败时返回 `next: "failed"`，本次登录会话已结束，不能再用本接口重试，需要重新调用 [`login_account`](/api/login_account)。
+本接口兼容 NT 和 WT 账号，身份验证通过后按账号保存的模式继续登录。若后续返回 `next: "failed"`，本次登录会话已结束，需要按账号模式调用 [`login_account`](/api/login_account) 或 [`wtlogin_login_account`](/api/wtlogin_login_account) 重新登录；返回验证状态时，按新的 `next` 继续。
 
 完整流程见[Bot 登录流程](/guide/login-flow)。
 

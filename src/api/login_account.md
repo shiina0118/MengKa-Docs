@@ -1,6 +1,6 @@
 # login_account
 
-登录当前节点下的账号。与管理后台一致，按账号是否设置了密码选择登录方式：
+登录当前节点下配置为 NT 模式（`nt: 1`）的账号，按账号是否设置了密码选择登录方式。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应改用 [`wtlogin_login_account`](/api/wtlogin_login_account)。
 
 - **有密码**：密码登录，Android 和 PC（Linux）协议都支持。账号必须处于离线状态。
 - **无密码**：扫码登录，仅 PC（Linux）协议支持。返回二维码后轮询 [`query_login_qr`](/api/query_login_qr)。

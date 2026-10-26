@@ -1,6 +1,6 @@
 # check_sms
 
-提交短信安全验证，并继续登录。
+提交 NT 账号（`nt: 1`）的短信安全验证，并继续登录。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应使用 [`wtlogin_check_sms`](/api/wtlogin_check_sms)。
 
 `verify_type` 需要与 [`get_sms`](/api/get_sms) 时一致：
 

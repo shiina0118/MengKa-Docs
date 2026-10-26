@@ -1,6 +1,6 @@
 # get_sms
 
-请求短信安全验证。
+请求 NT 账号（`nt: 1`）的短信安全验证。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应使用 [`wtlogin_get_sms`](/api/wtlogin_get_sms)。
 
 短信验证有两种类型，由 `verify_type` 指定，两者共用 `get_sms` / `check_sms`：
 

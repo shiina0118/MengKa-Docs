@@ -2,6 +2,8 @@
 
 为正在等待安全验证的 Bot 获取安全验证二维码。密码登录返回 `140022010` 后，用手机 QQ 扫描该码完成身份核验。
 
+仅支持 NT 账号（`nt: 1`）。WT 账号调用返回 `ok: false` 和模式不匹配提示；WT 短信安全验证请使用 [`wtlogin_get_sms`](/api/wtlogin_get_sms)。
+
 这不是扫码登录。扫码登录的二维码由无密码 PC 账号调用 [`login_account`](/api/login_account) 获得。
 
 ## 调用

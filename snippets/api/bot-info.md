@@ -3,6 +3,7 @@
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | Bot QQ 号 |
+| `nt` | number | 登录模式：`1` 为 NT，`0` 为 WT；登录时使用对应模式的 API |
 | `protocol` | [BotProtocol](#bot-protocol) | 账号使用的协议 |
 | `device` | [BotDevice](#bot-device) | 账号使用的设备配置 |
 | `nickname` | string | 昵称 |

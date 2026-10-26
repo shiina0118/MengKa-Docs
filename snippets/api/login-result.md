@@ -12,6 +12,14 @@
 | `security_url` | string | 安全验证地址，需要安全验证且有值时出现 |
 | `security_verify` | [SecurityVerify](#security-verify) | 可用的安全验证方式，需要安全验证且查询成功时出现 |
 | `security_verify_error` | string | 查询安全验证方式失败的原因，需要安全验证但查询失败时出现；可调用 `get_security_verify_methods` 重新查询 |
+| `login_method` | string | WT 登录结果中为 `wtlogin` |
+| `wtlogin_code` | number | WT 登录请求的原始结果码，按 `next` 选择后续动作 |
+| `verification_supported` | boolean | WT 登录结果中的验证支持标记 |
+| `status` | number | WT 登录仍在等待验证时为 `2` |
+| `mobile` | string | WT 短信验证的手机号提示，有值时展示给用户 |
+| `country_code` | string | WT 短信验证的国家或地区代码 |
+| `time_limit` | number | WT 短信请求的时间限制，单位为秒 |
+| `available_msg_count` | number | WT 当前可用的短信请求次数 |
 
 | `code` | `next` | 含义 |
 | --- | --- | --- |

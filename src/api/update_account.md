@@ -32,6 +32,7 @@
 | `password` | string | 是 | 新密码 |
 | `new_protocol_id` | number | 是 | 保存后的协议 ID；不更换协议时传原 ID |
 | `device_profile_id` | number | 是 | `get_device_profile_list` 返回的设备配置记录 ID |
+| `nt` | number | 否 | 登录模式：`1` 为 NT，`0` 为 WT；省略时保留原模式 |
 
 账号须离线；目标 `self_id + new_protocol_id` 已存在时拒绝修改。
 

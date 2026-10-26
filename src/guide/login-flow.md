@@ -8,7 +8,7 @@
 
 ## 登录结果的 next 字段 {#next}
 
-以下接口在 `ok: true` 时，结果都带有 `next`，表示接下来该做什么：`login_account`、`cache_login`、`query_login_qr`、`submit_slider`、`get_security_verify_methods`、`get_sms`、`check_sms`、`get_security_verify_qr`、`query_security_verify_qr`、`submit_identity_captcha`、`submit_identity_phone`、`confirm_identity_sms`。`check_cache` 只查询本地缓存，不属于登录步骤，没有 `next`。
+以下接口在 `ok: true` 时，结果都带有 `next`，表示接下来该做什么：`login_account`、`cache_login`、`query_login_qr`、`submit_slider`、`get_security_verify_methods`、`get_sms`、`check_sms`、`get_security_verify_qr`、`query_security_verify_qr`、`submit_identity_captcha`、`submit_identity_phone`、`confirm_identity_sms`，以及下面列出的四个 `wtlogin_` 接口。`check_cache` 只查询本地缓存，不属于登录步骤，没有 `next`。
 
 插件按 `next` 分支即可，不需要记忆 `code` 对照表：
 
@@ -43,7 +43,20 @@
 
 ## 发起登录
 
-统一调用 [`login_account`](/api/login_account)。与管理后台一致，有密码的账号走密码登录（Android 和 PC 都支持），无密码的 PC 账号走[扫码登录](#扫码登录)：
+先读取账号的 `nt` 登录模式，选择对应接口。添加账号时省略 `nt` 默认使用 NT（`1`），更新时省略则保留原模式。
+
+| 动作 | NT（`nt: 1`） | WT（`nt: 0`） |
+| --- | --- | --- |
+| 发起登录 | [`login_account`](/api/login_account) | [`wtlogin_login_account`](/api/wtlogin_login_account) |
+| 提交滑块 | [`submit_slider`](/api/submit_slider) | [`wtlogin_submit_slider`](/api/wtlogin_submit_slider) |
+| 下发短信 | [`get_sms`](/api/get_sms) | [`wtlogin_get_sms`](/api/wtlogin_get_sms) |
+| 提交短信 | [`check_sms`](/api/check_sms) | [`wtlogin_check_sms`](/api/wtlogin_check_sms) |
+
+账号模式与接口不匹配时返回 `ok: false` 和错误提示，不会开始或继续登录。身份验证的 `submit_identity_captcha`、`submit_identity_phone`、`confirm_identity_sms` 两种模式共用，通过后按账号模式自动继续登录。
+
+WT 密码登录目前支持 Android：`next: "slider"` 时提交滑块，`next: "security"` 时直接下发并提交短信验证码，`next: "identity"` 时走[身份验证流程](#插件通道身份验证)。WT 短信接口只需账号标识和验证码，无需 `verify_type` 或 `sign`。`wtlogin_get_sms` 成功下发后仍为 `next: "security"`，账号尚未上线。
+
+以下普通登录、滑块和短信示例以 NT 为例。有密码的 NT 账号走密码登录（Android 和 PC 都支持），无密码的 NT PC 账号走[扫码登录](#扫码登录)：
 
 ```json
 { "self_id": 123456789, "protocol_id": 0 }
@@ -89,11 +102,11 @@
 | `ticket` | 滑块完成后返回的 ticket |
 | `randstr` | 滑块完成后返回的 randstr |
 
-返回结构与 `login_account` 一致。如果返回另一种验证状态，继续按新的 `next` 处理。
+返回结构与对应模式的登录接口一致。如果返回另一种验证状态，继续按新的 `next` 处理。WT 账号在本步骤调用 `wtlogin_submit_slider`，参数相同。
 
 ## 安全验证
 
-安全验证可通过 `security_verify` 判断当前可用方式，也可以调用 `get_security_verify_methods` 重新查询。根据返回的 `methods` 选择扫码、短信或其他验证方式。
+NT 安全验证可通过 `security_verify` 判断当前可用方式，也可以调用 `get_security_verify_methods` 重新查询。根据返回的 `methods` 选择扫码、短信或其他验证方式。以下扫码和两种短信方式适用于 NT；WT 的 `security` 分支使用 `wtlogin_get_sms` 下发、`wtlogin_check_sms` 提交验证码。
 
 这是密码登录过程中的安全验证，不是[扫码登录](#扫码登录)。PC（Linux）账号也走同一组接口，差异由服务端处理；其中 PC 账号始终可以扫码验证，`verify_list` 总会包含 `10`，二维码可能被用户取消（`status` 为 `canceled`）。
 
@@ -201,7 +214,7 @@
 
 前两步失败，以及第三步的短信确认未通过（通常是短信尚未被收到）时，`next` 仍为 `identity`，账号保持等待验证状态，可修正参数后重试。
 
-短信确认通过后，`confirm_identity_sms` 会接着登录，此时按登录结果的 `next` 处理：如果登录本身失败，`next` 为 `failed`，本次登录会话已结束，不能再重试短信确认，需要重新调用 `login_account`。
+短信确认通过后，`confirm_identity_sms` 会按账号模式继续登录，此时按登录结果的 `next` 处理。若 `next` 为 `failed`，本次登录会话已结束，需要按账号模式重新调用 `login_account` 或 `wtlogin_login_account`；若仍为验证状态，按新的 `next` 继续处理。
 
 ## 缓存登录
 
@@ -221,4 +234,4 @@
 { "code": 1, "message": "...", "cache_invalid": true, "next": "failed" }
 ```
 
-缓存登录失败或 `has_cache` 为 `false` 时，调用 `login_account` 重新登录。缓存登录的失败结果可能没有 `cache_invalid`，应检查 `code` 和 `message`；仅 `code` 为 `0` 表示成功。详细说明见 [`cache_login`](/api/cache_login)。
+缓存登录失败或 `has_cache` 为 `false` 时，按账号模式调用 `login_account` 或 `wtlogin_login_account` 重新登录。缓存登录的失败结果可能没有 `cache_invalid`，应检查 `code` 和 `message`；仅 `code` 为 `0` 表示成功。详细说明见 [`cache_login`](/api/cache_login)。

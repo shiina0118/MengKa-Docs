@@ -1,6 +1,6 @@
 # submit_slider
 
-提交滑块验证结果。
+提交 NT 账号（`nt: 1`）的滑块验证结果。WT 账号调用会返回 `ok: false` 和模式不匹配提示，应使用 [`wtlogin_submit_slider`](/api/wtlogin_submit_slider)。
 
 ## 调用
 
