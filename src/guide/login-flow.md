@@ -123,6 +123,8 @@ NT 登录结果为 `next: "security"` 时，调用 [`ntlogin_get_security_verify
 
 WT 的 `security` 分支使用 [`wtlogin_get_sms`](/api/wtlogin_get_sms) 下发、[`wtlogin_check_sms`](/api/wtlogin_check_sms) 提交验证码；如需查询当前验证提示，调用 [`wtlogin_get_security_verify_methods`](/api/wtlogin_get_security_verify_methods)。
 
+WT 短信验证码输错后，若响应仍为 `next: "security"`，展示错误提示并保留输入界面，允许用户更正后再次提交。不要仅因 `code` 非零就取消登录或重新下发短信；返回 `next: "failed"` 才表示本次登录已结束。
+
 这是密码登录过程中的安全验证，不是[扫码登录](#扫码登录)。PC（Linux）账号也走同一组接口，差异由服务端处理；其中 PC 账号始终可以扫码验证，`verify_list` 总会包含 `10`，二维码可能被用户取消（`status` 为 `canceled`）。
 
 ### 扫码安全验证
