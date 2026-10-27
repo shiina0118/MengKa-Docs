@@ -62,8 +62,8 @@ Base64 音频必须连同请求字段一起计算；3 MiB 的原始音频编码�
 | `ok` | boolean | 是否成功 |
 | `data` | any | 成功时出现，API 返回值，结构见各 API 页面的“返回值” |
 | `error` | string | 失败时出现，错误信息 |
-| `status` | string | 账号功能受限时为 `restricted` |
-| `errCode` | number | `status` 为 `restricted` 时出现，本次请求的原始整数限制码 |
+| `status` | string | 账号功能受限时为 `restricted`；查询超限时为 `queries_beyond_limit` |
+| `errCode` | number | 上述限制状态出现时返回，本次请求的原始整数限制码 |
 
 插件使用 `id` 关联请求与响应，同一连接上尚未完成的请求应使用不同的 `id`。插件应自行设置等待超时：建议默认 30 秒，媒体、红包、头像和批量任务等 API 适当延长。不需要结果时可以省略 `id`，Meng Ka 仍会执行请求，但不会回复，执行失败也无法得知。
 
@@ -87,6 +87,25 @@ Base64 音频必须连同请求字段一起计算；3 MiB 的原始音频编码�
 插件通过 `status === "restricted"` 识别该结果，无需匹配 `error` 文本。`ok: false` 表示本次操作未完成。这个结果只说明本次请求受到限制，不表示所有功能不可用，也不应缓存成永久限制状态。
 
 `errCode` 保留本次请求的原始限制码，便于区分和记录具体结果；上例的 `-10201` 仅为示例，实际以响应值为准。
+
+### 查询超限
+
+查询被服务端以 `-10303` 拒绝时，API 返回：
+
+```json
+{
+  "type": "action_result",
+  "id": "1",
+  "ok": false,
+  "status": "queries_beyond_limit",
+  "errCode": -10303,
+  "error": "queries beyond limit"
+}
+```
+
+插件通过 `status === "queries_beyond_limit"` 识别本次查询超限。该结果不会使账号离线、清除登录缓存或触发自动重登，也不会作为成功的空结果返回。其他错误码不自动归入这个状态。
+
+收到该状态后应暂停连续重试，避免反复提交相同查询。响应不提供具体限额或恢复时间，不应据此自行触发账号重新登录。
 
 ## 事件帧
 
