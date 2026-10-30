@@ -52,6 +52,7 @@
   sign: 'NEW_SMS_SIGN',
   masked_phone: '166******00',
   country_code: '86',
+  next: 'security',
 }
 ```
 
@@ -65,6 +66,7 @@
   send_to: '10690700511',
   masked_phone: '166******00',
   country_code: '86',
+  next: 'security',
 }
 ```
 
@@ -88,5 +90,9 @@
 | `prompt` | string | 失败原因，失败时出现 |
 
 `verify_type` 为 `3` 时，需要引导用户**用 `masked_phone` 对应的密保手机**把 `sms` 的内容原样发送到 `send_to`，发送后再调用 [`ntlogin_check_sms`](/api/ntlogin_check_sms) 回查。
+
+`verify_type` 为 `4` 时，提示用户查看密保手机，再调用 [`ntlogin_check_sms`](/api/ntlogin_check_sms)，传入本次新返回的 `sign`、`verify_type: 4` 和用户收到的 `code`。
+
+仅在 `result.state` 为 `1` 时进入上述后续步骤；其他值应展示 `result.prompt`。短信请求成功后 `next` 仍为 `security`，不代表验证通过或登录成功。
 
 完整流程见[Bot 登录流程](/guide/login-flow)。

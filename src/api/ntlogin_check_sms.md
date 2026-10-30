@@ -21,7 +21,7 @@
     "self_id": 123456789,
     "protocol_id": 0,
     "verify_type": 4,
-    "sign": "SIGN_FROM_VERIFY_RESPONSE",
+    "sign": "NEW_SIGN_FROM_GET_SMS",
     "code": "123456"
   }
 }
@@ -44,6 +44,14 @@
 
 **校验通过**：自动继续登录，返回 [NT 登录结果](/api/ntlogin_login_account#login-result)。
 
+校验通过并登录成功时：
+
+```json
+{ "code": 0, "message": "登录成功", "next": "done" }
+```
+
+无需另调“安全验证成功”接口。若继续登录仍返回 `slider`、`identity` 或 `security`，按新的验证步骤处理；`failed` 表示本次登录已结束，展示 `message` 后处理失败原因。完整说明见[安全验证成功后继续登录](/guide/login-flow#security-success)。
+
 **校验未通过**：返回验证结果，`result.prompt` 是失败原因，`next` 为 `security`。登录会话保留，可以用同一个 `sign` 重试。
 
 ```js
@@ -57,7 +65,7 @@
 }
 ```
 
-判断方式：出现 `result.state` 字段即为未通过，`result.prompt` 是可直接展示给用户的原因。
+先检查外层 `ok`，再按 `next` 判断后续操作。`next: "security"` 且返回 `result` 时，表示短信验证未通过，可展示 `result.prompt`；结果可能只有 `result.code` 而没有 `result.state`，不能因缺少 `state` 就判定通过。仅 `next: "done"` 表示登录成功；`failed` 时停止重试并处理 `message`。
 
 ::: warning verify_type 为 3 时需要留出发送时间
 用户发出短信后，服务端可能要几秒才能收到。此时 `result.state` 为 `2`、`result.code` 为 `3`，含义是「尚未收到」而非「验证失败」，属于可重试状态，应提示用户确认已用密保手机发送后再调用一次。

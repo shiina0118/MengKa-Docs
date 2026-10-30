@@ -62,3 +62,5 @@
 ```
 
 收到 `confirmed`、`expired` 或 `canceled` 后应停止轮询。二维码失效或取消时 `next` 仍为 `security`，可重新调用 [`ntlogin_get_security_verify_qr`](/api/ntlogin_get_security_verify_qr)。结果中的 `next` 表示下一步，取值见[登录结果的 next 字段](/guide/login-flow#next)。
+
+先检查外层 `ok` 和 `next`，再读取 `status`：`ok: false` 时暂停轮询并处理 `error`；`next: "failed"` 时本次登录已结束，应停止轮询并处理 `message`。失败响应可能没有 `status`，不能只依赖扫码状态决定是否停止。查询失败但仍返回 `next: "security"` 时，可展示 `message` 后重试查询。

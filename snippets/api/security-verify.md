@@ -27,7 +27,7 @@
 | `3` | 支持发送短信（用户用密保手机发送） | 用 `methods.sms_phone.sign` 调用 `ntlogin_get_sms`，`verify_type` 传 `3` |
 | `10` | 支持扫码验证 | 调用 `ntlogin_get_security_verify_qr` 获取安全验证二维码，再调用 `ntlogin_query_security_verify_qr` 查询状态 |
 | 包含多个值 | 同时支持多种验证方式 | 选择任意一种可用方式 |
-| 不包含 `3`、`4`、`10` | 需要其他验证方式 | 使用登录结果中的 `security_url` 完成验证 |
+| 不包含 `3`、`4`、`10` | 需要其他验证方式 | 打开登录结果中的 `security_url`，用户完成后调用 [`ntlogin_retry_security_verify`](/api/ntlogin_retry_security_verify) 继续登录，见[其他方式](/guide/login-flow#other-security) |
 
 PC（Linux）账号始终支持扫码验证，`verify_list` 总会包含 `10`。
 

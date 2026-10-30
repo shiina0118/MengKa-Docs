@@ -90,6 +90,7 @@ export default defineConfig({
                 { text: "查询安全验证二维码状态", link: "/api/ntlogin_query_security_verify_qr" },
                 { text: "获取短信验证码", link: "/api/ntlogin_get_sms" },
                 { text: "提交短信验证码", link: "/api/ntlogin_check_sms" },
+                { text: "其他方式验证后继续登录", link: "/api/ntlogin_retry_security_verify" },
               ],
             },
             {
