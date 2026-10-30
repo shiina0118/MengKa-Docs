@@ -2,7 +2,9 @@
 
 发起宠物活动或PK。仅支持 `android` 账号。
 
-学习、工作、冒险和PK共用此接口。发起前查询活动选项，传入服务端返回的名称与细分事件值；PK需同时填写对方宠物及主人信息。
+学习、工作、冒险和PK共用此接口。发起前查询活动选项，传入服务端返回的名称与细分事件值；PK 的对手信息填写在 `target.pet_id` 和 `target.uin` 中。
+
+普通 PK 不传 `guard_pet_id`，不会主动请求雇佣保镖。只有明确选择保镖代打时才传入该保镖的宠物 ID，雇佣可能消耗金币。省略该字段不会解除已经生效的保镖雇佣。
 
 学习或工作开始后，可保存本次返回的 `response.story_id`，配合发起时使用的 `pet_id` 调用[鼓励宠物](./qqpet_encourage_pet)。
 
@@ -24,7 +26,6 @@
         "pet_id": "TARGET_PET_ID",
         "uin": "987654321"
       },
-      "target_uin": "987654321",
       "event_name": "PK",
       "sub_event_type": 6901,
       "outdoor_version": 2
@@ -50,7 +51,7 @@
 | `pet_id` | string | 否 | 宠物 ID，不能用 QQ 号代替 |
 | `field_3` | string | 否 | 扩展数据，说明待补充 |
 | `target` | [Target](#request-target) | 否 | 对方宠物及主人信息 |
-| `target_uin` | string | 否 | 对方主人 QQ 号 |
+| `guard_pet_id` | string | 否 | PK 保镖的宠物 ID；普通 PK 省略，只有主动选择保镖代打时传入；不能填对手 QQ 号 |
 | `event_name` | string | 否 | 所选活动的名称；以活动选项返回值为准 |
 | `sub_event_type` | number | 否 | 所选活动选项返回的细分事件值；PK 示例为6901 |
 | `outdoor_version` | number | 否 | 户外功能版本；当前调用示例为2 |
