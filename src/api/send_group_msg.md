@@ -54,4 +54,6 @@
 
 `msg_seq` 与 `msg_random` 可用于 [`recall_group_msg`](/api/recall_group_msg)。
 
+`msg_seq` 也可作为 [`set_group_msg_reaction`](/api/set_group_msg_reaction) 的消息序号，为本次发送的群消息添加或取消表情回应。
+
 领取文字口令红包时，将本次发送结果的 `client_seq` 填入 [`grab_red_packet`](/api/grab_red_packet) 的 `red_packet.client_seq`，同时传入 `msg_random`。

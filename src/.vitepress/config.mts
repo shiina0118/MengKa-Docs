@@ -206,6 +206,7 @@ export default defineConfig({
                 { text: "获取群历史消息", link: "/api/get_group_history_messages" },
                 { text: "上传群聊合并转发消息", link: "/api/upload_group_forward_msg" },
                 { text: "撤回群聊消息", link: "/api/recall_group_msg" },
+                { text: "设置群消息表情回应", link: "/api/set_group_msg_reaction" },
               ],
             },
             {

@@ -21,6 +21,8 @@
 
 点击类型列可查看本页对应的嵌套字段表。
 
+对该消息添加表情回应时，调用 [`set_group_msg_reaction`](/api/set_group_msg_reaction)，传入事件中的 `self_id`、`protocol_id`、`group_id`，并将 `msg.seq` 用作 `msg_seq`。
+
 图片段的 `data` 包含 `file_id` 和 `url`；语音、视频段的 `data` 只包含 `file_id`。收到群语音、群视频时不会立即查询下载地址，需要地址时分别调用 [`get_group_voice_url`](/api/get_group_voice_url) 或 [`get_group_video_url`](/api/get_group_video_url)。
 
 例如，群语音事件中的 `message` 为：
