@@ -17,10 +17,6 @@ import { withBase } from "vitepress";
         </div>
         <p class="lost-hint"><a :href="withBase('/api/get_bot_list')">API 文档 <span aria-hidden="true">↗</span></a></p>
       </div>
-
-      <div class="lost-art" aria-hidden="true">
-        <img class="lost-character" :src="withBase('/brand/mengka-404-lolita-blue-fullbody.webp')" alt="" width="800" height="1200" draggable="false" />
-      </div>
     </div>
     <footer class="lost-footer"><span>Meng Ka <span class="lost-footer-separator">/</span> 开发文档</span><span>偶尔迷路，也会遇见新的风景。</span></footer>
   </section>
@@ -43,15 +39,15 @@ import { withBase } from "vitepress";
   color: var(--lost-ink);
   font-family: var(--vp-font-family-base);
 }
-.lost-layout { display: grid; grid-template-columns: 1fr 1.08fr; align-items: center; gap: 24px; width: 100%; margin: auto 0; padding: 20px 0 44px; }
-.lost-copy { position: relative; z-index: 2; padding: 16px 0; }
-.lost-eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 28px; font-size: 11px; font-weight: 600; letter-spacing: 2.3px; color: var(--lost-muted); }
+.lost-layout { display: grid; justify-items: center; width: 100%; margin: auto 0; padding: 20px 0 44px; }
+.lost-copy { position: relative; z-index: 2; padding: 16px 0; text-align: center; }
+.lost-eyebrow { display: flex; justify-content: center; align-items: center; gap: 9px; margin: 0 0 28px; font-size: 11px; font-weight: 600; letter-spacing: 2.3px; color: var(--lost-muted); }
 .lost-code { position: relative; display: inline-flex; margin: 0; font-size: clamp(112px, 12vw, 164px); font-weight: 800; line-height: .95; letter-spacing: -10px; }
 .lost-code > span:first-child { color: var(--lost-blue); }
 .lost-kicker { margin: 14px 0 26px; font-size: 10px; font-weight: 600; letter-spacing: 4.5px; color: var(--lost-muted); }
 .lost-copy h1 { margin: 0; font-size: clamp(32px, 3.1vw, 43px); font-weight: 650; letter-spacing: -1.5px; line-height: 1.45; color: var(--lost-ink); }
 .lost-description { margin: 20px 0 0; color: var(--lost-muted); font-size: 14px; line-height: 1.95; }
-.lost-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.lost-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .lost-actions a, .lost-actions button { display: inline-flex; justify-content: center; align-items: center; gap: 20px; min-height: 46px; border-radius: 9px; padding: 0 20px; font: inherit; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; transition: background .2s, transform .2s; }
 .lost-actions a:hover, .lost-actions button:hover { transform: translateY(-2px); }
 .lost-primary { border: 1px solid var(--vp-button-brand-border); background: var(--vp-button-brand-bg); color: var(--vp-button-brand-text); }
@@ -64,17 +60,9 @@ import { withBase } from "vitepress";
 .lost-hint { margin: 22px 0 0; font-size: 12px; line-height: 1.8; color: var(--lost-muted); }
 .lost-hint a { color: var(--lost-blue); text-decoration: none; }
 .lost-hint a:hover { text-decoration: underline; }
-.lost-art { display: flex; align-items: center; justify-content: center; height: 560px; width: 100%; }
-.lost-character { display: block; width: auto; height: 100%; max-width: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
 .lost-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; width: 100%; padding: 22px 0 24px; border-top: 1px solid var(--lost-line); color: var(--lost-muted); font-size: 11px; letter-spacing: .4px; }
 .lost-footer-separator { margin: 0 10px; opacity: .5; }
 @media (min-width: 1600px) { .lost-layout { padding-top: 48px; padding-bottom: 72px; } }
-@media (min-width: 960px) and (max-width: 1099px) {
-  .lost-art { height: 500px; }
-  .lost-description { max-width: 320px; }
-  .lost-desktop-break { display: none; }
-  .lost-layout { gap: 0; grid-template-columns: 1fr 1fr; }
-}
 @media (max-width: 959px) {
   .lost-page { padding: 92px 24px 0; }
   .lost-layout { display: flex; flex-direction: column; gap: 24px; padding: 0 0 24px; }
@@ -89,7 +77,6 @@ import { withBase } from "vitepress";
   .lost-actions { justify-content: center; margin-top: 24px; gap: 10px; }
   .lost-actions a, .lost-actions button { min-height: 44px; padding: 0 16px; gap: 12px; font-size: 12px; }
   .lost-hint { margin-top: 16px; font-size: 11px; }
-  .lost-art { width: min(320px, 100%); height: 400px; margin-top: 6px; }
   .lost-footer { justify-content: center; padding: 18px 0; text-align: center; font-size: 10px; gap: 8px 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .lost-actions a, .lost-actions button { transition: none; } .lost-actions a:hover, .lost-actions button:hover { transform: none; } }

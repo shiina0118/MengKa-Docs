@@ -24,13 +24,13 @@ export default defineConfig({
   description: "Meng Ka API 参考文档",
   cleanUrls: true,
   head: [
-    ["link", { rel: "icon", href: `${base}favicon.ico` }],
+    ["link", { rel: "icon", type: "image/png", sizes: "192x192", href: `${base}pwa-192x192.png` }],
     ["link", { rel: "apple-touch-icon", href: `${base}apple-touch-icon.png` }],
     ["link", { rel: "manifest", href: `${base}manifest.webmanifest` }],
     ["meta", { name: "theme-color", content: "#4268d6" }],
   ],
   themeConfig: {
-    logo: "/pwa-192x192.png",
+    logo: "/logo-transparent.png",
     siteTitle: "Meng Ka",
     nav: [
       { text: "快速开始", link: "/guide/" },

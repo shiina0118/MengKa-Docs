@@ -26,7 +26,8 @@
 .VPNavBarTitle .logo {
   width: 30px;
   height: 30px;
-  border-radius: 0;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .brand-not-found > .VPFooter {
@@ -68,6 +69,8 @@
 .brand-home .VPHero .container {
   max-width: 1080px;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 64px;
 }
 
@@ -103,6 +106,7 @@
 
 .brand-home .VPHero .name {
   max-width: 100%;
+  margin-inline: auto;
   background: none;
   color: var(--vp-home-hero-name-color);
   font-size: clamp(32px, 4vw, 48px);
@@ -139,6 +143,7 @@
 
 .brand-home .VPHero .tagline {
   max-width: 460px;
+  margin-inline: auto;
   padding-top: 22px;
   font-size: 16px;
   font-weight: 400;
@@ -146,6 +151,7 @@
 }
 
 .brand-home .VPHero .actions {
+  justify-content: center;
   padding-top: 28px;
 }
 
