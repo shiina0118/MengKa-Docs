@@ -11,7 +11,7 @@
 | `field_5` | string | 扩展数据，说明待补充 |
 | `field_6` | number | 扩展数据，说明待补充 |
 | `field_7` | string | 扩展数据，说明待补充 |
-| `field_8` | string | 扩展数据，说明待补充 |
+| `field_8` | string | 宠物 ID，与宠物信息中的 `field_101` 相同 |
 | `field_9` | string | 扩展数据，说明待补充 |
 | `field_10` | number | 扩展数据，说明待补充 |
 | `field_11` | string | 扩展数据，说明待补充 |

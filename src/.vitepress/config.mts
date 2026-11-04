@@ -356,6 +356,7 @@ export default defineConfig({
               text: "活动与故事",
               collapsed: true,
               items: [
+                { text: "查询宠物状态", link: "/api/qqpet_get_pet_status" },
                 { text: "处理宠物故事后续", link: "/api/qqpet_do_after_story_info" },
                 { text: "获取其他宠物状态", link: "/api/qqpet_get_other_pet_status_info" },
                 { text: "获取宠物故事状态", link: "/api/qqpet_get_pet_story_status" },

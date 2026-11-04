@@ -12,4 +12,4 @@
 | `field_6` | object | 扩展数据，含义暂未明确 |
 | `field_7` | object | 扩展数据，含义暂未明确 |
 | `field_100` | object | 扩展数据，含义暂未明确 |
-| `field_101` | string | 扩展数据，说明待补充 |
+| `field_101` | string | 宠物 ID，与 `profile.field_8` 相同；查询宠物状态等需要 `pet_id` 的接口使用此值 |
