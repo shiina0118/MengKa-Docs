@@ -429,6 +429,49 @@ export default defineConfig({
             },
           ],
         },
+        {
+          text: "QQ音乐",
+          items: [
+            {
+              text: "登录相关",
+              collapsed: true,
+              items: [
+                { text: "登录", link: "/api/qqmusic_login" },
+                { text: "刷新登录票据", link: "/api/qqmusic_refresh_ticket" },
+              ],
+            },
+            {
+              text: "会员相关",
+              collapsed: true,
+              items: [
+                { text: "获取会员信息", link: "/api/qqmusic_get_vip_info" },
+                { text: "每日签到", link: "/api/qqmusic_daily_sign" },
+              ],
+            },
+          ],
+        },
+        {
+          text: "元宝",
+          items: [
+            {
+              text: "登录相关",
+              collapsed: true,
+              items: [
+                { text: "登录", link: "/api/yuanbao_login" },
+                { text: "刷新登录票据", link: "/api/yuanbao_refresh_ticket" },
+              ],
+            },
+            {
+              text: "会话相关",
+              collapsed: true,
+              items: [
+                { text: "获取模型列表", link: "/api/yuanbao_get_model_list" },
+                { text: "创建会话", link: "/api/yuanbao_create_conversation" },
+                { text: "删除会话", link: "/api/yuanbao_delete_conversation" },
+              ],
+            },
+          ],
+        },
       ],
       "/events/": [
         {
