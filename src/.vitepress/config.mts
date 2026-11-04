@@ -456,6 +456,15 @@ export default defineConfig({
                 { text: "金币签到", link: "/api/qqmusic_coin_sign" },
               ],
             },
+            {
+              text: "歌曲类",
+              collapsed: true,
+              items: [
+                { text: "搜索歌曲", link: "/api/qqmusic_search_song" },
+                { text: "查询歌曲信息", link: "/api/qqmusic_get_song_info" },
+                { text: "获取下载链接", link: "/api/qqmusic_get_song_url" },
+              ],
+            },
           ],
         },
         {
