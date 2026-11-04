@@ -448,6 +448,14 @@ export default defineConfig({
                 { text: "每日签到", link: "/api/qqmusic_daily_sign" },
               ],
             },
+            {
+              text: "金币类",
+              collapsed: true,
+              items: [
+                { text: "获取金币数量", link: "/api/qqmusic_get_coin_balance" },
+                { text: "金币签到", link: "/api/qqmusic_coin_sign" },
+              ],
+            },
           ],
         },
         {
