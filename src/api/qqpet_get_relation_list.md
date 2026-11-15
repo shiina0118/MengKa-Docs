@@ -4,6 +4,12 @@
 
 目录范围由场景值决定。PK候选使用7；其他模式及陌生人范围受账号和版本支持情况影响，不生成替代条目。
 
+## 调用流程
+
+1. 首次调用时传入需要查询的 `source`，首页可以省略 `cursor`。
+2. 当返回的 `has_more` 为 `true` 时，将本次返回的 `next_cursor` 原样作为下一次请求的 `cursor`，并保持 `source` 不变。
+3. 当 `has_more` 为 `false` 时停止翻页。
+
 ## 调用
 
 
@@ -89,7 +95,7 @@
 | `field_7` | string | 扩展数据，说明待补充 |
 | `field_8` | boolean | 扩展数据，说明待补充 |
 | `field_9` | string[] | 扩展数据，说明待补充 |
-| `field_10` | [Field10](#response-items-field-10) | 扩展数据，说明待补充 |
+| `spark_brief` | [SparkBrief](#response-items-spark-brief) | 好友与当前账号的火花摘要 |
 | `field_11` | number | 扩展数据，说明待补充 |
 | `field_12` | [Field12](#response-items-field-12) | 扩展数据，说明待补充 |
 | `field_13` | [Field13](#response-items-field-13) | 扩展数据，说明待补充 |
@@ -140,11 +146,11 @@
 | `field_3` | object | 扩展数据，含义暂未明确 |
 | `field_4` | object | 扩展数据，含义暂未明确 |
 
-### response.items[].field_10（Field10） {#response-items-field-10}
+### response.items[].spark_brief（SparkBrief） {#response-items-spark-brief}
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `field_1` | number | 扩展数据，说明待补充 |
+| `spark_status` | number | 火花状态：`0` 已点亮，`1` 待重燃，`2` 未点亮；其他值暂未知 |
 | `field_2` | number | 扩展数据，说明待补充 |
 | `field_3` | boolean | 扩展数据，说明待补充 |
 | `field_4` | string | 扩展数据，说明待补充 |

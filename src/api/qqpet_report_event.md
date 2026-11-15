@@ -5,8 +5,9 @@
 如需执行“摸一摸好友宠物”，请使用语义化接口
 [qqpet_touch_friend_pet](/api/qqpet_touch_friend_pet)，无需自行填写行为事件字段。
 
-## 调用
+本接口保留原始事件参数，部分 `field_*` 的业务含义尚未确认。除非已经掌握对应事件的完整参数，否则请优先使用具体的语义化接口。
 
+## 调用
 
 ```json
 {
@@ -34,6 +35,7 @@
 | `self_id` | number | 是 | 在线 Bot QQ 号 |
 | `protocol_id` | number | 是 | 目标账号的协议 ID，与 `self_id` 共同定位实例；允许为 `0` |
 | `request` | [Request](#request) | 否 | 本次操作的参数，默认 `{}` |
+| `transport` | string | 否 | 传输方式，可选 `oidb` 或 `sso`；省略时使用 `oidb` |
 
 ### request（Request） {#request}
 
@@ -66,7 +68,10 @@
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `self_id` | number | 当前 Bot QQ 号 |
+| `command` | string | 本次请求的命令标识，仅用于问题排查 |
+| `transport` | string | 本次请求实际使用的传输方式 |
 | `response` | [Response](#response) | 本次操作的返回数据 |
+| `raw_response` | string | 原始响应的 Base64 字符串，通常使用 `response` 即可 |
 
 ### response（Response） {#response}
 
