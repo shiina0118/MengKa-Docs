@@ -390,7 +390,7 @@ export default defineConfig({
                 { text: "设置 C2C 宠物开关", link: "/api/qqpet_set_c2c_pet_switch" },
                 { text: "宠物点赞", link: "/api/qqpet_like" },
                 { text: "查询宠物获赞数", link: "/api/qqpet_query_like_count" },
-                { text: "获取宠物关系目录", link: "/api/qqpet_get_relation_list" },
+                { text: "获取宠物好友/关系列表", link: "/api/qqpet_get_relation_list" },
                 { text: "获取宠物互动消息摘要", link: "/api/qqpet_get_interaction_messages" },
                 { text: "删除宠物互动记录", link: "/api/qqpet_delete_interaction_record" },
                 { text: "获取宠物互动历史", link: "/api/qqpet_get_interaction_history" },

@@ -1,6 +1,6 @@
-# qqpet_get_relation_list
+# 获取宠物好友/关系列表
 
-获取宠物关系目录。仅支持 `android` 账号。
+`qqpet_get_relation_list`：获取 QQ 宠物好友/关系目录。仅支持 `android` 账号。
 
 目录范围由场景值决定。PK候选使用7；其他模式及陌生人范围受账号和版本支持情况影响，不生成替代条目。
 
