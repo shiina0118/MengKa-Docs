@@ -2,6 +2,9 @@
 
 上报宠物事件。仅支持 `android` 账号。
 
+如需执行“摸一摸好友宠物”，请使用语义化接口
+[qqpet_touch_friend_pet](/api/qqpet_touch_friend_pet)，无需自行填写行为事件字段。
+
 ## 调用
 
 
