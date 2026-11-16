@@ -2,7 +2,7 @@
 
 通过当前在线 Bot 获取 QQ 经典农场登录 code，返回后由插件使用该 code 登录农场。此接口只获取 code，不执行农场登录或等级任务，也不依赖农场版本配置。
 
-当前按账号绑定协议的 `platform` 分支：Android 执行，PC 暂时跳过，不发送对应业务请求。PC 返回的数据为 `{ self_id, protocol_id, skipped: true, reason: "PC 平台暂时跳过此功能" }`，调用方应先检查 `skipped`。
+当前支持 Android 和 Linux 账号。接口会按账号绑定协议选择对应的处理方式；调用方无需区分平台，成功时统一返回登录 code。
 
 ## 调用
 
