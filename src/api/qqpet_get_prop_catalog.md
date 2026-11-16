@@ -2,8 +2,6 @@
 
 `qqpet_get_prop_catalog`：查询学习、打工道具的商品 ID、名称、价格、效果及购买数量限制。仅支持 `android` 账号。
 
-QQ 宠物 API 默认关闭。管理员须在后端 `data/config.yaml` 顶层设置 `qqpet: 1` 并重启后端；未配置或设置为 `0` 时，所有 QQ 宠物 API（含礼包领取）均不可调用。
-
 本接口只查询，不购买或使用道具。活动中的可用库存和使用限制请查询 [qqpet_get_story_process](./qqpet_get_story_process)。
 
 ## 调用流程

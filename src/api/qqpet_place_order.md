@@ -2,8 +2,6 @@
 
 购买宠物商城商品。仅支持 `android` 账号。
 
-QQ 宠物 API 默认关闭。管理员须在后端 `data/config.yaml` 顶层设置 `qqpet: 1` 并重启后端；未配置或设置为 `0` 时，所有 QQ 宠物 API（含礼包领取）均不可调用。
-
 购买会提交订单并消耗相应余额。洗护用品类别为"355"；商品 ID 取自目录，不能把示例 ID 直接用于购买。检查返回的 `response.result`，不要把有订单响应等同于购买成功。
 
 学习和打工道具的商品 ID 可从 [qqpet_get_prop_catalog](./qqpet_get_prop_catalog) 获取，`goods[].goods_kind` 使用所选商品的 `app_id`（学习 `"356"`、打工 `"357"`）。购买后应重新查询 [当前活动库存](./qqpet_get_story_process)；购买不会直接应用道具效果，使用须另调 [qqpet_use_props](./qqpet_use_props)。不要将下方洗护示例的商品、场景或币种直接套用于活动道具购买。

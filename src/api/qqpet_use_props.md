@@ -2,8 +2,6 @@
 
 `qqpet_use_props`：在当前学习或打工活动中消耗已拥有的道具，返回剩余库存及活动增益提示。仅支持 `android` 账号。
 
-QQ 宠物 API 默认关闭。管理员须在后端 `data/config.yaml` 顶层设置 `qqpet: 1` 并重启后端；未配置或设置为 `0` 时，所有 QQ 宠物 API（含礼包领取）均不可调用。
-
 **此操作会消耗道具，不会自动购买。** 购买请使用 [qqpet_place_order](./qqpet_place_order)。
 
 ## 调用流程
