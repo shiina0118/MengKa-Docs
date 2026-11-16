@@ -347,6 +347,7 @@ export default defineConfig({
                 { text: "获取宠物装扮", link: "/api/qqpet_get_clothing" },
                 { text: "查询宠物礼包与领取状态", link: "/api/qqpet_get_gifts" },
                 { text: "领取宠物免费礼包", link: "/api/qqpet_claim_gift" },
+                { text: "领取宠物广告礼包", link: "/api/qqpet_claim_ad_gift" },
                 { text: "获取我的宠物套装", link: "/api/qqpet_get_my_suits" },
                 { text: "获取宠物装扮红点", link: "/api/qqpet_get_clothing_red_dot" },
                 { text: "删除宠物套装", link: "/api/qqpet_remove_one_suit" },

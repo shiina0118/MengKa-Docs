@@ -109,6 +109,8 @@ const videoGifts = response.gifts.filter(
 
 领取免费礼包可使用 [qqpet_claim_gift](./qqpet_claim_gift.md)，传入本次查询使用的 `pet_id` 和选中礼包的 `gift_id`。该接口不支持广告礼包。
 
+领取广告礼包可使用 [qqpet_claim_ad_gift](./qqpet_claim_ad_gift.md)，传入本次查询使用的 `pet_id` 和选中礼包的 `gift_id`。该接口包含 30 秒等待，请按接口说明设置客户端超时。
+
 ## 错误处理
 
 - 缺少 `request.pet_id`、值为空或纯空白时，返回 `request.pet_id 不能为空`。
