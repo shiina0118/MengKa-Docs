@@ -143,6 +143,8 @@ export default defineConfig({
               items: [
                 { text: "获取等级加速任务", link: "/api/get_level_tasks" },
                 { text: "执行等级加速任务", link: "/api/execute_level_tasks" },
+                { text: "查询 QQ 会员福利签到状态", link: "/api/qqvip_get_welfare_sign_state" },
+                { text: "QQ 会员福利签到", link: "/api/qqvip_welfare_sign" },
               ],
             },
           ],
