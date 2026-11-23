@@ -41,6 +41,7 @@
     title: '',
     join_time: 1710000000,
     last_speak_time: 1710003600,
+    shut_up_time: 0,
   }],
   total_count: 1,
 }
@@ -64,3 +65,4 @@
 | `title` | string | 专属头衔，可能为空字符串 |
 | `join_time` | number | 入群时间，Unix 秒 |
 | `last_speak_time` | number | 最近发言时间，Unix 秒；未取得时可能为 `0` |
+| `shut_up_time` | number | 禁言解禁时间，Unix 秒；`0` 或不大于当前时间表示未处于禁言状态 |

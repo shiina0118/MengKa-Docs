@@ -61,6 +61,7 @@ export default defineConfig({
               items: [
                 { text: "获取 Bot 列表", link: "/api/get_bot_list" },
                 { text: "获取 Bot 信息", link: "/api/get_bot_info" },
+                { text: "查询 QQ 钱包余额", link: "/api/get_wallet_balance" },
                 { text: "查询社交限制", link: "/api/get_social_lock_status" },
                 { text: "设置 Bot 头像", link: "/api/set_qq_avatar" },
                 { text: "添加账号", link: "/api/add_account" },
