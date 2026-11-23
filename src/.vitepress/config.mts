@@ -239,6 +239,7 @@ export default defineConfig({
               items: [
                 { text: "获取群聊列表", link: "/api/get_group_list" },
                 { text: "获取群分享链接", link: "/api/get_group_share_link" },
+                { text: "获取群分享 ARK 卡片", link: "/api/get_group_share_ark" },
                 { text: "查询入群方式", link: "/api/get_group_join_info" },
                 { text: "申请加入群聊", link: "/api/join_group" },
                 { text: "获取群聊成员列表", link: "/api/get_group_member_list" },
@@ -249,6 +250,7 @@ export default defineConfig({
                 { text: "群聊打卡", link: "/api/sign_group" },
                 { text: "设置群聊成员禁言", link: "/api/set_group_mute" },
                 { text: "设置群聊全员禁言", link: "/api/set_group_mute_all" },
+                { text: "设置群名片", link: "/api/set_group_card" },
                 { text: "设置群聊专属头衔", link: "/api/set_group_special_title" },
                 { text: "移出群聊成员", link: "/api/kick_group_member" },
               ],
