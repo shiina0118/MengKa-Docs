@@ -253,6 +253,7 @@ export default defineConfig({
                 { text: "设置群聊全员禁言", link: "/api/set_group_mute_all" },
                 { text: "设置群名片", link: "/api/set_group_card" },
                 { text: "设置群聊专属头衔", link: "/api/set_group_special_title" },
+                { text: "设置群消息接收方式", link: "/api/set_group_msg_mask" },
                 { text: "移出群聊成员", link: "/api/kick_group_member" },
                 { text: "退出群聊", link: "/api/leave_group" },
               ],

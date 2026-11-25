@@ -39,6 +39,7 @@
     description: '交流群',
     question: '',
     announcement: '',
+    msg_mask: 1,
   }],
   total_count: 1,
   self_id: 123456789,
@@ -63,5 +64,6 @@
 | `description` | string | 群介绍 |
 | `question` | string | 入群问题 |
 | `announcement` | string | 群公告 |
+| `msg_mask` | number | 当前账号在该群的消息接收方式：`1` 正常通知、`2` 收进群助手、`3` 屏蔽群消息、`4` 接收但不通知；可通过 [`set_group_msg_mask`](/api/set_group_msg_mask) 修改 |
 
 没有对应内容或未取得信息时，文本字段可能为空字符串，数字字段可能为 `0`。
