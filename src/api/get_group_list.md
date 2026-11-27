@@ -40,6 +40,8 @@
     question: '',
     announcement: '',
     msg_mask: 1,
+    group_shutup_expire_time: 0,
+    person_shutup_expire_time: 0,
   }],
   total_count: 1,
   self_id: 123456789,
@@ -65,5 +67,7 @@
 | `question` | string | 入群问题 |
 | `announcement` | string | 群公告 |
 | `msg_mask` | number | 当前账号在该群的消息接收方式：`1` 正常通知、`2` 收进群助手、`3` 屏蔽群消息、`4` 接收但不通知；可通过 [`set_group_msg_mask`](/api/set_group_msg_mask) 修改 |
+| `group_shutup_expire_time` | number | 全员禁言时间戳，Unix 秒；非 `0` 表示已开启全员禁言，`0` 表示未开启；可通过 [`set_group_mute_all`](/api/set_group_mute_all) 修改 |
+| `person_shutup_expire_time` | number | 当前账号在该群的个人禁言到期时间，Unix 秒；`0` 或不大于当前时间表示未处于禁言状态 |
 
 没有对应内容或未取得信息时，文本字段可能为空字符串，数字字段可能为 `0`。
