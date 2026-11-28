@@ -186,6 +186,7 @@ export default defineConfig({
                 { text: "删除好友", link: "/api/delete_friend" },
                 { text: "同意群聊邀请", link: "/api/approve_group_invite" },
                 { text: "获取用户资料", link: "/api/get_user_profile" },
+                { text: "获取 QQ 等级图标", link: "/api/get_qq_level_icons" },
                 { text: "点赞用户资料", link: "/api/like_user_profile" },
                 { text: "获取发出的资料点赞", link: "/api/get_sent_profile_likes" },
                 { text: "获取收到的资料点赞", link: "/api/get_received_profile_likes" },
