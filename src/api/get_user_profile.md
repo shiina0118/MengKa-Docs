@@ -62,6 +62,23 @@
   city: '深圳',
   like_count: 100,
   available_like_count: 10,
+  open_privileges: [
+    {
+      type: 3,
+      name: '超级会员',
+      sort: 1,
+      level: 8,
+      big: true,
+      icon_url: 'https://...',
+      deluxe_icon_url: 'https://...',
+    },
+  ],
+  vip_nameplate: {
+    type: 258,
+    level: 8,
+    style_id: 20712,
+    url: 'https://tianquan.gtimg.cn/namePlate/item/20712/258/8.png',
+  },
 }
 ```
 
@@ -81,6 +98,29 @@
 | `like_limit_notice` | string | 点赞限制提示，可能为空字符串 |
 | `photo_count` | number | 照片数量 |
 | `status_text` | string | 状态文案 |
+| `open_privileges` | [ProfilePrivilege[]](#profile-privilege) | 已点亮的特权业务及图标列表（按大徽章优先、`sort` 升序排列）；无已开通特权时为 `[]` |
+| `vip_nameplate` | [VipNameplate](#vip-nameplate) | 当前生效的会员铭牌信息；未开通或灰态未展示时省略 |
+
+### 已开通特权（ProfilePrivilege） {#profile-privilege}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | number | 特权业务类型编号（如 `1` QQ会员、`3` 超级会员、`101` 红钻、`102` 黄钻、`103` 绿钻、`113` 大会员等） |
+| `name` | string | 特权业务中文名称 |
+| `sort` | number | 官方展示排序权重 |
+| `level` | number | 该项特权的等级 |
+| `big` | boolean | 是否为大尺寸徽章 |
+| `icon_url` | string | 普通版特权图标直链，未提供时为空字符串 |
+| `deluxe_icon_url` | string | 豪华版/年费版特权图标直链，未提供时为空字符串 |
+
+### 会员铭牌（VipNameplate） {#vip-nameplate}
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `type` | number | 铭牌会员类型：`1` QQ会员、`2` 超级会员、`3` 大会员；年费版对应加 `256`（即 `257` / `258` / `259`） |
+| `level` | number | 会员等级 |
+| `style_id` | number | 铭牌模板 ID，`0` 表示使用默认模板（对应资源目录 `20712`） |
+| `url` | string | 会员铭牌 PNG 图片直链 |
 
 返回字段以上表为准，统一使用下划线命名。可见信息取决于目标账号和可见权限。Android 保持原有返回方式，缺失的信息可能为空字符串或 `0`，不应据此推断账号的真实资料。调用失败时返回 `ok: false`。
 
@@ -90,7 +130,7 @@ Linux 返回 `user_id`，并按实际获取结果返回以下可选字段：
 
 - `nickname`、`remark`、`sex`、`age`、`level`、`sign`
 - `country`、`province`、`city`、`email`、`mobile`
-- `like_count`
+- `like_count`、`open_privileges`、`vip_nameplate`
 
 Linux 暂时无法获取以下字段，因此响应中不包含它们：
 
