@@ -71,4 +71,4 @@
 
 以 `next_mid === "-1"` 判断结束，不要仅根据本页条数判断。游标始终按字符串保存和传递，不要转换为 number。
 
-查询相反方向的记录使用 [`get_received_profile_likes`](/api/get_received_profile_likes)；点赞用户资料使用 [`like_user_profile`](/api/like_user_profile)。
+查询相反方向的记录使用 [`get_received_profile_likes`](/api/get_received_profile_likes)；删除点赞记录使用 [`delete_profile_like`](/api/delete_profile_like)；点赞用户资料使用 [`like_user_profile`](/api/like_user_profile)。

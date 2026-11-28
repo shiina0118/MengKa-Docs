@@ -190,6 +190,7 @@ export default defineConfig({
                 { text: "点赞用户资料", link: "/api/like_user_profile" },
                 { text: "获取发出的资料点赞", link: "/api/get_sent_profile_likes" },
                 { text: "获取收到的资料点赞", link: "/api/get_received_profile_likes" },
+                { text: "删除资料点赞记录", link: "/api/delete_profile_like" },
                 { text: "获取好友动态", link: "/api/get_qzone_friend_feeds" },
                 { text: "发布空间动态", link: "/api/publish_qzone_feed" },
                 { text: "点赞好友动态", link: "/api/like_qzone_feed" },
